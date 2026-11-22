@@ -5,6 +5,7 @@
 #include <wrl/client.h>
 #include <unordered_map>
 #include "cube.h"
+#include "../world/block_faces.h"
 #include "texture.h"
 #include "../core/camera/camera.h"
 #include "../core/window.h"
@@ -21,7 +22,7 @@ class Renderer
 		void BeginFrame(const Camera& camera);
 		void Clear(float r, float g, float b) const;
 		void EndFrame();
-		void DrawCube(const Cube& cube) const;
+		void DrawCube(const Cube& cube, BlockFaceMask visibleFaces = AllBlockFaces) const;
 		void RegisterTexture(const Texture& texture);
 		void BindTextures(
 			BlockId blockId,

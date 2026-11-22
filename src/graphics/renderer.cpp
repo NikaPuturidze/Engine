@@ -729,6 +729,15 @@ void Renderer::CreatePipeline()
 
 	const D3D12_INPUT_ELEMENT_DESC input[] = {
 		{
+			.SemanticName = "TEXCOORD",
+			.SemanticIndex = 1,
+			.Format = DXGI_FORMAT_R32_UINT,
+			.InputSlot = 0,
+			.AlignedByteOffset = 20,
+			.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+			.InstanceDataStepRate = 0,
+		},
+		{
 			.SemanticName = "POSITION",
 			.SemanticIndex = 0,
 			.Format = DXGI_FORMAT_R32G32B32_FLOAT,
@@ -798,8 +807,9 @@ void Renderer::CreatePipeline()
 		throw std::runtime_error("Failed to create graphics pipeline");
 }
 
-void Renderer::DrawCube(const Cube& cube) const
+void Renderer::DrawCube(const Cube& cube, const BlockFaceMask visibleFaces) const
 {
+	if ((visibleFaces & AllBlockFaces) == 0) return;
 	const auto textureBinding = blockTextures.find(cube.blockId);
 	if (textureBinding == blockTextures.end())
 		throw std::runtime_error("No texture is bound to this block ID");
@@ -839,10 +849,16 @@ void Renderer::DrawCube(const Cube& cube) const
 	commandList->SetGraphicsRootDescriptorTable(3, textureHandle(bottomTexture->second));
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	commandList->IASetVertexBuffers(0, 1, &vertexBufferView);
-	commandList->DrawInstanced(
-		static_cast<UINT>(std::size(cubeVertices)),
-		1,
-		0,
-		0
-	);
+	// Submit consecutive exposed faces together; hidden faces never reach the GPU.
+	for (UINT face = 0; face < 6;)
+	{
+		if ((visibleFaces & (1u << face)) == 0)
+		{
+			++face;
+			continue;
+		}
+		const UINT firstFace = face++;
+		while (face < 6 && (visibleFaces & (1u << face)) != 0) ++face;
+		commandList->DrawInstanced((face - firstFace) * 6, 1, firstFace * 6, 0);
+	}
 }

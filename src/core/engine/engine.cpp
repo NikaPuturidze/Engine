@@ -36,7 +36,10 @@ void Engine::Tick() const
 
 void Engine::Render() const
 {
-	const Cube cube(blocks.GetBlockId("default:block/stone"));
+	const auto isSolid = [](int x, int y, int z)
+	{
+		return (x == 0 || x == 1) && y == 0 && z == 4;
+	};
 
 	renderer.BeginFrame(camera);
 
@@ -45,7 +48,12 @@ void Engine::Render() const
 		0.0f / 255.0f,
 		0.0f / 255.0f
 	);
-	renderer.DrawCube(cube);
+	for (int x = 0; x < 2; ++x)
+	{
+		Cube cube(blocks.GetBlockId("default:block/grass"));
+		cube.x = static_cast<float>(x);
+		renderer.DrawCube(cube, GetVisibleBlockFaces(x, 0, 4, isSolid));
+	}
 
 	renderer.EndFrame();
 }

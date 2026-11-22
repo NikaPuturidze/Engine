@@ -13,19 +13,21 @@ struct Output
 {
     float4 position : SV_POSITION;
 	float2 uv : TEXCOORD;
+	nointerpolation uint faceType : TEXCOORD1;
 };
 
-Output VS(float3 position : POSITION, float2 uv : TEXCOORD)
+Output VS(float3 position : POSITION, float2 uv : TEXCOORD, uint faceType : TEXCOORD1)
 {
     Output output;
     output.position = mul(float4(position, 1.0f), transformMatrix);
 	output.uv = uv;
+	output.faceType = faceType;
     return output;
 }
 
-float4 PS(Output input, uint triangleId : SV_PrimitiveID) : SV_TARGET
+float4 PS(Output input) : SV_TARGET
 {
-	const uint face = triangleId / 2;
+	const uint face = input.faceType;
 
 	if (face == 4)
 		return topTexture.Sample(textureSampler, input.uv) * topTint;
