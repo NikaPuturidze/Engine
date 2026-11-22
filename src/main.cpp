@@ -1,18 +1,26 @@
 ﻿#include "core/window.h"
 #include "graphics/renderer.h"
+#include "world/block_registry.h"
 
 int main()
 {
 	Window window;
 	Renderer renderer(window.GetHandle());
 
-	const Cube cube(1);
-	const Cube cube2(2);
+	BlockRegistry blocks(renderer);
+	blocks.LoadNamespace(
+		std::filesystem::path(ENGINE_ASSET_DIRECTORY) / "default",
+		"default"
+	);
+
+	const Cube cube(blocks.GetBlockId("default:block/stone"));
+	const Cube cube2(blocks.GetBlockId("default:block/grass"));
+
 	cube2.x = 2.0f;
 
 	Camera camera;
 
-    camera.SetPosition(3.0f, 2.0f, -5.0f);
+    camera.SetPosition(0.0f, 4.0f, -3.0f);
 
     while (window.ProcessMessages())
     {

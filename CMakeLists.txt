@@ -18,9 +18,13 @@ add_executable(Engine
         src/main.cpp
         src/core/window.cpp
         src/core/window.h
+        src/world/block_registry.cpp
+        src/world/block_registry.h
         src/graphics/renderer.cpp
         src/graphics/renderer.h
         src/graphics/cube.h
+		src/graphics/texture.h
+		src/graphics/texture.cpp
         src/graphics/meshes/cube_mesh.h
         src/graphics/shaders/cube.hlsl
         src/core/camera/Camera.cpp
@@ -33,8 +37,14 @@ target_include_directories(Engine PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/external/DirectXMath/Inc"
 )
 
+target_compile_definitions(Engine PRIVATE
+		ENGINE_ASSET_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/assets"
+)
+
 target_link_libraries(Engine PRIVATE
         d3d12
         dxgi
         d3dcompiler
+		windowscodecs
+		ole32
 )

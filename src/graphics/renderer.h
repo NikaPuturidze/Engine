@@ -3,10 +3,12 @@
 #include <d3d12.h>
 #include <dxgi1_4.h>
 #include <wrl/client.h>
+#include <unordered_map>
 
 using Microsoft::WRL::ComPtr;
 
 #include "cube.h"
+#include "texture.h"
 #include "../core/camera/camera.h"
 
 class Renderer
@@ -19,6 +21,16 @@ public:
 	void Clear(float r, float g, float b) const;
 	void EndFrame();
 	void DrawCube(const Cube& cube) const;
+	void RegisterTexture(const Texture& texture);
+	void BindTextures(
+		BlockId blockId,
+		TextureId sideTexture,
+		TextureId topTexture,
+		TextureId bottomTexture,
+		float topTintRed,
+		float topTintGreen,
+		float topTintBlue
+	);
 private:
 	void CreateAdapter();
 	void CreateDevice();
@@ -30,6 +42,7 @@ private:
     void CreateRenderTargets();
 	void CreateCommandResources();
 	void CreateVertexBuffer();
+	void CreateTextureDescriptorHeap();
     void CreatePipeline();
     void CreateDepthBuffer();
 
@@ -62,4 +75,26 @@ private:
 
     ComPtr<ID3D12Resource> vertexBuffer;
 	D3D12_VERTEX_BUFFER_VIEW vertexBufferView{};
+
+	struct GpuTexture
+	{
+		ComPtr<ID3D12Resource> resource;
+		UINT descriptorIndex = 0;
+	};
+
+	static constexpr UINT TextureCapacity = 64;
+	ComPtr<ID3D12DescriptorHeap> textureHeap;
+	UINT textureDescriptorSize = 0;
+	std::unordered_map<TextureId, GpuTexture> textures;
+	struct BlockTextures
+	{
+		TextureId side;
+		TextureId top;
+		TextureId bottom;
+		float topTintRed;
+		float topTintGreen;
+		float topTintBlue;
+	};
+
+	std::unordered_map<BlockId, BlockTextures> blockTextures;
 };

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "default:block/stone"
+    },
+    "": {
+      "model": "default:block/stone"
+    }
+  }
+}

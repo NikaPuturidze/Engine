@@ -2,12 +2,14 @@
 
 #include <cstdint>
 
+using BlockId = std::uint32_t;
+
 class Cube
 {
 public:
-    explicit Cube(const std::uint64_t id) : id(id) {}
+	explicit Cube(const BlockId blockId) : blockId(blockId) {}
 
-    const std::uint64_t id;
+	const BlockId blockId;
     mutable float x = 0.0f;
     float y = 0.0f;
     float z = 4.0f;

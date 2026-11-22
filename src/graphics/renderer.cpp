@@ -17,6 +17,7 @@ Renderer::Renderer(const HWND hwnd)
 	CreateRenderTargets();
 	CreateCommandResources();
 	CreateVertexBuffer();
+	CreateTextureDescriptorHeap();
 	CreateDepthBuffer();
 	CreatePipeline();
 }
@@ -376,6 +377,178 @@ void Renderer::CreateVertexBuffer()
 	};
 }
 
+void Renderer::CreateTextureDescriptorHeap()
+{
+	const D3D12_DESCRIPTOR_HEAP_DESC heap = {
+		.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV,
+		.NumDescriptors = TextureCapacity,
+		.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE,
+	};
+
+	if (FAILED(device->CreateDescriptorHeap(&heap, IID_PPV_ARGS(&textureHeap))))
+		throw std::runtime_error("Failed to create texture descriptor heap");
+
+	textureDescriptorSize = device->GetDescriptorHandleIncrementSize(
+		D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV
+	);
+}
+
+void Renderer::RegisterTexture(const Texture& texture)
+{
+	if (textures.contains(texture.id))
+		throw std::runtime_error("Texture ID is already registered");
+
+	if (textures.size() == TextureCapacity)
+		throw std::runtime_error("Texture descriptor heap is full");
+
+	if (texture.pixels.size() != texture.width * texture.height * 4)
+		throw std::runtime_error("Texture pixels must contain RGBA data");
+
+	const D3D12_HEAP_PROPERTIES defaultHeap = {
+		.Type = D3D12_HEAP_TYPE_DEFAULT,
+	};
+	const D3D12_RESOURCE_DESC textureDesc = {
+		.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D,
+		.Width = texture.width,
+		.Height = texture.height,
+		.DepthOrArraySize = 1,
+		.MipLevels = 1,
+		.Format = DXGI_FORMAT_R8G8B8A8_UNORM,
+		.SampleDesc = {.Count = 1},
+	};
+
+	GpuTexture gpuTexture;
+	if (FAILED(device->CreateCommittedResource(
+		&defaultHeap,
+		D3D12_HEAP_FLAG_NONE,
+		&textureDesc,
+		D3D12_RESOURCE_STATE_COPY_DEST,
+		nullptr,
+		IID_PPV_ARGS(&gpuTexture.resource)
+	)))
+		throw std::runtime_error("Failed to create GPU texture");
+
+	D3D12_PLACED_SUBRESOURCE_FOOTPRINT footprint = {};
+	UINT rowCount = 0;
+	UINT64 rowSize = 0;
+	UINT64 uploadSize = 0;
+	device->GetCopyableFootprints(
+		&textureDesc,
+		0,
+		1,
+		0,
+		&footprint,
+		&rowCount,
+		&rowSize,
+		&uploadSize
+	);
+
+	const D3D12_HEAP_PROPERTIES uploadHeap = {
+		.Type = D3D12_HEAP_TYPE_UPLOAD,
+	};
+	const D3D12_RESOURCE_DESC uploadDesc = {
+		.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER,
+		.Width = uploadSize,
+		.Height = 1,
+		.DepthOrArraySize = 1,
+		.MipLevels = 1,
+		.SampleDesc = {.Count = 1},
+		.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR,
+	};
+
+	ComPtr<ID3D12Resource> uploadBuffer;
+	if (FAILED(device->CreateCommittedResource(
+		&uploadHeap,
+		D3D12_HEAP_FLAG_NONE,
+		&uploadDesc,
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		nullptr,
+		IID_PPV_ARGS(&uploadBuffer)
+	)))
+		throw std::runtime_error("Failed to create texture upload buffer");
+
+	void* destination = nullptr;
+	constexpr D3D12_RANGE readRange = {.Begin = 0, .End = 0};
+	if (FAILED(uploadBuffer->Map(0, &readRange, &destination)))
+		throw std::runtime_error("Failed to map texture upload buffer");
+
+	const UINT sourceRowPitch = texture.width * 4;
+	for (UINT row = 0; row < rowCount; ++row)
+	{
+		memcpy(
+			static_cast<std::uint8_t*>(destination) + footprint.Offset + row * footprint.Footprint.RowPitch,
+			texture.pixels.data() + row * sourceRowPitch,
+			sourceRowPitch
+		);
+	}
+	uploadBuffer->Unmap(0, nullptr);
+
+	if (FAILED(commandAllocators[0]->Reset()))
+		throw std::runtime_error("Failed to reset texture upload allocator");
+
+	if (FAILED(commandList->Reset(commandAllocators[0].Get(), nullptr)))
+		throw std::runtime_error("Failed to reset texture upload command list");
+
+	const D3D12_TEXTURE_COPY_LOCATION destinationLocation = {
+		.pResource = gpuTexture.resource.Get(),
+		.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX,
+		.SubresourceIndex = 0,
+	};
+	const D3D12_TEXTURE_COPY_LOCATION sourceLocation = {
+		.pResource = uploadBuffer.Get(),
+		.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT,
+		.PlacedFootprint = footprint,
+	};
+	commandList->CopyTextureRegion(&destinationLocation, 0, 0, 0, &sourceLocation, nullptr);
+
+	const D3D12_RESOURCE_BARRIER barrier = {
+		.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION,
+		.Transition = {
+			.pResource = gpuTexture.resource.Get(),
+			.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES,
+			.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST,
+			.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+		},
+	};
+	commandList->ResourceBarrier(1, &barrier);
+
+	if (FAILED(commandList->Close()))
+		throw std::runtime_error("Failed to close texture upload command list");
+
+	ID3D12CommandList* lists[] = {commandList.Get()};
+	commandQueue->ExecuteCommandLists(1, lists);
+	WaitForGPU();
+
+	gpuTexture.descriptorIndex = static_cast<UINT>(textures.size());
+	D3D12_CPU_DESCRIPTOR_HANDLE handle = textureHeap->GetCPUDescriptorHandleForHeapStart();
+	handle.ptr += gpuTexture.descriptorIndex * textureDescriptorSize;
+	device->CreateShaderResourceView(gpuTexture.resource.Get(), nullptr, handle);
+	textures.emplace(texture.id, std::move(gpuTexture));
+}
+
+void Renderer::BindTextures(
+	const BlockId blockId,
+	const TextureId sideTexture,
+	const TextureId topTexture,
+	const TextureId bottomTexture,
+	const float topTintRed,
+	const float topTintGreen,
+	const float topTintBlue
+)
+{
+	if (!textures.contains(sideTexture) || !textures.contains(topTexture) || !textures.contains(bottomTexture))
+		throw std::runtime_error("Textures must be registered before binding them to a block");
+
+	blockTextures[blockId] = {
+		.side = sideTexture,
+		.top = topTexture,
+		.bottom = bottomTexture,
+		.topTintRed = topTintRed,
+		.topTintGreen = topTintGreen,
+		.topTintBlue = topTintBlue,
+	};
+}
+
 
 void Renderer::CreateDepthBuffer()
 {
@@ -430,18 +603,78 @@ void Renderer::CreateDepthBuffer()
 
 void Renderer::CreatePipeline()
 {
-	constexpr D3D12_ROOT_PARAMETER parameter = {
-		.ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS,
-		.Constants = {
-			.ShaderRegister = 0,
+	constexpr D3D12_DESCRIPTOR_RANGE textureRanges[] = {
+		{
+			.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
+			.NumDescriptors = 1,
+			.BaseShaderRegister = 0,
 			.RegisterSpace = 0,
-			.Num32BitValues = 16,
+			.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND,
 		},
-		.ShaderVisibility = D3D12_SHADER_VISIBILITY_VERTEX,
+		{
+			.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
+			.NumDescriptors = 1,
+			.BaseShaderRegister = 1,
+			.RegisterSpace = 0,
+			.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND,
+		},
+		{
+			.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
+			.NumDescriptors = 1,
+			.BaseShaderRegister = 2,
+			.RegisterSpace = 0,
+			.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND,
+		},
+	};
+	const D3D12_ROOT_PARAMETER parameters[] = {
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS,
+			.Constants = {
+				.ShaderRegister = 0,
+				.RegisterSpace = 0,
+				.Num32BitValues = 20,
+			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL,
+		},
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE,
+			.DescriptorTable = {
+				.NumDescriptorRanges = 1,
+				.pDescriptorRanges = &textureRanges[0],
+			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		},
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE,
+			.DescriptorTable = {
+				.NumDescriptorRanges = 1,
+				.pDescriptorRanges = &textureRanges[1],
+			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		},
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE,
+			.DescriptorTable = {
+				.NumDescriptorRanges = 1,
+				.pDescriptorRanges = &textureRanges[2],
+			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		},
+	};
+	constexpr D3D12_STATIC_SAMPLER_DESC sampler = {
+		.Filter = D3D12_FILTER_MIN_MAG_MIP_POINT,
+		.AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP,
+		.AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP,
+		.AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP,
+		.MaxLOD = D3D12_FLOAT32_MAX,
+		.ShaderRegister = 0,
+		.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
 	};
 	const D3D12_ROOT_SIGNATURE_DESC rootDesc = {
-		.NumParameters = 1,
-		.pParameters = &parameter,
+		.NumParameters = std::size(parameters),
+		.pParameters = parameters,
+		.NumStaticSamplers = 1,
+		.pStaticSamplers = &sampler,
 		.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT,
 	};
 
@@ -494,14 +727,25 @@ void Renderer::CreatePipeline()
 	compile("VS", "vs_5_0", vs.GetAddressOf());
 	compile("PS", "ps_5_0", ps.GetAddressOf());
 
-	const D3D12_INPUT_ELEMENT_DESC input = {
-		.SemanticName = "POSITION",
-		.SemanticIndex = 0,
-		.Format = DXGI_FORMAT_R32G32B32_FLOAT,
-		.InputSlot = 0,
-		.AlignedByteOffset = 0,
-		.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-		.InstanceDataStepRate = 0,
+	const D3D12_INPUT_ELEMENT_DESC input[] = {
+		{
+			.SemanticName = "POSITION",
+			.SemanticIndex = 0,
+			.Format = DXGI_FORMAT_R32G32B32_FLOAT,
+			.InputSlot = 0,
+			.AlignedByteOffset = 0,
+			.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+			.InstanceDataStepRate = 0,
+		},
+		{
+			.SemanticName = "TEXCOORD",
+			.SemanticIndex = 0,
+			.Format = DXGI_FORMAT_R32G32_FLOAT,
+			.InputSlot = 0,
+			.AlignedByteOffset = 12,
+			.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+			.InstanceDataStepRate = 0,
+		},
 	};
 
 	const D3D12_GRAPHICS_PIPELINE_STATE_DESC pso = {
@@ -531,9 +775,9 @@ void Renderer::CreatePipeline()
         	.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL,
         	.DepthFunc = D3D12_COMPARISON_FUNC_LESS
         },
-        .InputLayout = {
-        	.pInputElementDescs = &input,
-        	.NumElements = 1
+		.InputLayout = {
+			.pInputElementDescs = input,
+			.NumElements = std::size(input)
         },
         .PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
         .NumRenderTargets = 1,
@@ -552,6 +796,16 @@ void Renderer::CreatePipeline()
 
 void Renderer::DrawCube(const Cube& cube) const
 {
+	const auto textureBinding = blockTextures.find(cube.blockId);
+	if (textureBinding == blockTextures.end())
+		throw std::runtime_error("No texture is bound to this block ID");
+
+	const auto sideTexture = textures.find(textureBinding->second.side);
+	const auto topTexture = textures.find(textureBinding->second.top);
+	const auto bottomTexture = textures.find(textureBinding->second.bottom);
+	if (sideTexture == textures.end() || topTexture == textures.end() || bottomTexture == textures.end())
+		throw std::runtime_error("A block texture is not registered");
+
 	using namespace DirectX;
 	const XMMATRIX world = XMMatrixScaling(cube.size * 0.5f, cube.size * 0.5f, cube.size * 0.5f)
 		* XMMatrixTranslation(cube.x, cube.y, cube.z);
@@ -561,6 +815,24 @@ void Renderer::DrawCube(const Cube& cube) const
 	commandList->SetPipelineState(pipelineState.Get());
 	commandList->SetGraphicsRootSignature(rootSignature.Get());
 	commandList->SetGraphicsRoot32BitConstants(0, 16, &matrix, 0);
+	const float topTint[] = {
+		textureBinding->second.topTintRed,
+		textureBinding->second.topTintGreen,
+		textureBinding->second.topTintBlue,
+		1.0f,
+	};
+	commandList->SetGraphicsRoot32BitConstants(0, 4, topTint, 16);
+	ID3D12DescriptorHeap* heaps[] = {textureHeap.Get()};
+	commandList->SetDescriptorHeaps(1, heaps);
+	auto textureHandle = [&](const GpuTexture& texture)
+	{
+		D3D12_GPU_DESCRIPTOR_HANDLE handle = textureHeap->GetGPUDescriptorHandleForHeapStart();
+		handle.ptr += texture.descriptorIndex * textureDescriptorSize;
+		return handle;
+	};
+	commandList->SetGraphicsRootDescriptorTable(1, textureHandle(sideTexture->second));
+	commandList->SetGraphicsRootDescriptorTable(2, textureHandle(topTexture->second));
+	commandList->SetGraphicsRootDescriptorTable(3, textureHandle(bottomTexture->second));
 	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	commandList->IASetVertexBuffers(0, 1, &vertexBufferView);
 	commandList->DrawInstanced(
