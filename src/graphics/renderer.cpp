@@ -6,12 +6,12 @@
 #include <cstring>
 #include <d3dcompiler.h>
 
-Renderer::Renderer(const HWND hwnd)
+Renderer::Renderer(const Window& window)
 {
 	CreateAdapter();
 	CreateDevice();
 	CreateCommandQueue();
-	CreateSwapChain(hwnd);
+	CreateSwapChain(window.GetHandle());
 	CreateFenceSynchronization();
 	CreateDescriptorHeap();
 	CreateRenderTargets();
@@ -87,7 +87,7 @@ void Renderer::CreateSwapChain(const HWND hwnd)
 	);
 
 	if (FAILED(result))
-		throw std::runtime_error("Failed to create swap chain");
+		throw std::runtime_error("Failed to create swap chain: " + std::to_string(result));
 
 	if (FAILED(swapChain1.As(&swapChain)))
 		throw std::runtime_error("Failed to get IDXGISwapChain3");
@@ -573,13 +573,13 @@ void Renderer::CreateDepthBuffer()
 		.DepthOrArraySize = 1,
 		.MipLevels = 1,
 		.Format = DXGI_FORMAT_D32_FLOAT,
-		.SampleDesc = { .Count = 1 },
+		.SampleDesc = {.Count = 1},
 		.Flags = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL
 	};
 
 	constexpr D3D12_CLEAR_VALUE clear = {
 		.Format = DXGI_FORMAT_D32_FLOAT,
-		.DepthStencil = { .Depth = 1.0f, .Stencil = 0 }
+		.DepthStencil = {.Depth = 1.0f, .Stencil = 0}
 	};
 
 	if (FAILED(
@@ -680,20 +680,20 @@ void Renderer::CreatePipeline()
 
 	ComPtr<ID3DBlob> signature, errors;
 	if (FAILED(D3D12SerializeRootSignature(
-		&rootDesc,
-		D3D_ROOT_SIGNATURE_VERSION_1,
-		&signature,
-		&errors)
+			&rootDesc,
+			D3D_ROOT_SIGNATURE_VERSION_1,
+			&signature,
+			&errors)
 	))
 		throw std::runtime_error("Failed to serialize root signature");
 
 	if (FAILED(
-		device->CreateRootSignature(
-			0,
-			signature->GetBufferPointer(),
-			signature->GetBufferSize(),
-			IID_PPV_ARGS(&rootSignature)
-		))
+			device->CreateRootSignature(
+				0,
+				signature->GetBufferPointer(),
+				signature->GetBufferSize(),
+				IID_PPV_ARGS(&rootSignature)
+			))
 	)
 		throw std::runtime_error("Failed to create root signature");
 
@@ -749,46 +749,50 @@ void Renderer::CreatePipeline()
 	};
 
 	const D3D12_GRAPHICS_PIPELINE_STATE_DESC pso = {
-        .pRootSignature = rootSignature.Get(),
-        .VS = {
-        	.pShaderBytecode = vs->GetBufferPointer(),
-        	.BytecodeLength = vs->GetBufferSize()
-        },
-        .PS = {
-        	.pShaderBytecode = ps->GetBufferPointer(),
-        	.BytecodeLength = ps->GetBufferSize()
-        },
-        .BlendState = { .RenderTarget = {{
-            .SrcBlend = D3D12_BLEND_ONE, .DestBlend = D3D12_BLEND_ZERO,
-            .BlendOp = D3D12_BLEND_OP_ADD, .SrcBlendAlpha = D3D12_BLEND_ONE,
-            .DestBlendAlpha = D3D12_BLEND_ZERO, .BlendOpAlpha = D3D12_BLEND_OP_ADD,
-            .LogicOp = D3D12_LOGIC_OP_NOOP, .RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL,
-        }} },
-        .SampleMask = UINT_MAX,
-        .RasterizerState = {
-        	.FillMode = D3D12_FILL_MODE_SOLID,
-        	.CullMode = D3D12_CULL_MODE_NONE,
-        	.DepthClipEnable = TRUE
-        },
-        .DepthStencilState = {
-        	.DepthEnable = TRUE,
-        	.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL,
-        	.DepthFunc = D3D12_COMPARISON_FUNC_LESS
-        },
+		.pRootSignature = rootSignature.Get(),
+		.VS = {
+			.pShaderBytecode = vs->GetBufferPointer(),
+			.BytecodeLength = vs->GetBufferSize()
+		},
+		.PS = {
+			.pShaderBytecode = ps->GetBufferPointer(),
+			.BytecodeLength = ps->GetBufferSize()
+		},
+		.BlendState = {
+			.RenderTarget = {
+				{
+					.SrcBlend = D3D12_BLEND_ONE, .DestBlend = D3D12_BLEND_ZERO,
+					.BlendOp = D3D12_BLEND_OP_ADD, .SrcBlendAlpha = D3D12_BLEND_ONE,
+					.DestBlendAlpha = D3D12_BLEND_ZERO, .BlendOpAlpha = D3D12_BLEND_OP_ADD,
+					.LogicOp = D3D12_LOGIC_OP_NOOP, .RenderTargetWriteMask = D3D12_COLOR_WRITE_ENABLE_ALL,
+				}
+			}
+		},
+		.SampleMask = UINT_MAX,
+		.RasterizerState = {
+			.FillMode = D3D12_FILL_MODE_SOLID,
+			.CullMode = D3D12_CULL_MODE_NONE,
+			.DepthClipEnable = TRUE
+		},
+		.DepthStencilState = {
+			.DepthEnable = TRUE,
+			.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL,
+			.DepthFunc = D3D12_COMPARISON_FUNC_LESS
+		},
 		.InputLayout = {
 			.pInputElementDescs = input,
 			.NumElements = std::size(input)
-        },
-        .PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
-        .NumRenderTargets = 1,
-        .RTVFormats = {
-        	DXGI_FORMAT_B8G8R8A8_UNORM
-        },
-        .DSVFormat = DXGI_FORMAT_D32_FLOAT,
-        .SampleDesc = {
-        	.Count = 1
-        },
-    };
+		},
+		.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE,
+		.NumRenderTargets = 1,
+		.RTVFormats = {
+			DXGI_FORMAT_B8G8R8A8_UNORM
+		},
+		.DSVFormat = DXGI_FORMAT_D32_FLOAT,
+		.SampleDesc = {
+			.Count = 1
+		},
+	};
 
 	if (FAILED(device->CreateGraphicsPipelineState(&pso, IID_PPV_ARGS(&pipelineState))))
 		throw std::runtime_error("Failed to create graphics pipeline");

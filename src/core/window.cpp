@@ -32,15 +32,17 @@ Window::Window()
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 		nullptr, nullptr, hInstance, this
 	);
+	if (!this->hwnd)
+		throw std::runtime_error("Failed to create window: " + std::to_string(GetLastError()));
 
-    const RAWINPUTDEVICE mouse = {
-        .usUsagePage = 0x01,
-        .usUsage = 0x02,
-        .dwFlags = 0,
-        .hwndTarget = this->hwnd,
-    };
-    if (!RegisterRawInputDevices(&mouse, 1, sizeof(mouse)))
-        throw std::runtime_error("Failed to register mouse input");
+	const RAWINPUTDEVICE mouse = {
+		.usUsagePage = 0x01,
+		.usUsage = 0x02,
+		.dwFlags = 0,
+		.hwndTarget = this->hwnd,
+	};
+	if (!RegisterRawInputDevices(&mouse, 1, sizeof(mouse)))
+		throw std::runtime_error("Failed to register mouse input");
 
 	ShowWindow(this->hwnd, SW_SHOW);
 }
@@ -65,21 +67,19 @@ HWND Window::GetHandle() const
 	return hwnd;
 }
 
-
 void Window::ConsumeMouseMovement(long& x, long& y)
 {
-    x = mouseX;
-    y = mouseY;
-    mouseX = 0;
-    mouseY = 0;
+	x = mouseX;
+	y = mouseY;
+	mouseX = 0;
+	mouseY = 0;
 }
 
 void Window::AddMouseMovement(long x, long y)
 {
-    mouseX += x;
-    mouseY += y;
+	mouseX += x;
+	mouseY += y;
 }
-
 
 LRESULT CALLBACK WindowProc(
 	const HWND hwnd,
@@ -87,52 +87,58 @@ LRESULT CALLBACK WindowProc(
 	const WPARAM wParam,
 	const LPARAM lParam)
 {
-	if (uMsg == WM_NCCREATE)
-	{
-		auto* create = reinterpret_cast<CREATESTRUCTA*>(lParam);
-
-		SetWindowLongPtrA(
-			hwnd,
-			GWLP_USERDATA,
-			reinterpret_cast<LONG_PTR>(create->lpCreateParams)
-		);
-	}
-
 	auto* window = reinterpret_cast<Window*>(
 		GetWindowLongPtrA(hwnd, GWLP_USERDATA)
 	);
 
 	switch (uMsg)
 	{
-        case WM_KILLFOCUS:
-            if (window)
-            {
-                long x, y;
-                window->ConsumeMouseMovement(x, y);
-            }
-            return 0;
+		case WM_NCCREATE:
+			{
+				auto* create = reinterpret_cast<CREATESTRUCTA*>(lParam);
 
-        case WM_INPUT:
-        {
-            UINT size = 0;
-            if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, nullptr, &size,
-                sizeof(RAWINPUTHEADER)) != 0 || size == 0)
-                return 0;
-            std::vector<BYTE> data(size);
-            if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, data.data(), &size,
-                sizeof(RAWINPUTHEADER)) == size)
-            {
-                const auto* input = reinterpret_cast<const RAWINPUT*>(data.data());
-                if (window && input->header.dwType == RIM_TYPEMOUSE &&
-                    !(input->data.mouse.usFlags & MOUSE_MOVE_ABSOLUTE))
-                    window->AddMouseMovement(input->data.mouse.lLastX, input->data.mouse.lLastY);
-            }
-            return DefWindowProc(hwnd, uMsg, wParam, lParam);
-        }
+				SetWindowLongPtrA(
+					hwnd,
+					GWLP_USERDATA,
+					reinterpret_cast<LONG_PTR>(create->lpCreateParams)
+				);
+
+				return TRUE; // Important
+			}
+
+		case WM_INPUT:
+			{
+				UINT size = 0;
+				if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, nullptr, &size,
+				                    sizeof(RAWINPUTHEADER)) != 0 || size == 0)
+					return 0;
+				std::vector<BYTE> data(size);
+				if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, data.data(), &size,
+				                    sizeof(RAWINPUTHEADER)) == size)
+				{
+					if (const auto* input = reinterpret_cast<const RAWINPUT*>(data.data());
+						window && input->header.dwType == RIM_TYPEMOUSE && !(input->data.mouse.usFlags &
+							MOUSE_MOVE_ABSOLUTE))
+						window->AddMouseMovement(input->data.mouse.lLastX, input->data.mouse.lLastY);
+				}
+				return DefWindowProc(hwnd, uMsg, wParam, lParam);
+			}
 
 		case WM_DESTROY:
-			PostQuitMessage(0);
-			return 0;
+			{
+				PostQuitMessage(0);
+				return 0;
+			}
+
+		case WM_KILLFOCUS:
+			{
+				if (window)
+				{
+					long x, y;
+					window->ConsumeMouseMovement(x, y);
+				}
+				return 0;
+			}
 
 		case WM_PAINT:
 			{

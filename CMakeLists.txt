@@ -29,6 +29,14 @@ add_executable(Engine
         src/graphics/shaders/cube.hlsl
         src/core/camera/Camera.cpp
         src/core/camera/Camera.h
+        src/core/player/player.h
+		src/core/player/player.cpp
+        src/core/player/player_controller.h
+        src/core/player/player_controller.cpp
+		src/core/engine/engine.cpp
+		src/core/engine/engine.h
+		src/core/engine/ticker.cpp
+		src/core/engine/ticker.h
 )
 
 target_include_directories(Engine PRIVATE
@@ -47,4 +55,5 @@ target_link_libraries(Engine PRIVATE
         d3dcompiler
 		windowscodecs
 		ole32
+		comctl32
 )
