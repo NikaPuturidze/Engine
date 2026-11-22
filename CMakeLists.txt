@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 4.4)
+project(Engine)
+
+set(CMAKE_CXX_STANDARD 26)
+
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/shaders/cube.hlsl")
+
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/shaders/cube.hlsl" CUBE_SHADER_SOURCE)
+
+configure_file(
+        src/graphics/shaders/cube_shader.h.in
+        "${CMAKE_CURRENT_BINARY_DIR}/generated/cube_shader.h"
+        @ONLY
+)
+
+add_executable(Engine
+        src/main.cpp
+        src/core/window.cpp
+        src/core/window.h
+        src/graphics/renderer.cpp
+        src/graphics/renderer.h
+        src/graphics/cube.h
+        src/graphics/meshes/cube_mesh.h
+        src/graphics/shaders/cube.hlsl
+        src/core/camera/Camera.cpp
+        src/core/camera/Camera.h
+)
+
+target_include_directories(Engine PRIVATE
+        "${CMAKE_CURRENT_BINARY_DIR}/generated"
+        "${CMAKE_CURRENT_SOURCE_DIR}/external"
+        "${CMAKE_CURRENT_SOURCE_DIR}/external/DirectXMath/Inc"
+)
+
+target_link_libraries(Engine PRIVATE
+        d3d12
+        dxgi
+        d3dcompiler
+)

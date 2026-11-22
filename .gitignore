@@ -1,0 +1,34 @@
+# CMake build output
+/cmake-build-*/
+/build/
+/out/
+
+# CLion and IntelliJ project settings
+/.idea/
+
+# Compiled Windows files
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.lib
+*.exp
+
+# Compiler and CMake intermediate files
+*.obj
+*.o
+*.a
+*.d
+*.dwo
+*.gcda
+*.gcno
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+build.ninja
+.ninja_deps
+.ninja_log
+
+# Generated shader wrapper
+/cmake-build-*/generated/
