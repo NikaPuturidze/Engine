@@ -11,4 +11,5 @@ class Player
 		DirectX::XMFLOAT3 GetPosition() const;
 	private:
 		DirectX::XMFLOAT3 position;
+		DirectX::XMFLOAT3 velocity{0.0f, 0.0f, 0.0f};
 };
