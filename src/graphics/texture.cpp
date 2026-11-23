@@ -8,27 +8,27 @@ using Microsoft::WRL::ComPtr;
 
 namespace
 {
-class ComApartment
-{
-public:
-	ComApartment()
+	class ComApartment
 	{
-		const HRESULT result = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-		shouldUninitialize = result == S_OK || result == S_FALSE;
+		public:
+			ComApartment()
+			{
+				const HRESULT result = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+				shouldUninitialize = result == S_OK || result == S_FALSE;
 
-		if (FAILED(result) && result != RPC_E_CHANGED_MODE)
-			throw std::runtime_error("Failed to initialize the Windows image loader");
-	}
+				if (FAILED(result) && result != RPC_E_CHANGED_MODE)
+					throw std::runtime_error("Failed to initialize the Windows image loader");
+			}
 
-	~ComApartment()
-	{
-		if (shouldUninitialize)
-			CoUninitialize();
-	}
+			~ComApartment()
+			{
+				if (shouldUninitialize)
+					CoUninitialize();
+			}
 
-private:
-	bool shouldUninitialize = false;
-};
+		private:
+			bool shouldUninitialize = false;
+	};
 }
 
 Texture Texture::LoadPng(const TextureId id, const std::filesystem::path& path)
