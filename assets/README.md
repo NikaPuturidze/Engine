@@ -1,5 +1,9 @@
 # Asset library
 
+The full imported source library is kept here. Builds use `tools/stage_assets.py`
+to copy only manifest-referenced resources to the executable's asset directory.
+See [architecture](../docs/ARCHITECTURE.md) for ownership and staging rules.
+
 `minecraft/` replaces the former `default/` namespace. It contains the full
 asset folder supplied from the local Minecraft assets, with original files
 preserved. The engine starts with `minecraft:block/grass_block` and
