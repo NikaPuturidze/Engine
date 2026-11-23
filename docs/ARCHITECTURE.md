@@ -137,10 +137,14 @@ another implementation. Run relevant checks again after changing those contracts
 
 These are future tasks, not features delivered by the boundary refactor:
 
-1. **Versioned persistence.** Edits currently remain in memory, survive chunk unloading,
-   and disappear on process exit. Add a stable resource-name/state palette, world seed,
-   schema version and safe writes. Flush/unload edits so exploration does not retain an
-   unbounded map forever. Define missing-resource behavior before loading old worlds.
+1. **Persistence extensions.** Version 1 saves now store player position, look, mode and
+   edits using a stable-name palette. Simulation encodes/decodes streams without file
+   access; Application loads before creating the session and saves after normal exit.
+   It writes a temporary file then replaces the previous save using Windows atomic
+   replacement. Invalid versions, corrupt records and unknown block names abort loading
+   without overwriting the save. Terrain is regenerated using the current callback;
+   there is no seed or generator migration yet. Edits remain in memory even when chunks
+   unload. Future work: periodic autosaves, bounded edit storage and generator versioning.
 2. **Block states and shapes.** Separate definitions from orientation/state; add collision,
    selection and face-occlusion properties. Non-air currently means a solid cube.
 3. **Chunk sections.** Consider smaller vertical rebuild/storage units when terrain height,

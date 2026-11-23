@@ -6,6 +6,7 @@
 #include "simulation/world/block_registry.h"
 #include "simulation/player/player.h"
 #include "simulation/player/footstep_tracker.h"
+#include "simulation/save_game.h"
 
 // Feedback contains values/resource keys, never playback devices or texture IDs.
 struct SoundCue
@@ -18,7 +19,8 @@ struct SoundCue
 class GameSession
 {
 	public:
-		GameSession(const GameDefinition& definition, const BlockRegistry& blocks);
+		GameSession(const GameDefinition& definition, const BlockRegistry& blocks, const SavedGame* saved = nullptr);
+		SavedGame CaptureSave() const;
 		GameSession(const GameSession&) = delete;
 		GameSession& operator=(const GameSession&) = delete;
 		GameSession(GameSession&&) = delete;

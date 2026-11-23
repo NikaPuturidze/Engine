@@ -112,3 +112,18 @@ or its presentation in `src/engine/`, then use it from `game/`. Document timing,
 coordinates and failure behavior. Avoid obtaining the renderer, raw chunks or Windows
 handles from the game callback. Keep related operations together instead of creating
 one file or abstract interface for every method.
+
+## Saving and resuming
+
+Closing the game normally saves position, look direction, Survival/Creative mode and
+all block edits, including edits in unloaded chunks. Startup resumes automatically
+from `saves/world.save` beside the executable, independent of the working directory.
+Without a save, the configured spawn and terrain are used. Move or delete that save
+while the game is closed to start fresh.
+
+The versioned file uses stable block names rather than session-local IDs. Invalid or
+unsupported saves and missing block resources produce an error and leave the save
+untouched. A completed temporary file replaces the old save on successful shutdown.
+Crashes and forced termination do not save. Velocity and partial mining reset on load.
+Unedited terrain regenerates from the current terrain callback, so changing that
+callback also changes regenerated terrain in an existing save.

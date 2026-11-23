@@ -22,16 +22,38 @@ private:
 };
 }
 
-GameSession::GameSession(const GameDefinition& definition, const BlockRegistry& blocks)
+GameSession::GameSession(const GameDefinition& definition, const BlockRegistry& blocks, const SavedGame* saved)
     : definition(definition), blocks(blocks),
       world(std::make_unique<CallbackGenerator>(definition.generateTerrain, blocks), definition.settings.chunkRadius),
-      player(definition.settings.spawn), worldAccess(world, blocks), playerAccess(*this),
+      player(saved ? saved->position : definition.settings.spawn), worldAccess(world, blocks), playerAccess(*this),
       previousPosition(player.GetPosition()), placementBlock(blocks.GetBlockId(definition.settings.placementBlock))
 {
 
     ValidateDefinition();
-    GenerateInitialTerrain();
-    SpawnPlayer();
+    if (saved)
+    {
+        world.RestoreEdits(saved->edits);
+        world.Update(saved->position.x, saved->position.z, 9);
+        player.SetGameMode(saved->mode);
+        SetLook(saved->yaw, saved->pitch);
+    }
+    else
+    {
+        GenerateInitialTerrain();
+        SpawnPlayer();
+    }
+}
+
+SavedGame GameSession::CaptureSave() const
+{
+    return
+    {
+        .position = player.GetPosition(),
+        .yaw = Yaw(),
+        .pitch = pitch,
+        .mode = player.GetGameMode(),
+        .edits = world.GetEdits()
+    };
 }
 
 void GameSession::ValidateDefinition() const

@@ -53,6 +53,6 @@ and F4 toggles Survival/Creative. Placement defaults to stone. Current terrain i
 
 The runtime stages only textures and converted sounds referenced by its manifests;
 the full original asset library remains in `assets/`. See [asset notes](assets/README.md)
-for cube-preview limitations. World edits currently survive chunk unloading **within
-one session only**; disk saving, inventory, drops, health and complete Creative flight
-are not implemented.
+for cube-preview limitations. The game saves world edits, player position, look direction and game mode on normal
+exit, and resumes automatically on startup. Saves live in `saves/world.save` beside
+the executable. Inventory, drops, health and complete Creative flight are not implemented.

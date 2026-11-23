@@ -22,6 +22,12 @@ World::World(std::unique_ptr<WorldGenerator> generator, const int chunkRadius)
     BuildLoadOrder();
 }
 
+void World::RestoreEdits(const Edits& saved)
+{
+    if (initialized) throw std::logic_error("Restore edits before generating terrain");
+    edits = saved;
+}
+
 void World::BuildLoadOrder()
 {
     loadOrder.emplace_back(0, 0);

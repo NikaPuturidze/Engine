@@ -5,6 +5,7 @@
 #include "engine/platform/sprint_input.h"
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 
 void Check(const bool condition, const char* message)
 {
@@ -155,8 +156,64 @@ void GroundSpeeds()
     Check(std::abs(sprinting - 5.612f) < 0.002f, "Normal-ground sprinting matches Minecraft reference speed");
     Check(std::abs(sprinting / walking - 1.3f) < 0.001f, "Sprinting is thirty percent faster");
 }
+static void SavedSessions()
+{
+    auto blocks = Catalog();
+    auto definition = Definition();
+    definition.settings.spawn = {-0.5f, 100, -0.5f};
+    definition.settings.chunkRadius = 0;
+    definition.update = [](const Game& game, const InputActions&)
+    {
+        game.world.SetBlock({-1, 0, -1}, Air);
+        game.world.SetBlock({-2, 2, -2}, game.world.FindBlock("minecraft:block/stone"));
+    };
+    GameSession original(definition, blocks);
+    original.SetLook(123, -27);
+    original.Tick({});
+    auto snapshot = original.CaptureSave();
+    snapshot.mode = GameMode::Creative;
+    // Capture includes edits even after their chunk leaves the streaming radius.
+    snapshot.position = {64.25f, 12.5f, -32.75f};
+    GameSession distant(definition, blocks, &snapshot);
+    distant.StreamWorld();
+    const auto unloaded = distant.CaptureSave();
+    std::stringstream file;
+    WriteSavedGame(file, unloaded, blocks);
+
+    BlockRegistry reordered;
+    reordered.Register("test:extra", {});
+    reordered.Register("minecraft:block/stone", {});
+    reordered.Register("minecraft:block/grass_block", {});
+    const auto loaded = ReadSavedGame(file, reordered);
+    GameSession restored(definition, reordered, &loaded);
+    Check(Distance(restored.GetPlayer().GetPosition(), snapshot.position) == 0,
+          "Resume restores exact position instead of spawning on the ground");
+    Check(restored.Yaw() == 123 && restored.LookDirection().y > 0,
+          "Resume restores look direction");
+    Check(restored.GetPlayer().GetGameMode() == GameMode::Creative, "Resume restores mode");
+    auto near = restored.CaptureSave();
+    near.position = {-0.5f, 4, -0.5f};
+    GameSession edited(definition, reordered, &near);
+    Check(edited.GetWorld().TryGetBlock(-1, 0, -1) == Air, "Mined air survives save and reload");
+    Check(edited.GetWorld().TryGetBlock(-2, 2, -2) == reordered.GetBlockId("minecraft:block/stone"),
+          "Placed blocks survive unloaded chunks and changed registry IDs");
+
+    for (const auto text : {"ENGINE_SAVE 99", "ENGINE_SAVE 1\n0 4 0 0 0 0\n1\n\"missing:block\"\n0\n",
+                            "ENGINE_SAVE 1\n0 4 0 0 0 0\n0\n1\n0 0 0 256 0 0\n"})
+    {
+        bool rejected = false;
+        try
+        {
+            std::istringstream invalid(text);
+            ReadSavedGame(invalid, blocks);
+        }
+        catch (const std::exception&) { rejected = true; }
+        Check(rejected, "Unsupported, missing-resource and corrupt saves are rejected");
+    }
+}
+
 int main()
 {
-    try { WorldQueries(); Clock(); Mining(); HeadlessGame(); LoadingBoundary(); SprintControls(); GroundSpeeds(); std::cout<<"Simulation checks passed\n"; }
+    try { WorldQueries(); Clock(); Mining(); HeadlessGame(); LoadingBoundary(); SprintControls(); GroundSpeeds(); SavedSessions(); std::cout<<"Simulation checks passed\n"; }
     catch (const std::exception& e) { std::cerr<<e.what()<<'\n'; return 1; }
 }

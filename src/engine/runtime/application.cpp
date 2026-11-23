@@ -9,6 +9,7 @@
 #include "engine/ui/crosshair.h"
 #include "simulation/game_session.h"
 #include <filesystem>
+#include <fstream>
 #include <system_error>
 
 namespace
@@ -42,6 +43,7 @@ namespace
 				PlaceCamera(1.0f);
 				CreateHud();
 				RunFrames();
+				SaveGame();
 			}
 
 		private:
@@ -72,7 +74,40 @@ namespace
 
 			void CreateWorldAndSpawnPlayer()
 			{
-				session = std::make_unique<GameSession>(definition, blocks);
+				const auto path = SavePath();
+				std::optional<SavedGame> saved;
+				if (std::filesystem::exists(path))
+				{
+					std::ifstream input(path);
+					if (!input) throw std::runtime_error("Cannot open saved game");
+					saved = ReadSavedGame(input, blocks);
+				}
+				session = std::make_unique<GameSession>(definition, blocks, saved ? &*saved : nullptr);
+				if (saved) camera.Rotate(saved->yaw, saved->pitch);
+			}
+
+			std::filesystem::path SavePath() const
+			{
+				return assetDirectory.parent_path().parent_path() / "saves" / "world.save";
+			}
+
+			void SaveGame() const
+			{
+				const auto path = SavePath();
+				std::filesystem::create_directories(path.parent_path());
+				auto temporary = path;
+				temporary += ".tmp";
+				{
+					std::ofstream output(temporary, std::ios::trunc);
+					if (!output) throw std::runtime_error("Cannot create save file");
+					WriteSavedGame(output, session->CaptureSave(), blocks);
+					output.flush();
+					if (!output) throw std::runtime_error("Cannot flush save file");
+					output.close();
+					if (!output) throw std::runtime_error("Cannot close save file");
+				}
+				if (!MoveFileExW(temporary.c_str(), path.c_str(), MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH))
+					throw std::system_error(GetLastError(), std::system_category(), "Replace saved game");
 			}
 
 			void CreateHud()
