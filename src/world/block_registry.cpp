@@ -97,8 +97,9 @@ std::string BlockRegistry::ReadModelReference(const std::filesystem::path& state
 {
 	const std::regex pattern(R"json("model"\s*:\s*"([^"]+)")json");
 	std::smatch match;
+	const std::string state = ReadTextFile(statePath);
 
-	if (const std::string state = ReadTextFile(statePath); !std::regex_search(state, match, pattern))
+	if (!std::regex_search(state, match, pattern))
 		throw std::runtime_error("Block state has no model: " + statePath.string());
 
 	return match[1].str();
