@@ -1,7 +1,7 @@
 #include "api/game.h"
 #include "game/settings.h"
 
-void GenerateTerrain(const Terrain& terrain);
+void GenerateTestTerrain(const Terrain& terrain);
 
 static void UpdateGame(const Game& game, const InputActions& input)
 {
@@ -17,7 +17,7 @@ int main()
 	return RunGame(
 		{
 			.settings = CreateSettings(),
-			.generateTerrain = GenerateTerrain,
+			.generateTerrain = GenerateTestTerrain,
 			.update = UpdateGame
 		}
 	);

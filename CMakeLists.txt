@@ -33,7 +33,7 @@ if(ENGINE_BUILD_GAME)
         d3d12 dxgi d3dcompiler windowscodecs ole32 comctl32 xaudio2_9)
     target_include_directories(runtime PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/generated"
         "${CMAKE_CURRENT_SOURCE_DIR}/external" "${CMAKE_CURRENT_SOURCE_DIR}/external/DirectXMath/Inc")
-    add_executable(Engine src/game/game.cpp src/game/terrain.cpp)
+    add_executable(Engine src/game/game.cpp src/game/terrain.cpp src/game/terrain_test.cpp)
     target_link_libraries(Engine PRIVATE runtime)
     if(MINGW)
         target_link_options(Engine PRIVATE -static-libgcc -static-libstdc++)

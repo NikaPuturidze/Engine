@@ -28,6 +28,14 @@ terrain.FillLayer(1, "minecraft:block/grass_block");
 terrain.SetBlock({4, 2, 4}, "minecraft:block/stone");
 ```
 
+The game currently selects `GenerateTestTerrain()` in `src/game/game.cpp`. Both terrain
+files compile together: `src/game/terrain_test.cpp` calls `GenerateTerrain()` for the
+flat ground, then adds the catalog samples at y=4, starting at world (6, 4, 6).
+Samples have five empty cells between them, with 36 columns along +X and rows along
++Z. The block-name list is a snapshot of `assets/minecraft/engine/blocks.tsv`.
+Select `GenerateTerrain` in `game.cpp` to return to ground without the samples
+(update its forward declaration too).
+
 Each callback generates one 16×16 column, with heights from 0 through 255. Coordinates
 are local to that column. `terrain.WorldX(x)` and `terrain.WorldZ(z)` provide world
 coordinates for hills/noise rules. Invalid local coordinates throw. Empty chunks are
