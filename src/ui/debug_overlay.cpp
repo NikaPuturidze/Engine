@@ -10,7 +10,7 @@ DebugOverlay::DebugOverlay(Renderer& renderer,
 {
 }
 
-void DebugOverlay::Render(const std::size_t renderedBlocks) const
+void DebugOverlay::Render() const
 {
     const auto position = playerController.GetPosition();
     std::ostringstream information;

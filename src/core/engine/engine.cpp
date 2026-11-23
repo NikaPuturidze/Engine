@@ -2,6 +2,7 @@
 #include "ticker.h"
 #include <system_error>
 #include <vector>
+#include <ranges>
 
 namespace
 {
@@ -22,7 +23,6 @@ namespace
 		}
 	}
 }
-#include <ranges>
 
 Engine::Engine(
 	Window& window,
@@ -125,6 +125,7 @@ void Engine::Render() const
 		}
 	}
 
-	debugOverlay->Render(renderedBlocks);
+	debugOverlay->SetRenderedBlocks(renderedBlocks);
+	debugOverlay->Render();
 	renderer.EndFrame();
 }
