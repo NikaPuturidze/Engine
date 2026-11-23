@@ -4,6 +4,8 @@
 #include <dxgi1_4.h>
 #include <wrl/client.h>
 #include <unordered_map>
+#include <memory>
+#include <string_view>
 #include "cube.h"
 #include "../world/block_faces.h"
 #include "texture.h"
@@ -12,6 +14,7 @@
 
 using Microsoft::WRL::ComPtr;
 
+class Overlay;
 
 class Renderer
 {
@@ -22,6 +25,7 @@ class Renderer
 		void BeginFrame(const Camera& camera);
 		void Clear(float r, float g, float b) const;
 		void EndFrame();
+		void DrawOverlay(std::string_view text) const;
 		void DrawCube(const Cube& cube, BlockFaceMask visibleFaces = AllBlockFaces) const;
 		void RegisterTexture(const Texture& texture);
 		void BindTextures(
@@ -101,4 +105,5 @@ class Renderer
 		};
 
 		std::unordered_map<BlockId, BlockTextures> blockTextures;
+		std::unique_ptr<Overlay> overlay;
 };

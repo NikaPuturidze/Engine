@@ -22,6 +22,10 @@ add_executable(Engine
         src/world/block_registry.h
         src/graphics/renderer.cpp
         src/graphics/renderer.h
+        src/graphics/overlay.cpp
+        src/graphics/overlay.h
+        src/ui/debug_overlay.cpp
+        src/ui/debug_overlay.h
         src/graphics/cube.h
 		src/graphics/texture.h
 		src/graphics/texture.cpp

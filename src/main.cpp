@@ -13,7 +13,7 @@ int main()
 	Camera camera;
 	PlayerController playerController(window, player, camera);
 
-	Engine engine(window, renderer, playerController, camera);
+	const Engine engine(window, renderer, playerController, camera);
 
 	engine.Run();
 

@@ -1,5 +1,6 @@
 #include "engine.h"
 #include "ticker.h"
+#include <ranges>
 
 Engine::Engine(
 	Window& window,
@@ -27,6 +28,7 @@ Engine::Engine(
 		world = std::make_unique<World>(std::move(generator));
 		const auto position = playerController.GetPosition();
 		world->Update(position.x, position.z);
+		debugOverlay = std::make_unique<DebugOverlay>(renderer, playerController, *world);
 	}
 	catch (const std::exception& error)
 	{
@@ -35,7 +37,7 @@ Engine::Engine(
 	}
 }
 
-void Engine::Run()
+void Engine::Run() const
 {
 	Ticker ticker(TickDuration);
 
@@ -52,7 +54,7 @@ void Engine::Run()
 	}
 }
 
-void Engine::Tick()
+void Engine::Tick() const
 {
 	playerController.Update(TickDuration);
 	const auto position = playerController.GetPosition();
@@ -68,8 +70,9 @@ void Engine::Render() const
 
 	renderer.BeginFrame(camera);
 	renderer.Clear(0.3f, 0.6f, 0.9f);
+	std::size_t renderedBlocks = 0;
 
-	for (const auto& [coordinates, chunk] : world->GetChunks())
+	for (const auto& chunk : world->GetChunks() | std::views::values)
 	{
 		for (int y = 0; y < Chunk::Height; ++y)
 		{
@@ -81,6 +84,8 @@ void Engine::Render() const
 					if (block == 0) continue;
 					const int worldX = chunk.GetChunkX() * Chunk::Width + x;
 					const int worldZ = chunk.GetChunkZ() * Chunk::Depth + z;
+					const auto visibleFaces = GetVisibleBlockFaces(worldX, y, worldZ, isSolid);
+					if (visibleFaces == 0) continue;
 
 					Cube cube(block);
 
@@ -90,11 +95,14 @@ void Engine::Render() const
 
 					renderer.DrawCube(
 						cube,
-						GetVisibleBlockFaces(worldX, y, worldZ, isSolid)
+						visibleFaces
 					);
+					++renderedBlocks;
 				}
 			}
 		}
 	}
+
+	debugOverlay->Render(renderedBlocks);
 	renderer.EndFrame();
 }

@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include "overlay.h"
 #include "meshes/cube_mesh.h"
 #include "cube_shader.h"
 #include <dxgi1_4.h>
@@ -20,6 +21,12 @@ Renderer::Renderer(const Window& window)
 	CreateTextureDescriptorHeap();
 	CreateDepthBuffer();
 	CreatePipeline();
+	overlay = std::make_unique<Overlay>(device.Get());
+}
+
+void Renderer::DrawOverlay(const std::string_view text) const
+{
+	overlay->Draw(commandList.Get(), frameIndex, width, height, text);
 }
 
 Renderer::~Renderer()
