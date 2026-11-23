@@ -20,6 +20,14 @@ class Entity
 
 		void ApplyMovementInput(float right, float forward, float yawDegrees, float acceleration, float deltaTime);
 		void UpdatePhysics(float deltaTime, const World& world);
+
+        void MoveHorizontally(const float deltaTime, const World& world);
+        void ApplyHorizontalDrag(const float deltaTime);
+        void MoveVertically(const float deltaTime, const World& world);
+        void ApplyGravity(const float deltaTime);
+        void ApplyAxisMovement(const int axis, const float distance, const float allowed);
+
+
 		void MoveAlongAxis(int axis, float distance, const World& world);
 		static constexpr float HalfWidth = 0.3f;
 		static constexpr float Height = 1.8f;

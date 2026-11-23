@@ -19,6 +19,11 @@ World::World(std::unique_ptr<WorldGenerator> generator, const int chunkRadius)
 {
     if (!this->generator) throw std::invalid_argument("World needs a generator");
     if (chunkRadius < 0) throw std::invalid_argument("Chunk radius cannot be negative");
+    BuildLoadOrder();
+}
+
+void World::BuildLoadOrder()
+{
     loadOrder.emplace_back(0, 0);
     for (int ring = 1; ring <= chunkRadius; ++ring)
     {
@@ -41,59 +46,73 @@ void World::Update(const float playerX, const float playerZ, const std::size_t c
         static_cast<int>(std::floor(playerX / Chunk::Width)),
         static_cast<int>(std::floor(playerZ / Chunk::Depth))
     };
-    const auto [centerX, centerZ] = nextCenter;
     std::vector<ChunkCoordinates> changes;
-    if (!initialized || center != nextCenter)
+    MoveStreamingCenter(nextCenter, changes);
+    GenerateNearbyChunks(chunkBudget, changes);
+    PublishChanges(std::move(changes));
+}
+
+void World::MoveStreamingCenter(const ChunkCoordinates& nextCenter, std::vector<ChunkCoordinates>& changes)
+{
+    if (initialized && center == nextCenter) return;
+    const auto [centerX, centerZ] = nextCenter;
+    std::erase_if(chunks, [&](const auto& entry)
     {
-        std::erase_if(chunks, [&](const auto& entry)
-        {
-            const auto [x, z] = entry.first;
-            const bool remove = x < centerX - chunkRadius || x > centerX + chunkRadius ||
-                                z < centerZ - chunkRadius || z > centerZ + chunkRadius;
-            if (remove) changes.push_back(entry.first);
-            return remove;
-        });
-        center = nextCenter;
-        initialized = true;
-        nextChunk = 0;
-    }
+        const auto [x, z] = entry.first;
+        const bool outside = x < centerX - chunkRadius || x > centerX + chunkRadius ||
+                             z < centerZ - chunkRadius || z > centerZ + chunkRadius;
+        if (outside) changes.push_back(entry.first);
+        return outside;
+    });
+    center = nextCenter;
+    initialized = true;
+    nextChunk = 0;
+}
+
+void World::GenerateNearbyChunks(const std::size_t chunkBudget, std::vector<ChunkCoordinates>& changes)
+{
     std::size_t generated = 0;
-    // Bound queue scanning too, so moving through an already loaded world stays cheap.
     std::size_t scanned = 0;
+
     while (nextChunk < loadOrder.size() && generated < chunkBudget && scanned < 256)
     {
         const auto [offsetX, offsetZ] = loadOrder[nextChunk++];
         ++scanned;
-        const ChunkCoordinates coordinates{centerX + offsetX, centerZ + offsetZ};
+        const ChunkCoordinates coordinates{center.first + offsetX, center.second + offsetZ};
         if (chunks.contains(coordinates)) continue;
-
-        Chunk chunk(coordinates.first, coordinates.second);
-        generator->Generate(chunk);
-        if (const auto saved = edits.find(coordinates); saved != edits.end())
-            for (const auto& [position, block] : saved->second)
-                chunk.SetBlock(position[0], position[1], position[2], block);
-        chunk.SetLoadVersion(++loadVersion);
-        chunks.emplace(coordinates, std::move(chunk));
-        ++generated;
+        GenerateChunk(coordinates);
         changes.push_back(coordinates);
+        ++generated;
     }
-    if (!changes.empty())
-    {
-        changedChunks = std::move(changes);
-        ++revision;
-    }
+}
+
+void World::GenerateChunk(const ChunkCoordinates& coordinates)
+{
+    Chunk chunk(coordinates.first, coordinates.second);
+    generator->Generate(chunk);
+    RestoreChunkEdits(chunk, coordinates);
+    chunk.SetLoadVersion(++loadVersion);
+    chunks.emplace(coordinates, std::move(chunk));
+}
+
+void World::RestoreChunkEdits(Chunk& chunk, const ChunkCoordinates& coordinates) const
+{
+    const auto saved = edits.find(coordinates);
+    if (saved == edits.end()) return;
+    for (const auto& [position, block] : saved->second)
+        chunk.SetBlock(position[0], position[1], position[2], block);
+}
+
+void World::PublishChanges(std::vector<ChunkCoordinates> changes)
+{
+    if (changes.empty()) return;
+    changedChunks = std::move(changes);
+    ++revision;
 }
 
 BlockId World::GetBlock(const int worldX, const int y, const int worldZ) const
 {
-    if (y < 0 || y >= Chunk::Height) return 0;
-    const int chunkX = FloorDivide(worldX, Chunk::Width);
-    const int chunkZ = FloorDivide(worldZ, Chunk::Depth);
-    const auto chunk = chunks.find({chunkX, chunkZ});
-    if (chunk == chunks.end()) return 0;
-    return chunk->second.GetBlock(
-        worldX - chunkX * Chunk::Width, y,
-        worldZ - chunkZ * Chunk::Depth);
+    return TryGetBlock(worldX, y, worldZ).value_or(Air);
 }
 
 bool World::SetBlock(const int worldX, const int y, const int worldZ, const BlockId block)

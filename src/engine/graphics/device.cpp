@@ -290,6 +290,14 @@ void Renderer::CreateDepthBuffer()
 
 void Renderer::CreatePipeline()
 {
+	CreateTerrainRootSignature();
+	const auto vertexShader = CompileTerrainShader("VS", "vs_5_0");
+	const auto pixelShader = CompileTerrainShader("PS", "ps_5_0");
+	CreateTerrainPipelineState(vertexShader.Get(), pixelShader.Get());
+}
+
+void Renderer::CreateTerrainRootSignature()
+{
 	constexpr D3D12_DESCRIPTOR_RANGE textureRanges[] = {
 		{
 			.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
@@ -405,44 +413,31 @@ void Renderer::CreatePipeline()
 			))
 	)
 		throw std::runtime_error("Failed to create root signature");
+}
 
-	ComPtr<ID3DBlob> vs, ps;
-	auto compile = [&](const char* entry, const char* target, ID3DBlob** output)
+ComPtr<ID3DBlob> Renderer::CompileTerrainShader(const char* const entry, const char* const target)
+{
+	ComPtr<ID3DBlob> shader, errors;
+	const auto result = D3DCompile(cubeShader, sizeof(cubeShader) - 1, nullptr, nullptr, nullptr,
+	                               entry, target, 0, 0, &shader, &errors);
+	if (FAILED(result))
 	{
-		errors.Reset();
-		const HRESULT result = D3DCompile(
-			cubeShader,
-			sizeof(cubeShader) - 1,
-			nullptr,
-			nullptr,
-			nullptr,
-			entry,
-			target,
-			0,
-			0,
-			output,
-			&errors
-		);
+		if (errors) throw std::runtime_error(static_cast<const char*>(errors->GetBufferPointer()));
+		throw std::runtime_error("Failed to compile shader");
+	}
+	return shader;
+}
 
-		if (FAILED(result))
-		{
-			if (errors)
-				throw std::runtime_error(static_cast<const char*>(errors->GetBufferPointer()));
-
-			throw std::runtime_error("Failed to compile shader");
-		}
-	};
-	compile("VS", "vs_5_0", vs.GetAddressOf());
-	compile("PS", "ps_5_0", ps.GetAddressOf());
-
+void Renderer::CreateTerrainPipelineState(ID3DBlob* const vs, ID3DBlob* const ps)
+{
 	constexpr D3D12_INPUT_ELEMENT_DESC input[] = {
-        {
-            .SemanticName = "TEXCOORD", .SemanticIndex = 2,
-            .Format = DXGI_FORMAT_R32G32B32_FLOAT, .InputSlot = 1,
-            .AlignedByteOffset = 0,
-            .InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,
-            .InstanceDataStepRate = 1
-        },
+		{
+			.SemanticName = "TEXCOORD", .SemanticIndex = 2,
+			.Format = DXGI_FORMAT_R32G32B32_FLOAT, .InputSlot = 1,
+			.AlignedByteOffset = 0,
+			.InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,
+			.InstanceDataStepRate = 1
+		},
 		{
 			.SemanticName = "TEXCOORD",
 			.SemanticIndex = 1,

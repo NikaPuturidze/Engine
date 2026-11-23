@@ -26,6 +26,15 @@ public:
     std::uint64_t GetRevision() const { return revision; }
 
 private:
+
+    void BuildLoadOrder();
+    void MoveStreamingCenter(const ChunkCoordinates& nextCenter, std::vector<ChunkCoordinates>& changes);
+    void GenerateNearbyChunks(const std::size_t chunkBudget, std::vector<ChunkCoordinates>& changes);
+    void GenerateChunk(const ChunkCoordinates& coordinates);
+    void RestoreChunkEdits(Chunk& chunk, const ChunkCoordinates& coordinates) const;
+    void PublishChanges(std::vector<ChunkCoordinates> changes);
+
+
     std::unique_ptr<WorldGenerator> generator;
     int chunkRadius;
     Chunks chunks;

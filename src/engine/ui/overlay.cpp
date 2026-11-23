@@ -10,14 +10,6 @@
 
 namespace
 {
-	struct Vertex
-	{
-		float x, y, r, g, b, a;
-	};
-
-	constexpr std::size_t MaxCharacters = 256;
-	constexpr UINT BufferBytes = (MaxCharacters * 35 * 6 + 6) * sizeof(Vertex);
-
 	void Check(const HRESULT result, const char* message)
 	{
 		if (FAILED(result)) throw std::runtime_error(message);
@@ -85,7 +77,15 @@ namespace
 	)";
 }
 
-Overlay::Overlay(ID3D12Device* device)
+
+Overlay::Overlay(ID3D12Device* const device)
+{
+    CreateRootSignature(device);
+    CreatePipeline(device);
+    CreateVertexBuffers(device);
+}
+
+void Overlay::CreateRootSignature(ID3D12Device* const device)
 {
 	constexpr D3D12_ROOT_SIGNATURE_DESC rootDesc{
 		.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT
@@ -96,7 +96,12 @@ Overlay::Overlay(ID3D12Device* device)
 	Check(device->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(),
 	                                  IID_PPV_ARGS(&rootSignature)), "Failed to create overlay root signature");
 
-	Microsoft::WRL::ComPtr<ID3DBlob> vs, ps;
+
+}
+
+void Overlay::CreatePipeline(ID3D12Device* const device)
+{
+	Microsoft::WRL::ComPtr<ID3DBlob> vs, ps, errors;
 	auto compile = [&](const char* entry, const char* target, ID3DBlob** output)
 	{
 		errors.Reset();
@@ -170,6 +175,11 @@ Overlay::Overlay(ID3D12Device* device)
 	Check(device->CreateGraphicsPipelineState(&desc, IID_PPV_ARGS(&pipeline)),
 	      "Failed to create overlay pipeline");
 
+
+}
+
+void Overlay::CreateVertexBuffers(ID3D12Device* const device)
+{
 	constexpr D3D12_HEAP_PROPERTIES heap{
 		.Type = D3D12_HEAP_TYPE_UPLOAD
 	};
@@ -189,190 +199,207 @@ Overlay::Overlay(ID3D12Device* device)
 			      IID_PPV_ARGS(&resource)),
 		      "Failed to create overlay vertex buffer"
 		);
+
 }
 
-void Overlay::Draw(
-	ID3D12GraphicsCommandList* commands,
-	const UINT frameIndex,
-	const UINT width,
-	const UINT height,
-	std::string_view text, const bool centered) const
+void Overlay::Draw(ID3D12GraphicsCommandList* const commands, const UINT frameIndex,
+    const UINT width, const UINT height, const std::string_view text, const bool centered) const
 {
-	if (text.empty() || width == 0 || height == 0) return;
-
-	text = text.substr(0, MaxCharacters);
-	constexpr float Scale = 2, Advance = 6 * Scale, LineHeight = 10 * Scale;
-	constexpr float Padding = 12, Margin = 16;
-	std::size_t columns = 0, lineColumns = 0, lines = 1;
-
-	for (const char character : text)
-	{
-		if (character == '\n')
-		{
-			columns = (std::max)(columns, lineColumns);
-			lineColumns = 0;
-			++lines;
-		}
-		else ++lineColumns;
-	}
-	columns = (std::max)(columns, lineColumns);
-
-	const float panelWidth = static_cast<float>(columns) * Advance + Padding * 2;
-	const float left = (std::max)(0.0f, centered
-		? (static_cast<float>(width) - panelWidth) * 0.5f
-		: static_cast<float>(width) - Margin - panelWidth);
-
-	constexpr float top = Margin;
-	std::vector<Vertex> vertices;
-	vertices.reserve(text.size() * 35 * 6 + 6);
-	auto rectangle = [&](const float x, const float y, const float w, const float h, const float r, const float g,
-	                     const float b, const float a)
-	{
-		const float x0 = x * 2 / width - 1, x1 = (x + w) * 2 / width - 1;
-		const float y0 = 1 - y * 2 / height, y1 = 1 - (y + h) * 2 / height;
-		const Vertex quad[] = {
-			{.x = x0, .y = y0, .r = r, .g = g, .b = b, .a = a},
-			{.x = x1, .y = y0, .r = r, .g = g, .b = b, .a = a},
-			{.x = x0, .y = y1, .r = r, .g = g, .b = b, .a = a},
-			{.x = x0, .y = y1, .r = r, .g = g, .b = b, .a = a},
-			{.x = x1, .y = y0, .r = r, .g = g, .b = b, .a = a},
-			{.x = x1, .y = y1, .r = r, .g = g, .b = b, .a = a}
-		};
-		vertices.insert(vertices.end(), std::begin(quad), std::end(quad));
-	};
-	rectangle(left, top, panelWidth, static_cast<float>(lines) * LineHeight + Padding * 2 - 6,
-	          0.035f, 0.05f, 0.075f, 0.82f);
-
-	float x = left + Padding, y = top + Padding;
-	for (const char character : text)
-	{
-		if (character == '\n')
-		{
-			x = left + Padding;
-			y += LineHeight;
-			continue;
-		}
-		const auto glyph = Glyph(character);
-		for (int row = 0; row < 7; ++row)
-			for (int column = 0; column < 5; ++column)
-				if (glyph[row] & (1 << (4 - column)))
-					rectangle(x + column * Scale, y + row * Scale, Scale, Scale, 0.9f, 0.95f, 1, 1);
-		x += Advance;
-	}
-
-	auto& buffer = buffers[frameIndex];
-	void* mapped = nullptr;
-	constexpr D3D12_RANGE noRead{.Begin = 0, .End = 0};
-	Check(buffer->Map(0, &noRead, &mapped), "Failed to map overlay vertices");
-
-	const UINT bytes = static_cast<UINT>(vertices.size() * sizeof(Vertex));
-	std::memcpy(mapped, vertices.data(), bytes);
-
-	const D3D12_RANGE written{.Begin = 0, .End = bytes};
-	buffer->Unmap(0, &written);
-
-	const D3D12_VERTEX_BUFFER_VIEW view{.BufferLocation = buffer->GetGPUVirtualAddress(), .SizeInBytes = bytes, .StrideInBytes = sizeof(Vertex)};
-	commands->SetPipelineState(pipeline.Get());
-	commands->SetGraphicsRootSignature(rootSignature.Get());
-	commands->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	commands->IASetVertexBuffers(0, 1, &view);
-	commands->DrawInstanced(static_cast<UINT>(vertices.size()), 1, 0, 0);
+    if (text.empty() || width == 0 || height == 0) return;
+    const auto vertices = BuildTextVertices(width, height, text.substr(0, MaxCharacters), centered);
+    DrawVertices(commands, frameIndex, vertices, "Failed to map overlay vertices");
 }
 
-void Overlay::DrawImage(ID3D12GraphicsCommandList* commands, const UINT frameIndex,
-                        const UINT width, const UINT height, const Texture& image) const
+Overlay::TextLayout Overlay::MeasureText(const std::string_view text, const UINT width, const bool centered)
 {
-	if (width == 0 || height == 0) return;
-	if (static_cast<std::uint64_t>(image.width) * image.height * 6 * sizeof(Vertex) > BufferBytes)
-		throw std::runtime_error("Overlay image exceeds vertex buffer capacity");
-
-	// Match the debug UI's two screen pixels per source pixel. Pixel quads retain
-	// the PNG's exact colors and alpha without filtering this small sprite.
-	constexpr float Scale = 2.0f;
-	const float left = (static_cast<float>(width) - image.width * Scale) * 0.5f;
-	const float top = (static_cast<float>(height) - image.height * Scale) * 0.5f;
-	std::vector<Vertex> vertices;
-	vertices.reserve(image.width * image.height * 6);
-	for (UINT y = 0; y < image.height; ++y)
-		for (UINT x = 0; x < image.width; ++x)
-		{
-			const auto* pixel = &image.pixels[(static_cast<std::size_t>(y) * image.width + x) * 4];
-			if (pixel[3] == 0) continue;
-			const float x0 = (left + x * Scale) * 2 / width - 1;
-			const float x1 = (left + (x + 1) * Scale) * 2 / width - 1;
-			const float y0 = 1 - (top + y * Scale) * 2 / height;
-			const float y1 = 1 - (top + (y + 1) * Scale) * 2 / height;
-			const float r = pixel[0] / 255.0f, g = pixel[1] / 255.0f;
-			const float b = pixel[2] / 255.0f, a = pixel[3] / 255.0f;
-			const Vertex quad[] = {
-				{.x = x0, .y = y0, .r = r, .g = g, .b = b, .a = a}, {.x = x1, .y = y0, .r = r, .g = g, .b = b, .a = a}, {.x = x0, .y = y1, .r = r, .g = g, .b = b, .a = a},
-				{.x = x0, .y = y1, .r = r, .g = g, .b = b, .a = a}, {.x = x1, .y = y0, .r = r, .g = g, .b = b, .a = a}, {.x = x1, .y = y1, .r = r, .g = g, .b = b, .a = a}
-			};
-			vertices.insert(vertices.end(), std::begin(quad), std::end(quad));
-		}
-	if (vertices.empty()) return;
-
-	const auto& buffer = buffers[frameIndex];
-	void* mapped = nullptr;
-	constexpr D3D12_RANGE noRead{.Begin = 0, .End = 0};
-	Check(buffer->Map(0, &noRead, &mapped), "Failed to map overlay image vertices");
-	const UINT bytes = static_cast<UINT>(vertices.size() * sizeof(Vertex));
-	std::memcpy(mapped, vertices.data(), bytes);
-	const D3D12_RANGE written{.Begin = 0, .End = bytes};
-	buffer->Unmap(0, &written);
-	const D3D12_VERTEX_BUFFER_VIEW view{.BufferLocation = buffer->GetGPUVirtualAddress(), .SizeInBytes = bytes, .StrideInBytes = sizeof(Vertex)};
-	commands->SetPipelineState(pipeline.Get());
-	commands->SetGraphicsRootSignature(rootSignature.Get());
-	commands->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	commands->IASetVertexBuffers(0, 1, &view);
-	commands->DrawInstanced(static_cast<UINT>(vertices.size()), 1, 0, 0);
-}
-
-void Overlay::DrawLines(ID3D12GraphicsCommandList* commands, const UINT frameIndex, const UINT width, const UINT height,
-    const DirectX::XMFLOAT4X4& matrix, const std::vector<DebugLine>& lines) const
-{
-    if (lines.empty() || !width || !height) return;
-    std::vector<Vertex> vertices;
-    const auto transform=DirectX::XMLoadFloat4x4(&matrix);
-    for (const auto& line:lines)
+    std::size_t columns = 0, lineColumns = 0, lines = 1;
+    for (const char character : text)
     {
-        if ((vertices.size()+6)*sizeof(Vertex)>BufferBytes) break;
-        DirectX::XMFLOAT4 a,b;
-        DirectX::XMStoreFloat4(&a,DirectX::XMVector4Transform(DirectX::XMVectorSet(line.from.x,line.from.y,line.from.z,1),transform));
-        DirectX::XMStoreFloat4(&b,DirectX::XMVector4Transform(DirectX::XMVectorSet(line.to.x,line.to.y,line.to.z,1),transform));
-        // Clip in homogeneous space before perspective division, including near/far planes.
-        auto clip=[&](const float da, const float db)
+        if (character == '\n')
         {
-            if (da<0 && db<0) return false;
-            if (da<0 || db<0)
-            {
-                float t=da/(da-db);
-                DirectX::XMFLOAT4 p{a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t,a.w+(b.w-a.w)*t};
-                if (da<0) a=p; else b=p;
-            }
-            return true;
-        };
-        if (!clip(a.w-0.0001f,b.w-0.0001f) || !clip(a.z,b.z) || !clip(a.w-a.z,b.w-b.z)) continue;
-        const float ax=a.x/a.w,ay=a.y/a.w,bx=b.x/b.w,by=b.y/b.w;
-        const float dx=(bx-ax)*width,dy=(by-ay)*height;
-        const float length=std::hypot(dx,dy);
-        if (length<0.0001f) continue;
-        const float ox=-dy/length*2/width,oy=dx/length*2/height;
-        const auto c=line.color;
-        const Vertex quad[]={{.x = ax+ox,.y = ay+oy,.r = c.r,.g = c.g,.b = c.b,.a = 1},{.x = bx+ox,.y = by+oy,.r = c.r,.g = c.g,.b = c.b,.a = 1},{.x = ax-ox,.y = ay-oy,.r = c.r,.g = c.g,.b = c.b,.a = 1},
-            {.x = ax-ox,.y = ay-oy,.r = c.r,.g = c.g,.b = c.b,.a = 1},{.x = bx+ox,.y = by+oy,.r = c.r,.g = c.g,.b = c.b,.a = 1},{.x = bx-ox,.y = by-oy,.r = c.r,.g = c.g,.b = c.b,.a = 1}};
-        vertices.insert(vertices.end(),std::begin(quad),std::end(quad));
+            columns = std::max(columns, lineColumns);
+            lineColumns = 0;
+            ++lines;
+        }
+        else ++lineColumns;
     }
+    columns = std::max(columns, lineColumns);
+    const float panelWidth = static_cast<float>(columns) * Advance + Padding * 2;
+    return {
+        .left = std::max(0.0f, centered ? (static_cast<float>(width) - panelWidth) * 0.5f :
+            static_cast<float>(width) - Margin - panelWidth),
+        .panelWidth = panelWidth,
+        .panelHeight = static_cast<float>(lines) * LineHeight + Padding * 2 - 6
+    };
+}
+
+std::vector<Overlay::Vertex> Overlay::BuildTextVertices(const UINT width, const UINT height,
+    const std::string_view text, const bool centered)
+{
+    const auto layout = MeasureText(text, width, centered);
+    std::vector<Vertex> vertices;
+    vertices.reserve(text.size() * 35 * 6 + 6);
+    AppendRectangle(vertices, width, height, {layout.left, Margin, layout.panelWidth, layout.panelHeight},
+        {0.035f, 0.05f, 0.075f, 0.82f});
+    AppendText(vertices, width, height, text, layout.left + Padding);
+    return vertices;
+}
+
+void Overlay::AppendText(std::vector<Vertex>& vertices, const UINT width, const UINT height,
+    const std::string_view text, const float left)
+{
+    Vec2 position{left, Margin + Padding};
+    for (const char character : text)
+    {
+        if (character == '\n')
+        {
+            position.x = left;
+            position.y += LineHeight;
+            continue;
+        }
+        AppendGlyph(vertices, width, height, character, position);
+        position.x += Advance;
+    }
+}
+
+void Overlay::AppendGlyph(std::vector<Vertex>& vertices, const UINT width, const UINT height,
+    const char character, const Vec2 position)
+{
+    const auto glyph = Glyph(character);
+    for (int row = 0; row < 7; ++row)
+        for (int column = 0; column < 5; ++column)
+            if (glyph[row] & (1 << (4 - column)))
+                AppendRectangle(vertices, width, height,
+                    {position.x + column * Scale, position.y + row * Scale, Scale, Scale}, {0.9f, 0.95f, 1, 1});
+}
+
+void Overlay::AppendRectangle(std::vector<Vertex>& vertices, const UINT width, const UINT height,
+    const PixelRect rectangle, const Rgba color)
+{
+    const float x0 = rectangle.x * 2 / width - 1;
+    const float x1 = (rectangle.x + rectangle.width) * 2 / width - 1;
+    const float y0 = 1 - rectangle.y * 2 / height;
+    const float y1 = 1 - (rectangle.y + rectangle.height) * 2 / height;
+    AppendQuad(vertices, {{{x0,y0}, {x1,y0}, {x0,y1}, {x1,y1}}}, color);
+}
+
+void Overlay::AppendQuad(std::vector<Vertex>& vertices, const std::array<Vec2, 4>& points, const Rgba color)
+{
+    constexpr unsigned int order[] = {0, 1, 2, 2, 1, 3};
+    for (const auto index : order)
+    {
+        vertices.push_back(
+            {
+                .x = points[index].x,
+                .y = points[index].y,
+                .r = color.r,
+                .g = color.g,
+                .b = color.b,
+                .a = color.a
+            }
+        );
+    }
+}
+
+void Overlay::DrawImage(ID3D12GraphicsCommandList* const commands, const UINT frameIndex,
+    const UINT width, const UINT height, const Texture& image) const
+{
+    if (width == 0 || height == 0) return;
+    if (static_cast<std::uint64_t>(image.width) * image.height * 6 * sizeof(Vertex) > BufferBytes)
+        throw std::runtime_error("Overlay image exceeds vertex buffer capacity");
+    const auto vertices = BuildImageVertices(width, height, image);
+    DrawVertices(commands, frameIndex, vertices, "Failed to map overlay image vertices");
+}
+
+std::vector<Overlay::Vertex> Overlay::BuildImageVertices(const UINT width, const UINT height, const Texture& image)
+{
+    const float left = (static_cast<float>(width) - image.width * Scale) * 0.5f;
+    const float top = (static_cast<float>(height) - image.height * Scale) * 0.5f;
+    std::vector<Vertex> vertices;
+    vertices.reserve(image.width * image.height * 6);
+    for (UINT y = 0; y < image.height; ++y)
+        for (UINT x = 0; x < image.width; ++x)
+        {
+            const auto* pixel = &image.pixels[(static_cast<std::size_t>(y) * image.width + x) * 4];
+            if (pixel[3] == 0) continue;
+            AppendRectangle(vertices, width, height, {left + x * Scale, top + y * Scale, Scale, Scale},
+                {pixel[0] / 255.0f, pixel[1] / 255.0f, pixel[2] / 255.0f, pixel[3] / 255.0f});
+        }
+    return vertices;
+}
+
+void Overlay::DrawLines(ID3D12GraphicsCommandList* const commands, const UINT frameIndex, const UINT width,
+    const UINT height, const DirectX::XMFLOAT4X4& matrix, const std::vector<DebugLine>& lines) const
+{
+    if (lines.empty() || width == 0 || height == 0) return;
+    const auto vertices = BuildLineVertices(width, height, matrix, lines);
+    DrawVertices(commands, frameIndex, vertices, "Failed to map debug vertices");
+}
+
+std::vector<Overlay::Vertex> Overlay::BuildLineVertices(const UINT width, const UINT height,
+    const DirectX::XMFLOAT4X4& matrix, const std::vector<DebugLine>& lines)
+{
+    std::vector<Vertex> vertices;
+    for (const auto& line : lines)
+    {
+        if ((vertices.size() + 6) * sizeof(Vertex) > BufferBytes) break;
+        const auto points = ProjectLine(line, matrix, width, height);
+        if (!points) continue;
+        AppendQuad(vertices, *points, {line.color.r, line.color.g, line.color.b, 1});
+    }
+    return vertices;
+}
+
+bool Overlay::ClipLineToPlane(DirectX::XMFLOAT4& a, DirectX::XMFLOAT4& b, const float da, const float db)
+{
+    if (da < 0 && db < 0) return false;
+    if (da < 0 || db < 0)
+    {
+        const float t = da / (da - db);
+        const DirectX::XMFLOAT4 point{a.x + (b.x-a.x)*t, a.y + (b.y-a.y)*t, a.z + (b.z-a.z)*t, a.w + (b.w-a.w)*t};
+        if (da < 0) a = point;
+        else b = point;
+    }
+    return true;
+}
+
+std::optional<std::array<Vec2, 4>> Overlay::ProjectLine(const DebugLine& line,
+    const DirectX::XMFLOAT4X4& matrix, const UINT width, const UINT height)
+{
+    const auto transform = DirectX::XMLoadFloat4x4(&matrix);
+    DirectX::XMFLOAT4 a, b;
+    DirectX::XMStoreFloat4(&a, DirectX::XMVector4Transform(DirectX::XMVectorSet(line.from.x, line.from.y, line.from.z, 1), transform));
+    DirectX::XMStoreFloat4(&b, DirectX::XMVector4Transform(DirectX::XMVectorSet(line.to.x, line.to.y, line.to.z, 1), transform));
+    if (!ClipLineToPlane(a, b, a.w - 0.0001f, b.w - 0.0001f) || !ClipLineToPlane(a, b, a.z, b.z) ||
+        !ClipLineToPlane(a, b, a.w - a.z, b.w - b.z)) return std::nullopt;
+    const float ax = a.x/a.w, ay = a.y/a.w, bx = b.x/b.w, by = b.y/b.w;
+    const float dx = (bx-ax)*width, dy = (by-ay)*height;
+    const float length = std::hypot(dx, dy);
+    if (length < 0.0001f) return std::nullopt;
+    const float ox = -dy/length*2/width, oy = dx/length*2/height;
+    return std::array<Vec2, 4>{{{ax+ox,ay+oy}, {bx+ox,by+oy}, {ax-ox,ay-oy}, {bx-ox,by-oy}}};
+}
+
+void Overlay::DrawVertices(ID3D12GraphicsCommandList* const commands, const UINT frameIndex,
+    const std::vector<Vertex>& vertices, const char* const error) const
+{
     if (vertices.empty()) return;
-    auto& buffer=buffers[frameIndex]; void* mapped=nullptr;
-    constexpr D3D12_RANGE noRead{.Begin = 0,.End = 0};
-    Check(buffer->Map(0,&noRead,&mapped),"Failed to map debug vertices");
-    const UINT bytes=static_cast<UINT>(vertices.size()*sizeof(Vertex));
-    std::memcpy(mapped,vertices.data(),bytes);
-    const D3D12_RANGE written{.Begin = 0,.End = bytes}; buffer->Unmap(0,&written);
-    const D3D12_VERTEX_BUFFER_VIEW view{.BufferLocation = buffer->GetGPUVirtualAddress(),.SizeInBytes = bytes,.StrideInBytes = sizeof(Vertex)};
-    commands->SetPipelineState(pipeline.Get()); commands->SetGraphicsRootSignature(rootSignature.Get());
+    const auto& buffer = buffers[frameIndex];
+    void* mapped = nullptr;
+    constexpr D3D12_RANGE noRead{0, 0};
+    Check(buffer->Map(0, &noRead, &mapped), error);
+    const UINT bytes = static_cast<UINT>(vertices.size() * sizeof(Vertex));
+    std::memcpy(mapped, vertices.data(), bytes);
+    const D3D12_RANGE written{0, bytes};
+    buffer->Unmap(0, &written);
+    const D3D12_VERTEX_BUFFER_VIEW view{
+        .BufferLocation = buffer->GetGPUVirtualAddress(),
+        .SizeInBytes = bytes,
+        .StrideInBytes = sizeof(Vertex)
+    };
+    commands->SetPipelineState(pipeline.Get());
+    commands->SetGraphicsRootSignature(rootSignature.Get());
     commands->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    commands->IASetVertexBuffers(0,1,&view);
-    commands->DrawInstanced(static_cast<UINT>(vertices.size()),1,0,0);
+    commands->IASetVertexBuffers(0, 1, &view);
+    commands->DrawInstanced(static_cast<UINT>(vertices.size()), 1, 0, 0);
 }

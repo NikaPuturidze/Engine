@@ -65,6 +65,10 @@ correction to the previous mixed frame/mining and tick/movement clocks.
 
 Each frame:
 
+`Application::Run()` expresses this sequence through `StreamWorld()`, `UpdateLook()`,
+`AdvanceSimulation(ticker)`, `UpdateCamera(alpha)`, `PlaySounds()` and `Render()`.
+The details of each stage stay in its focused method in the same implementation file.
+
 1. Process Windows messages and advance bounded world streaming.
 2. Consume relative mouse motion, update look, and publish the direction to the session.
 3. Accumulate time. For each due tick, consume input (pressed once, held repeatedly).

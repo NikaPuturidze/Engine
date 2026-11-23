@@ -5,6 +5,7 @@
 #include <wrl/client.h>
 #include <unordered_map>
 #include <memory>
+#include <queue>
 #include <string_view>
 #include "api/types.h"
 #include "api/game.h"
@@ -47,6 +48,56 @@ class Renderer
 		);
 
 	private:
+
+        struct TerrainBuffer;
+        struct GpuTexture;
+        struct TextureUpload
+        {
+            ComPtr<ID3D12Resource> buffer;
+            D3D12_PLACED_SUBRESOURCE_FOOTPRINT footprint{};
+            UINT rowCount = 0;
+        };
+        struct VisibleChunk
+        {
+            float distanceSquared;
+            TerrainMeshCache::Entries::const_iterator chunk;
+        };
+        struct FartherChunk
+        {
+            bool operator()(const VisibleChunk& left, const VisibleChunk& right) const;
+        };
+        using VisibleChunks = std::priority_queue<VisibleChunk, std::vector<VisibleChunk>, FartherChunk>;
+
+        void InitializeGraphicsDevice(const HWND window);
+        void CreateFrameResources();
+        void CreateSceneResources();
+        void CreateOverlays();
+        void UpdateCameraViews(const Camera& camera, const float visibilityDistance);
+        void WaitForCurrentFrame() const;
+        void ResetFrameCommands() const;
+        void BindFrameTarget() const;
+        void SetViewport() const;
+        void TransitionBackBuffer(const D3D12_RESOURCE_STATES before, const D3D12_RESOURCE_STATES after) const;
+        void SubmitFrameCommands() const;
+        void PresentFrame() const;
+        void SignalFrameFence();
+        void ReleaseUnusedTerrainBuffers(const TerrainMeshCache::Entries& chunks);
+        VisibleChunks CollectVisibleChunks(const TerrainMeshCache::Entries& chunks) const;
+        std::size_t DrawVisibleChunks(VisibleChunks& visible);
+        bool PrepareTerrainBuffer(const TerrainMeshCache::Entry& entry, TerrainBuffer& buffer, std::size_t& uploads) const;
+        void UploadTerrainMesh(const TerrainMeshCache::Entry& entry, TerrainBuffer& buffer) const;
+        void BindTerrainBuffer(const TerrainMesh& terrainMesh, const TerrainBuffer& buffer) const;
+        void BindTerrainPipeline() const;
+        D3D12_GPU_DESCRIPTOR_HANDLE TextureHandle(const GpuTexture& texture) const;
+        void DrawTerrainBatch(const TerrainBatch& batch) const;
+        void ValidateTexture(const Texture& texture) const;
+        GpuTexture CreateGpuTexture(const Texture& texture) const;
+        TextureUpload CreateTextureUpload(const GpuTexture& texture) const;
+        static void CopyTexturePixels(const Texture& texture, const TextureUpload& upload);
+        void SubmitTextureUpload(const GpuTexture& gpuTexture, const TextureUpload& upload);
+        void StoreTexture(const TextureId id, GpuTexture gpuTexture);
+
+
 		void CreateAdapter();
 		void CreateDevice();
 		void CreateCommandQueue();
@@ -58,6 +109,12 @@ class Renderer
 		void CreateCommandResources();
 		void CreateVertexBuffer();
 		void CreateTextureDescriptorHeap();
+
+        void CreateTerrainRootSignature();
+        static ComPtr<ID3DBlob> CompileTerrainShader(const char* const entry, const char* const target);
+        void CreateTerrainPipelineState(ID3DBlob* const vs, ID3DBlob* const ps);
+
+
 		void CreatePipeline();
 		void CreateDepthBuffer();
 

@@ -1,61 +1,101 @@
 #include "engine/platform/input.h"
 #include <commctrl.h>
 #include <stdexcept>
+
 Input::Input(Window& window) : window(window)
 {
-    if (!SetWindowSubclass(window.GetHandle(),SubClassProc,1,reinterpret_cast<DWORD_PTR>(this)))
-        throw std::runtime_error("Failed to install input handler");
-    UpdateCursor(GetFocus()==window.GetHandle());
+	if (!SetWindowSubclass(window.GetHandle(), SubClassProc, 1, reinterpret_cast<DWORD_PTR>(this)))
+		throw std::runtime_error("Failed to install input handler");
+	UpdateCursor(GetFocus() == window.GetHandle());
 }
+
 Input::~Input()
 {
-    RemoveWindowSubclass(window.GetHandle(),SubClassProc,1);
-    UpdateCursor(false);
+	RemoveWindowSubclass(window.GetHandle(), SubClassProc, 1);
+	UpdateCursor(false);
 }
+
 InputActions Input::ConsumeTick()
 {
-    InputActions result;
-    result.move={.x = float(movingRight)-float(movingLeft),.y = float(movingForward)-float(movingBackward)};
-    result.sprinting=sprintInput.IsSprinting() && !movingBackward;
-    result.jumpHeld=jumping; result.jumpPressed=jumpRequested;
-    result.mineHeld=breakingHeld; result.minePressed=removeBlockRequested;
-    result.placePressed=placeBlockRequested; result.toggleModePressed=toggleModeRequested;
-    jumpRequested=removeBlockRequested=placeBlockRequested=toggleModeRequested=false;
-    return result;
+	const auto result = ReadActions();
+	ClearPressedActions();
+	return result;
 }
+
+InputActions Input::ReadActions() const
+{
+	InputActions result;
+	result.move = {
+		.x = static_cast<float>(movingRight) - static_cast<float>(movingLeft),
+		.y = static_cast<float>(movingForward) - static_cast<float>(movingBackward)
+	};
+	result.sprinting = sprintInput.IsSprinting() && !movingBackward;
+	result.jumpHeld = jumping;
+	result.jumpPressed = jumpRequested;
+	result.mineHeld = breakingHeld;
+	result.minePressed = removeBlockRequested;
+	result.placePressed = placeBlockRequested;
+	result.toggleModePressed = toggleModeRequested;
+
+	return result;
+}
+
+void Input::ClearPressedActions()
+{
+	jumpRequested = false;
+	removeBlockRequested = false;
+	placeBlockRequested = false;
+	toggleModeRequested = false;
+}
+
 Vec2 Input::ConsumeLook() const
 {
-    long x=0,y=0; window.ConsumeMouseMovement(x,y);
-    return {.x = float(x),.y = float(y)};
+	long x = 0, y = 0;
+	window.ConsumeMouseMovement(x, y);
+	return {
+		.x = static_cast<float>(x),
+		.y = static_cast<float>(y)
+	};
 }
+
 void Input::UpdateCursor(const bool focused)
 {
-	const HWND hwnd = window.GetHandle();
-	RECT bounds{};
+	const auto bounds = CursorBounds(window.GetHandle(), focused);
+	if (bounds) CaptureCursor(*bounds);
+	else ReleaseCursor();
+}
 
-	if (focused && !IsIconic(hwnd) && GetClientRect(hwnd, &bounds) &&
-		bounds.right > bounds.left && bounds.bottom > bounds.top)
+std::optional<RECT> Input::CursorBounds(const HWND window, const bool focused)
+{
+	RECT bounds{};
+	if (!focused || IsIconic(window) || !GetClientRect(window, &bounds) || bounds.right <= bounds.left || bounds.bottom
+		<= bounds.top)
+		return std::nullopt;
+	POINT origin{bounds.left, bounds.top};
+	POINT end{bounds.right, bounds.bottom};
+	ClientToScreen(window, &origin);
+	ClientToScreen(window, &end);
+	return RECT{origin.x, origin.y, end.x, end.y};
+}
+
+void Input::CaptureCursor(const RECT& bounds)
+{
+	ClipCursor(&bounds);
+	if (!cursorHidden)
 	{
-		POINT origin{.x = bounds.left, .y = bounds.top};
-		POINT end{.x = bounds.right, .y = bounds.bottom};
-		ClientToScreen(hwnd, &origin);
-		ClientToScreen(hwnd, &end);
-		bounds = {.left = origin.x, .top = origin.y, .right = end.x, .bottom = end.y};
-		ClipCursor(&bounds);
-		if (!cursorHidden)
-		{
-			ShowCursor(FALSE);
-			cursorHidden = true;
-		}
-		SetCursor(nullptr);
+		ShowCursor(FALSE);
+		cursorHidden = true;
 	}
-	else if (cursorHidden)
-	{
-		ClipCursor(nullptr);
-		ShowCursor(TRUE);
-		SetCursor(LoadCursor(nullptr, IDC_ARROW));
-		cursorHidden = false;
-	}
+	SetCursor(nullptr);
+}
+
+void Input::ReleaseCursor()
+{
+	if (!cursorHidden) return;
+	ClipCursor(nullptr);
+	ShowCursor(TRUE);
+	SetCursor(LoadCursor(nullptr, IDC_ARROW));
+	cursorHidden = false;
 }
 
 LRESULT CALLBACK Input::SubClassProc(
@@ -105,43 +145,11 @@ LRESULT CALLBACK Input::SubClassProc(
 		case WM_KEYDOWN:
 		case WM_KEYUP:
 			{
-				const bool pressed = uMsg == WM_KEYDOWN;
-				if (wParam == VK_CONTROL || wParam == VK_LCONTROL || wParam == VK_RCONTROL)
-					controller->sprintInput.SetSprintKey(pressed);
-				if (wParam == VK_F4 && pressed && !(lParam & (1LL << 30)))
-					controller->toggleModeRequested = true;
-				if (wParam == 'W')
-				{
-					controller->movingForward = pressed;
-					controller->sprintInput.SetForward(pressed);
-				}
-				if (wParam == 'S')
-				{
-					controller->movingBackward = pressed;
-					if (pressed) controller->sprintInput.Cancel();
-				}
-				if (wParam == 'A') controller->movingLeft = pressed;
-				if (wParam == 'D') controller->movingRight = pressed;
-				if (wParam == VK_SPACE)
-				{
-					if (pressed && !controller->jumping) controller->jumpRequested = true;
-					controller->jumping = pressed;
-				}
+				controller->HandleKey(wParam, uMsg == WM_KEYDOWN, (lParam & (1LL << 30)) != 0);
 				break;
 			}
 		case WM_KILLFOCUS:
-			controller->sprintInput.Reset();
-			controller->removeBlockRequested = false;
-			controller->breakingHeld = false;
-			controller->placeBlockRequested = false;
-			controller->jumping = false;
-			controller->jumpRequested = false;
-			controller->toggleModeRequested = false;
-			controller->UpdateCursor(false);
-			controller->movingForward = false;
-			controller->movingBackward = false;
-			controller->movingLeft = false;
-			controller->movingRight = false;
+			controller->ResetInput();
 			break;
 		case WM_NCDESTROY:
 			controller->UpdateCursor(false);
@@ -149,4 +157,45 @@ LRESULT CALLBACK Input::SubClassProc(
 			break;
 	}
 	return DefSubclassProc(hwnd, uMsg, wParam, lParam);
+}
+
+void Input::HandleKey(const WPARAM key, const bool pressed, const bool repeated)
+{
+	if (key == VK_CONTROL || key == VK_LCONTROL || key == VK_RCONTROL)
+		sprintInput.SetSprintKey(pressed);
+	if (key == VK_F4 && pressed && !repeated)
+		toggleModeRequested = true;
+	if (key == 'W')
+	{
+		movingForward = pressed;
+		sprintInput.SetForward(pressed);
+	}
+	if (key == 'S')
+	{
+		movingBackward = pressed;
+		if (pressed) sprintInput.Cancel();
+	}
+	if (key == 'A') movingLeft = pressed;
+	if (key == 'D') movingRight = pressed;
+	if (key == VK_SPACE)
+	{
+		if (pressed && !jumping) jumpRequested = true;
+		jumping = pressed;
+	}
+}
+
+void Input::ResetInput()
+{
+	sprintInput.Reset();
+	removeBlockRequested = false;
+	breakingHeld = false;
+	placeBlockRequested = false;
+	jumping = false;
+	jumpRequested = false;
+	toggleModeRequested = false;
+	UpdateCursor(false);
+	movingForward = false;
+	movingBackward = false;
+	movingLeft = false;
+	movingRight = false;
 }

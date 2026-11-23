@@ -50,6 +50,10 @@ game callbacks just because that is the easiest place to access a service.
 
 ## C++ code style
 
+- Keep orchestration functions such as `Run()` readable as an ordered list of named
+  stages. Extract coherent input, simulation, camera and audio work into focused methods;
+  do not mix their calculations and branching into the main loop. Preserve execution
+  order and avoid wrappers that merely rename an already clear single operation.
 - Expand aggregate arguments with multiple named fields over separate lines. Put the
   opening brace on its own line inside the call, one field per line, and the closing
   brace and closing parenthesis on separate lines. For example:

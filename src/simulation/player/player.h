@@ -40,6 +40,15 @@ class Player : public Entity
 		static constexpr float EyeHeight = 1.62f;
 
 	private:
+
+        float FindSpawnHeight(const World& world) const;
+        void ResetFallTracking();
+        bool IntersectsBlock(const BlockPosition block) const;
+        void TrackFallAndLanding(const World& world, const float previousY, const bool wasGrounded);
+        void RecordLanding(const World& world);
+        BlockId FindSupportingBlock(const World& world) const;
+
+
 		GameMode gameMode = GameMode::Survival;
 		float fallDistance = 0.0f;
 		FallSound landingSound = FallSound::None;
