@@ -62,6 +62,7 @@ void World::Update(const float playerX, const float playerZ)
     }
     center = nextCenter;
     initialized = true;
+    ++revision;
 }
 
 BlockId World::GetBlock(const int worldX, const int y, const int worldZ) const

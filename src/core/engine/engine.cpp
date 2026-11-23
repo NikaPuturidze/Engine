@@ -2,7 +2,6 @@
 #include "ticker.h"
 #include <system_error>
 #include <vector>
-#include <ranges>
 
 namespace
 {
@@ -85,45 +84,9 @@ void Engine::Tick() const
 
 void Engine::Render() const
 {
-	const auto isSolid = [this](const int x, const int y, const int z)
-	{
-		return world->GetBlock(x, y, z) != 0;
-	};
-
-	renderer.BeginFrame(camera);
+	renderer.BeginFrame(camera, world->GetChunkRadius() * Chunk::Width - 2.0f);
 	renderer.Clear(0.3f, 0.6f, 0.9f);
-	std::size_t renderedBlocks = 0;
-
-	for (const auto& chunk : world->GetChunks() | std::views::values)
-	{
-		for (int y = 0; y < Chunk::Height; ++y)
-		{
-			for (int z = 0; z < Chunk::Depth; ++z)
-			{
-				for (int x = 0; x < Chunk::Width; ++x)
-				{
-					const BlockId block = chunk.GetBlock(x, y, z);
-					if (block == 0) continue;
-					const int worldX = chunk.GetChunkX() * Chunk::Width + x;
-					const int worldZ = chunk.GetChunkZ() * Chunk::Depth + z;
-					const auto visibleFaces = GetVisibleBlockFaces(worldX, y, worldZ, isSolid);
-					if (visibleFaces == 0) continue;
-
-					Cube cube(block);
-
-					cube.x = static_cast<float>(worldX);
-					cube.y = static_cast<float>(y);
-					cube.z = static_cast<float>(worldZ);
-
-					renderer.DrawCube(
-						cube,
-						visibleFaces
-					);
-					++renderedBlocks;
-				}
-			}
-		}
-	}
+	const std::size_t renderedBlocks = renderer.DrawWorld(*world);
 
 	debugOverlay->SetRenderedBlocks(renderedBlocks);
 	debugOverlay->Render();

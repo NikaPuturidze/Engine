@@ -14,4 +14,5 @@ class Player : public Entity
 
 	private:
 		static constexpr float WalkAcceleration = 0.1f;
+		static constexpr float AirAcceleration = 0.02f;
 };

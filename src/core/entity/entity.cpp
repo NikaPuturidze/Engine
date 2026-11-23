@@ -28,17 +28,14 @@ void Entity::UpdatePhysics(const float deltaTime, const World& world)
 	MoveAlongAxis(0, velocity.x * deltaTime, world);
 	MoveAlongAxis(2, velocity.z * deltaTime, world);
 
-	// Apply ground friction
-	const float friction = std::pow(GroundFrictionMultiplier, deltaTime * TicksPerSecond);
-	velocity.x *= friction;
-	velocity.z *= friction;
-
-	// Apply horizontal air/tick drag
-	const float horizontalDrag = std::pow(HorizontalDragPerTick, TicksPerSecond * deltaTime);
+	// Ground friction and air drag are alternatives, not cumulative forces.
+	const float horizontalDrag = std::pow(
+		grounded ? GroundFrictionMultiplier : HorizontalDragPerTick, TicksPerSecond * deltaTime);
 	velocity.x *= horizontalDrag;
 	velocity.z *= horizontalDrag;
 
 	velocity.y = (velocity.y - gravityChange) * std::pow(VerticalDragPerTick, TicksPerSecond * deltaTime);
+	grounded = false;
 	MoveAlongAxis(1, velocity.y * deltaTime, world);
 }
 
@@ -46,7 +43,7 @@ void Entity::MoveAlongAxis(const int axis, const float distance, const World& wo
 {
 	if (distance == 0.0f) return;
 
-	// Position is the center of the feet. Blocks extend 0.5 from their integer centers.
+	// Position is the center of the feet. Blocks extend from integer corners to corner + 1.
 	const std::array minimum{position.x - HalfWidth, position.y, position.z - HalfWidth};
 	const std::array maximum{position.x + HalfWidth, position.y + Height, position.z + HalfWidth};
 
@@ -54,8 +51,8 @@ void Entity::MoveAlongAxis(const int axis, const float distance, const World& wo
 	for (int i = 0; i < 3; ++i)
 	{
 		const float offset = i == axis ? distance : 0.0f;
-		first[i] = static_cast<int>(std::floor(minimum[i] + std::min(offset, 0.0f) + 0.5f));
-		last[i] = static_cast<int>(std::ceil(maximum[i] + std::max(offset, 0.0f) + 0.5f)) - 1;
+		first[i] = static_cast<int>(std::floor(minimum[i] + std::min(offset, 0.0f)));
+		last[i] = static_cast<int>(std::ceil(maximum[i] + std::max(offset, 0.0f))) - 1;
 	}
 	first[1] = std::max(first[1], 0);
 	last[1] = std::min(last[1], Chunk::Height - 1);
@@ -73,18 +70,26 @@ void Entity::MoveAlongAxis(const int axis, const float distance, const World& wo
 
 				bool overlaps = true;
 				for (int i = 0; i < 3; ++i)
-					if (i != axis && (maximum[i] <= block[i] - 0.5f + contactTolerance || minimum[i] >= block[i] + 0.5f - contactTolerance))
+					if (i != axis && (maximum[i] <= block[i] + contactTolerance || minimum[i] >= block[i] + 1.0f - contactTolerance))
 						overlaps = false;
 
 				if (!overlaps) continue;
 
-				if (distance > 0.0f && maximum[axis] <= block[axis] - 0.5f + contactTolerance)
-					allowed = std::min(allowed, std::max(0.0f, block[axis] - 0.5f - maximum[axis]));
-				else if (distance < 0.0f && minimum[axis] >= block[axis] + 0.5f - contactTolerance)
-					allowed = std::max(allowed, std::min(0.0f, block[axis] + 0.5f - minimum[axis]));
+				if (distance > 0.0f && maximum[axis] <= block[axis] + contactTolerance)
+					allowed = std::min(allowed, std::max(0.0f, block[axis] - maximum[axis]));
+				else if (distance < 0.0f && minimum[axis] >= block[axis] + 1.0f - contactTolerance)
+					allowed = std::max(allowed, std::min(0.0f, block[axis] + 1.0f - minimum[axis]));
 			}
 
 	if (axis == 0) { position.x += allowed; if (allowed != distance) velocity.x = 0.0f; }
-	if (axis == 1) { position.y += allowed; if (allowed != distance) velocity.y = 0.0f; }
+	if (axis == 1)
+	{
+		position.y += allowed;
+		if (allowed != distance)
+		{
+			grounded = distance < 0.0f;
+			velocity.y = 0.0f;
+		}
+	}
 	if (axis == 2) { position.z += allowed; if (allowed != distance) velocity.z = 0.0f; }
 }

@@ -9,6 +9,7 @@ class Entity
 	protected:
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT3 velocity{0.0f, 0.0f, 0.0f};
+		bool grounded = false;
 
 		static constexpr float TicksPerSecond = 20.0f;
 		// Gravity in blocks per tick squared; velocity is stored in blocks per second.

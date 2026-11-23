@@ -43,9 +43,9 @@ DirectX::XMMATRIX Camera::GetViewMatrix() const
 	return XMMatrixLookToLH(eye, forward, up);
 }
 
-DirectX::XMMATRIX Camera::GetProjectionMatrix(const float aspectRatio) const
+DirectX::XMMATRIX Camera::GetProjectionMatrix(const float aspectRatio, const float farPlane) const
 {
 	return DirectX::XMMatrixPerspectiveFovLH(
-		DirectX::XMConvertToRadians(fov), aspectRatio, 0.1f, 100.0f
+		DirectX::XMConvertToRadians(fov), aspectRatio, 0.1f, farPlane
 	);
 }

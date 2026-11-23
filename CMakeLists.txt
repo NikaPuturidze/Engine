@@ -31,6 +31,7 @@ add_executable(Engine
 		src/graphics/texture.h
 		src/graphics/texture.cpp
         src/graphics/meshes/cube_mesh.h
+        src/graphics/meshes/terrain_mesh.h
         src/graphics/shaders/cube.hlsl
         src/core/camera/Camera.cpp
         src/core/camera/Camera.h

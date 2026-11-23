@@ -2,7 +2,7 @@
 #include "../ui/overlay.h"
 #include "meshes/cube_mesh.h"
 #include "cube_shader.h"
-#include <dxgi1_4.h>
+#include <dxgi1_5.h>
 #include <stdexcept>
 #include <cstring>
 #include <d3dcompiler.h>
@@ -70,7 +70,12 @@ void Renderer::CreateCommandQueue()
 
 void Renderer::CreateSwapChain(const HWND hwnd)
 {
-	constexpr DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {
+	ComPtr<IDXGIFactory5> factory5;
+	BOOL allowTearing = FALSE;
+	tearingSupported = SUCCEEDED(factory.As(&factory5)) &&
+		SUCCEEDED(factory5->CheckFeatureSupport(DXGI_FEATURE_PRESENT_ALLOW_TEARING,
+			&allowTearing, sizeof(allowTearing))) && allowTearing;
+	const DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {
 		.Width = 0,
 		.Height = 0,
 		.Format = DXGI_FORMAT_B8G8R8A8_UNORM,
@@ -80,6 +85,7 @@ void Renderer::CreateSwapChain(const HWND hwnd)
 		.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT,
 		.BufferCount = 2,
 		.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD,
+		.Flags = tearingSupported ? DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING : 0u,
 	};
 
 	ComPtr<IDXGISwapChain1> swapChain1;
@@ -207,11 +213,14 @@ void Renderer::CreateCommandResources()
 		throw std::runtime_error("Failed to close command list");
 }
 
-void Renderer::BeginFrame(const Camera& camera)
+void Renderer::BeginFrame(const Camera& camera, const float visibilityDistance)
 {
+	cameraPosition = camera.GetPosition();
+	this->visibilityDistance = visibilityDistance;
 	DirectX::XMStoreFloat4x4(
 		&viewProjection,
-		camera.GetViewMatrix() * camera.GetProjectionMatrix(static_cast<float>(width) / height)
+		camera.GetViewMatrix() * camera.GetProjectionMatrix(static_cast<float>(width) / height,
+			100.0f + visibilityDistance * 2.0f)
 	);
 	frameIndex = swapChain->GetCurrentBackBufferIndex();
 
@@ -288,6 +297,7 @@ void Renderer::BeginFrame(const Camera& camera)
 
 void Renderer::Clear(const float r, const float g, const float b) const
 {
+	skyColor = {r, g, b, 1.0f};
 	const float color[] = {r, g, b, 1.0f};
 
 	D3D12_CPU_DESCRIPTOR_HANDLE handle =
@@ -324,7 +334,11 @@ void Renderer::EndFrame()
 
 	commandQueue->ExecuteCommandLists(1, lists);
 
-	if (FAILED(swapChain->Present(1, 0)))
+	BOOL fullscreen = FALSE;
+	if (tearingSupported && FAILED(swapChain->GetFullscreenState(&fullscreen, nullptr)))
+		throw std::runtime_error("Failed to query swap chain fullscreen state");
+	const UINT presentFlags = tearingSupported && !fullscreen ? DXGI_PRESENT_ALLOW_TEARING : 0u;
+	if (FAILED(swapChain->Present(0, presentFlags)))
 		throw std::runtime_error("Failed to present frame");
 
 	const UINT64 value = fenceValue++;
@@ -639,7 +653,7 @@ void Renderer::CreatePipeline()
 			.Constants = {
 				.ShaderRegister = 0,
 				.RegisterSpace = 0,
-				.Num32BitValues = 20,
+				.Num32BitValues = 28,
 			},
 			.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL,
 		},
@@ -735,6 +749,13 @@ void Renderer::CreatePipeline()
 	compile("PS", "ps_5_0", ps.GetAddressOf());
 
 	const D3D12_INPUT_ELEMENT_DESC input[] = {
+        {
+            .SemanticName = "TEXCOORD", .SemanticIndex = 2,
+            .Format = DXGI_FORMAT_R32G32B32_FLOAT, .InputSlot = 1,
+            .AlignedByteOffset = 0,
+            .InputSlotClass = D3D12_INPUT_CLASSIFICATION_PER_INSTANCE_DATA,
+            .InstanceDataStepRate = 1
+        },
 		{
 			.SemanticName = "TEXCOORD",
 			.SemanticIndex = 1,
@@ -814,58 +835,86 @@ void Renderer::CreatePipeline()
 		throw std::runtime_error("Failed to create graphics pipeline");
 }
 
-void Renderer::DrawCube(const Cube& cube, const BlockFaceMask visibleFaces) const
+std::size_t Renderer::DrawWorld(const World& world)
 {
-	if ((visibleFaces & AllBlockFaces) == 0) return;
-	const auto textureBinding = blockTextures.find(cube.blockId);
-	if (textureBinding == blockTextures.end())
-		throw std::runtime_error("No texture is bound to this block ID");
+    const auto& terrainMesh = terrainCache.Get(world);
+    const auto terrainGeneration = terrainCache.GetGeneration();
+    if (terrainMesh.instances.empty()) return 0;
 
-	const auto sideTexture = textures.find(textureBinding->second.side);
-	const auto topTexture = textures.find(textureBinding->second.top);
-	const auto bottomTexture = textures.find(textureBinding->second.bottom);
-	if (sideTexture == textures.end() || topTexture == textures.end() || bottomTexture == textures.end())
-		throw std::runtime_error("A block texture is not registered");
+    // BeginFrame has waited for this frame's GPU work before we reuse its upload buffer.
+    auto& buffer = terrainBuffers[frameIndex];
+    const auto bytes = terrainMesh.instances.size() * sizeof(DirectX::XMFLOAT3);
+    if (buffer.generation != terrainGeneration)
+    {
+        if (buffer.capacity < bytes)
+        {
+            const D3D12_HEAP_PROPERTIES heap{.Type = D3D12_HEAP_TYPE_UPLOAD};
+            const D3D12_RESOURCE_DESC desc{
+                .Dimension = D3D12_RESOURCE_DIMENSION_BUFFER, .Width = bytes,
+                .Height = 1, .DepthOrArraySize = 1, .MipLevels = 1,
+                .SampleDesc = {.Count = 1}, .Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR
+            };
+            buffer.resource.Reset();
+            if (FAILED(device->CreateCommittedResource(&heap, D3D12_HEAP_FLAG_NONE, &desc,
+                D3D12_RESOURCE_STATE_GENERIC_READ, nullptr, IID_PPV_ARGS(&buffer.resource))))
+                throw std::runtime_error("Failed to create terrain instance buffer");
+            buffer.capacity = bytes;
+        }
+        void* mapped = nullptr;
+        const D3D12_RANGE noRead{.Begin = 0, .End = 0};
+        if (FAILED(buffer.resource->Map(0, &noRead, &mapped)))
+            throw std::runtime_error("Failed to map terrain instances");
+        std::memcpy(mapped, terrainMesh.instances.data(), bytes);
+        const D3D12_RANGE written{.Begin = 0, .End = bytes};
+        buffer.resource->Unmap(0, &written);
+        buffer.generation = terrainGeneration;
+    }
+    const D3D12_VERTEX_BUFFER_VIEW views[] = {
+        vertexBufferView,
+        {.BufferLocation = buffer.resource->GetGPUVirtualAddress(),
+         .SizeInBytes = static_cast<UINT>(bytes), .StrideInBytes = sizeof(DirectX::XMFLOAT3)}
+    };
+    commandList->SetPipelineState(pipelineState.Get());
+    commandList->SetGraphicsRootSignature(rootSignature.Get());
+    commandList->SetGraphicsRoot32BitConstants(0, 16, &viewProjection, 0);
+    const float fogGeometry[] = {-cameraPosition.x, -cameraPosition.z, 0.5f, visibilityDistance};
+    commandList->SetGraphicsRoot32BitConstants(0, 4, fogGeometry, 20);
+    commandList->SetGraphicsRoot32BitConstants(0, 4, &skyColor, 24);
+    commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    commandList->IASetVertexBuffers(0, 2, views);
+    ID3D12DescriptorHeap* heaps[] = {textureHeap.Get()};
+    commandList->SetDescriptorHeaps(1, heaps);
 
-	using namespace DirectX;
-	const XMMATRIX world = XMMatrixScaling(cube.size * 0.5f, cube.size * 0.5f, cube.size * 0.5f)
-		* XMMatrixTranslation(cube.x, cube.y, cube.z);
-	const XMMATRIX transform = world * XMLoadFloat4x4(&viewProjection);
-	XMFLOAT4X4 matrix;
-	XMStoreFloat4x4(&matrix, transform);
-	commandList->SetPipelineState(pipelineState.Get());
-	commandList->SetGraphicsRootSignature(rootSignature.Get());
-	commandList->SetGraphicsRoot32BitConstants(0, 16, &matrix, 0);
-	const float topTint[] = {
-		textureBinding->second.topTintRed,
-		textureBinding->second.topTintGreen,
-		textureBinding->second.topTintBlue,
-		1.0f,
-	};
-	commandList->SetGraphicsRoot32BitConstants(0, 4, topTint, 16);
-	ID3D12DescriptorHeap* heaps[] = {textureHeap.Get()};
-	commandList->SetDescriptorHeaps(1, heaps);
-	auto textureHandle = [&](const GpuTexture& texture)
-	{
-		D3D12_GPU_DESCRIPTOR_HANDLE handle = textureHeap->GetGPUDescriptorHandleForHeapStart();
-		handle.ptr += texture.descriptorIndex * textureDescriptorSize;
-		return handle;
-	};
-	commandList->SetGraphicsRootDescriptorTable(1, textureHandle(sideTexture->second));
-	commandList->SetGraphicsRootDescriptorTable(2, textureHandle(topTexture->second));
-	commandList->SetGraphicsRootDescriptorTable(3, textureHandle(bottomTexture->second));
-	commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	commandList->IASetVertexBuffers(0, 1, &vertexBufferView);
-	// Submit consecutive exposed faces together; hidden faces never reach the GPU.
-	for (UINT face = 0; face < 6;)
-	{
-		if ((visibleFaces & (1u << face)) == 0)
-		{
-			++face;
-			continue;
-		}
-		const UINT firstFace = face++;
-		while (face < 6 && (visibleFaces & (1u << face)) != 0) ++face;
-		commandList->DrawInstanced((face - firstFace) * 6, 1, firstFace * 6, 0);
-	}
+    for (const auto& batch : terrainMesh.batches)
+    {
+        const auto textureBinding = blockTextures.find(batch.block);
+        if (textureBinding == blockTextures.end())
+            throw std::runtime_error("No texture is bound to this block ID");
+
+        const auto sideTexture = textures.find(textureBinding->second.side);
+        const auto topTexture = textures.find(textureBinding->second.top);
+        const auto bottomTexture = textures.find(textureBinding->second.bottom);
+        if (sideTexture == textures.end() || topTexture == textures.end() || bottomTexture == textures.end())
+            throw std::runtime_error("A block texture is not registered");
+
+        const float topTint[] = {
+            textureBinding->second.topTintRed,
+            textureBinding->second.topTintGreen,
+            textureBinding->second.topTintBlue,
+            1.0f,
+        };
+        commandList->SetGraphicsRoot32BitConstants(0, 4, topTint, 16);
+        auto textureHandle = [&](const GpuTexture& texture)
+        {
+            D3D12_GPU_DESCRIPTOR_HANDLE handle = textureHeap->GetGPUDescriptorHandleForHeapStart();
+            handle.ptr += texture.descriptorIndex * textureDescriptorSize;
+            return handle;
+        };
+        commandList->SetGraphicsRootDescriptorTable(1, textureHandle(sideTexture->second));
+        commandList->SetGraphicsRootDescriptorTable(2, textureHandle(topTexture->second));
+        commandList->SetGraphicsRootDescriptorTable(3, textureHandle(bottomTexture->second));
+
+        commandList->DrawInstanced(6, batch.instanceCount, batch.face * 6, batch.firstInstance);
+    }
+    return terrainMesh.blockCount;
 }

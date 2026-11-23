@@ -9,6 +9,7 @@
 #include "cube.h"
 #include "../world/block_faces.h"
 #include "texture.h"
+#include "meshes/terrain_mesh.h"
 #include "../core/camera/camera.h"
 #include "../core/window.h"
 
@@ -22,11 +23,11 @@ class Renderer
 		explicit Renderer(const Window& window);
 		~Renderer();
 
-		void BeginFrame(const Camera& camera);
+		void BeginFrame(const Camera& camera, float visibilityDistance);
 		void Clear(float r, float g, float b) const;
 		void EndFrame();
 		void DrawOverlay(std::string_view text) const;
-		void DrawCube(const Cube& cube, BlockFaceMask visibleFaces = AllBlockFaces) const;
+		std::size_t DrawWorld(const World& world);
 		void RegisterTexture(const Texture& texture);
 		void BindTextures(
 			BlockId blockId,
@@ -58,6 +59,7 @@ class Renderer
 		ComPtr<ID3D12Device> device;
 		ComPtr<ID3D12CommandQueue> commandQueue;
 		ComPtr<IDXGISwapChain3> swapChain;
+		bool tearingSupported = false;
 
 		ComPtr<ID3D12Fence> fence;
 		static constexpr UINT BufferCount = 2;
@@ -73,6 +75,9 @@ class Renderer
 		ComPtr<ID3D12GraphicsCommandList> commandList;
 		UINT frameIndex = 0;
 		DirectX::XMFLOAT4X4 viewProjection{};
+		DirectX::XMFLOAT3 cameraPosition{};
+		float visibilityDistance = 0.0f;
+		mutable DirectX::XMFLOAT4 skyColor{0.3f, 0.6f, 0.9f, 1.0f};
 
 		ComPtr<ID3D12RootSignature> rootSignature;
 		ComPtr<ID3D12PipelineState> pipelineState;
@@ -82,6 +87,14 @@ class Renderer
 
 		ComPtr<ID3D12Resource> vertexBuffer;
 		D3D12_VERTEX_BUFFER_VIEW vertexBufferView{};
+		TerrainMeshCache terrainCache;
+		struct TerrainBuffer
+		{
+			ComPtr<ID3D12Resource> resource;
+			std::size_t capacity = 0;
+			std::uint64_t generation = 0;
+		};
+		TerrainBuffer terrainBuffers[BufferCount];
 
 		struct GpuTexture
 		{

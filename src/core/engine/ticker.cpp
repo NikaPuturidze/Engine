@@ -1,4 +1,5 @@
 #include "ticker.h"
+#include <algorithm>
 #include <cmath>
 #include <stdexcept>
 
@@ -12,7 +13,8 @@ Ticker::Ticker(const double tickDuration) :
 void Ticker::Update()
 {
 	const auto now = std::chrono::steady_clock::now();
-	accumulator += std::chrono::duration<double>(now - previous).count();
+	const double elapsed = std::chrono::duration<double>(now - previous).count();
+	accumulator += std::min(elapsed, tickDuration);
 	previous = now;
 }
 

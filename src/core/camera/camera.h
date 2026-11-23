@@ -6,10 +6,11 @@ class Camera
 	public:
 		void Rotate(float yawChange, float pitchChange);
 		float GetYaw() const;
+		DirectX::XMFLOAT3 GetPosition() const { return position; }
 		void SetPosition(float x, float y, float z);
 
 		DirectX::XMMATRIX GetViewMatrix() const;
-		DirectX::XMMATRIX GetProjectionMatrix(float aspectRatio) const;
+		DirectX::XMMATRIX GetProjectionMatrix(float aspectRatio, float farPlane = 100.0f) const;
 	private:
 		DirectX::XMFLOAT3 position{0.0f, 0.0f, -5.0f};
 
