@@ -29,6 +29,8 @@ class PlayerController
 		DirectX::XMFLOAT3 previousPosition;
 
 		void UpdateMovement(float tickDuration) const;
+		void UpdateCursor(bool focused);
+		bool cursorHidden = false;
 
 		bool movingForward = false;
 		bool movingBackward = false;

@@ -10,7 +10,7 @@ PlayerController::PlayerController(
 	                       reinterpret_cast<DWORD_PTR>(this)))
 		throw std::runtime_error("Failed to install player input handler");
 
-	ShowCursor(FALSE);
+	UpdateCursor(GetFocus() == window.GetHandle());
 
 	const auto position = player.GetPosition();
 	camera.SetPosition(position.x, position.y + Player::EyeHeight, position.z);
@@ -19,7 +19,37 @@ PlayerController::PlayerController(
 PlayerController::~PlayerController()
 {
 	RemoveWindowSubclass(window.GetHandle(), SubClassProc, 1);
-	ShowCursor(TRUE);
+	UpdateCursor(false);
+}
+
+void PlayerController::UpdateCursor(const bool focused)
+{
+	const HWND hwnd = window.GetHandle();
+	RECT bounds{};
+
+	if (focused && !IsIconic(hwnd) && GetClientRect(hwnd, &bounds) &&
+		bounds.right > bounds.left && bounds.bottom > bounds.top)
+	{
+		POINT origin{.x = bounds.left, .y = bounds.top};
+		POINT end{.x = bounds.right, .y = bounds.bottom};
+		ClientToScreen(hwnd, &origin);
+		ClientToScreen(hwnd, &end);
+		bounds = {.left = origin.x, .top = origin.y, .right = end.x, .bottom = end.y};
+		ClipCursor(&bounds);
+		if (!cursorHidden)
+		{
+			ShowCursor(FALSE);
+			cursorHidden = true;
+		}
+		SetCursor(nullptr);
+	}
+	else if (cursorHidden)
+	{
+		ClipCursor(nullptr);
+		ShowCursor(TRUE);
+		SetCursor(LoadCursor(nullptr, IDC_ARROW));
+		cursorHidden = false;
+	}
 }
 
 void PlayerController::Update(const float tickDuration, const World& world)
@@ -70,6 +100,24 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 
 	switch (uMsg)
 	{
+		case WM_SETFOCUS:
+			controller->UpdateCursor(true);
+			break;
+		case WM_MOVE:
+		case WM_SIZE:
+		case WM_EXITSIZEMOVE:
+			controller->UpdateCursor(GetFocus() == hwnd);
+			break;
+		case WM_ENTERSIZEMOVE:
+			controller->UpdateCursor(false);
+			break;
+		case WM_SETCURSOR:
+			if (controller->cursorHidden && LOWORD(lParam) == HTCLIENT)
+			{
+				SetCursor(nullptr);
+				return TRUE;
+			}
+			break;
 		case WM_KEYDOWN:
 		case WM_KEYUP:
 			{
@@ -81,12 +129,14 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 				break;
 			}
 		case WM_KILLFOCUS:
+			controller->UpdateCursor(false);
 			controller->movingForward = false;
 			controller->movingBackward = false;
 			controller->movingLeft = false;
 			controller->movingRight = false;
 			break;
 		case WM_NCDESTROY:
+			controller->UpdateCursor(false);
 			RemoveWindowSubclass(hwnd, SubClassProc, uIdSubclass);
 			break;
 	}
