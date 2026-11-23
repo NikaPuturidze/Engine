@@ -1,15 +1,17 @@
 #pragma once
 
 #include <DirectXMath.h>
+#include "../entity/entity.h"
 
-class Player
+class Player : public Entity
 {
 	public:
-		explicit Player(DirectX::XMFLOAT3 position = {0.0f, 0.0f, -5.0f});
-		void Move(float right, float forward, float yawDegrees, float deltaTime);
+		explicit Player(const DirectX::XMFLOAT3 position);
 
-		DirectX::XMFLOAT3 GetPosition() const;
+		void Move(float right, float forward, float yawDegrees, float deltaTime);
+		void Update(float deltaTime, const World& world) override;
+		static constexpr float EyeHeight = 1.62f;
+
 	private:
-		DirectX::XMFLOAT3 position;
-		DirectX::XMFLOAT3 velocity{0.0f, 0.0f, 0.0f};
+		static constexpr float WalkAcceleration = 0.1f;
 };

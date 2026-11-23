@@ -47,6 +47,8 @@ add_executable(Engine
 		src/world/generator/world_generator.h
 		src/world/generator/flat_world_generator.h
 		src/world/generator/flat_world_generator.cpp
+		src/core/entity/entity.cpp
+		src/core/entity/entity.h
 )
 
 target_include_directories(Engine PRIVATE

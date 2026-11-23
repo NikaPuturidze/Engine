@@ -13,7 +13,7 @@ PlayerController::PlayerController(
 	ShowCursor(FALSE);
 
 	const auto position = player.GetPosition();
-	camera.SetPosition(position.x, position.y, position.z);
+	camera.SetPosition(position.x, position.y + Player::EyeHeight, position.z);
 }
 
 PlayerController::~PlayerController()
@@ -22,10 +22,11 @@ PlayerController::~PlayerController()
 	ShowCursor(TRUE);
 }
 
-void PlayerController::Update(const float tickDuration)
+void PlayerController::Update(const float tickDuration, const World& world)
 {
 	previousPosition = player.GetPosition();
 	UpdateMovement(tickDuration);
+	player.Update(tickDuration, world);
 }
 
 void PlayerController::UpdateCamera(const float alpha) const
@@ -33,7 +34,7 @@ void PlayerController::UpdateCamera(const float alpha) const
 	const auto position = player.GetPosition();
 	camera.SetPosition(
 		previousPosition.x + (position.x - previousPosition.x) * alpha,
-		previousPosition.y + (position.y - previousPosition.y) * alpha,
+		previousPosition.y + (position.y - previousPosition.y) * alpha + Player::EyeHeight,
 		previousPosition.z + (position.z - previousPosition.z) * alpha
 	);
 }

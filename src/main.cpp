@@ -1,4 +1,4 @@
-﻿#include "core/window.h"
+#include "core/window.h"
 #include "core/player/player.h"
 #include "core/camera/camera.h"
 #include "core/engine/engine.h"
@@ -9,7 +9,7 @@ int main()
 {
 	Window window;
 	Renderer renderer(window);
-	Player player({0, 10.0f, 0});
+	Player player({0, 100.0f, 0});
 	Camera camera;
 	PlayerController playerController(window, player, camera);
 

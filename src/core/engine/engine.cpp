@@ -78,7 +78,7 @@ void Engine::Run() const
 
 void Engine::Tick() const
 {
-	playerController.Update(TickDuration);
+	playerController.Update(TickDuration, *world);
 	const auto position = playerController.GetPosition();
 	world->Update(position.x, position.z);
 }
