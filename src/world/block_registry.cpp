@@ -7,7 +7,9 @@
 #include <stdexcept>
 #include <vector>
 
-BlockRegistry::BlockRegistry(Renderer& renderer) : renderer(renderer) {}
+BlockRegistry::BlockRegistry(Renderer& renderer) : renderer(renderer)
+{
+}
 
 void BlockRegistry::LoadNamespace(const std::filesystem::path& directory, const std::string_view namespaceName)
 {
@@ -28,6 +30,7 @@ void BlockRegistry::LoadNamespace(const std::filesystem::path& directory, const 
 
 		std::filesystem::path blockPath = relative;
 		blockPath.replace_extension();
+
 		const std::string blockResourceId = std::string(namespaceName) + ":block/" + blockPath.generic_string();
 		const BlockId blockId = nextBlockId++;
 
@@ -79,22 +82,23 @@ BlockId BlockRegistry::GetBlockId(const std::string_view resourceId) const
 	return block->second;
 }
 
-std::string BlockRegistry::ReadTextFile(const std::filesystem::path& path) const
+std::string BlockRegistry::ReadTextFile(const std::filesystem::path& path)
 {
 	std::ifstream file(path);
 	if (!file)
 		throw std::runtime_error("Failed to open resource file: " + path.string());
 
-	return {std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()};
+	return {
+		std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()
+	};
 }
 
-std::string BlockRegistry::ReadModelReference(const std::filesystem::path& statePath) const
+std::string BlockRegistry::ReadModelReference(const std::filesystem::path& statePath)
 {
 	const std::regex pattern(R"json("model"\s*:\s*"([^"]+)")json");
 	std::smatch match;
-	const std::string state = ReadTextFile(statePath);
 
-	if (!std::regex_search(state, match, pattern))
+	if (const std::string state = ReadTextFile(statePath); !std::regex_search(state, match, pattern))
 		throw std::runtime_error("Block state has no model: " + statePath.string());
 
 	return match[1].str();
@@ -102,14 +106,14 @@ std::string BlockRegistry::ReadModelReference(const std::filesystem::path& state
 
 BlockRegistry::BlockTextureReferences BlockRegistry::ReadTextureReferences(
 	const std::filesystem::path& modelPath
-) const
+)
 {
 	const std::string model = ReadTextFile(modelPath);
 	auto findTexture = [&](const std::string& name) -> std::optional<std::string>
 	{
 		const std::regex pattern("\\\"" + name + "\\\"\\s*:\\s*\\\"([^\\\"]+)\\\"");
-		std::smatch match;
-		if (std::regex_search(model, match, pattern))
+
+		if (std::smatch match; std::regex_search(model, match, pattern))
 			return match[1].str();
 
 		return std::nullopt;
@@ -134,8 +138,8 @@ BlockRegistry::BlockTextureReferences BlockRegistry::ReadTextureReferences(
 	const std::regex tintPattern(
 		R"json("top_tint"\s*:\s*\[\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*\])json"
 	);
-	std::smatch tintMatch;
-	if (std::regex_search(model, tintMatch, tintPattern))
+
+	if (std::smatch tintMatch; std::regex_search(model, tintMatch, tintPattern))
 	{
 		textures.topTintRed = std::stof(tintMatch[1].str());
 		textures.topTintGreen = std::stof(tintMatch[2].str());
@@ -150,7 +154,7 @@ std::filesystem::path BlockRegistry::ResolveResourcePath(
 	const std::string_view resourceType,
 	const std::string_view resourceId,
 	const std::string_view extension
-) const
+)
 {
 	const std::size_t separator = resourceId.find(':');
 	if (separator == std::string_view::npos)

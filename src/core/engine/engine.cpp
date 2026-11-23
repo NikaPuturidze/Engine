@@ -1,5 +1,4 @@
 ﻿#include "engine.h"
-
 #include "ticker.h"
 
 Engine::Engine(
@@ -48,6 +47,7 @@ void Engine::Render() const
 		0.0f / 255.0f,
 		0.0f / 255.0f
 	);
+
 	for (int x = 0; x < 2; ++x)
 	{
 		Cube cube(blocks.GetBlockId("default:block/grass"));
