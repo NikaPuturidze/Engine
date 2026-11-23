@@ -9,11 +9,11 @@ int main()
 {
 	Window window;
 	Renderer renderer(window);
-	Player player;
+	Player player({0, 4.0f, 0});
 	Camera camera;
 	PlayerController playerController(window, player, camera);
 
-	const Engine engine(window, renderer, playerController, camera);
+	Engine engine(window, renderer, playerController, camera);
 
 	engine.Run();
 

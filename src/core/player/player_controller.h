@@ -19,6 +19,7 @@ class PlayerController
 		void Update(float tickDuration);
 		void UpdateLook() const;
 		void UpdateCamera(float alpha) const;
+		DirectX::XMFLOAT3 GetPosition() const { return player.GetPosition(); }
 
 	private:
 		Window& window;

@@ -37,6 +37,12 @@ add_executable(Engine
 		src/core/engine/engine.h
 		src/core/engine/ticker.cpp
 		src/core/engine/ticker.h
+		src/world/generator/chunk.h
+		src/world/world.h
+		src/world/world.cpp
+		src/world/generator/world_generator.h
+		src/world/generator/flat_world_generator.h
+		src/world/generator/flat_world_generator.cpp
 )
 
 target_include_directories(Engine PRIVATE
