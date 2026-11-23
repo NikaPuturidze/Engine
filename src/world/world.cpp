@@ -14,7 +14,7 @@ namespace
 
     bool IsEmpty(const Chunk& chunk)
     {
-        for (int y = 0; y < Chunk::Height; ++y)
+        for (int y = 0; y < chunk.GetStoredHeight(); ++y)
             for (int z = 0; z < Chunk::Depth; ++z)
                 for (int x = 0; x < Chunk::Width; ++x)
                     if (chunk.GetBlock(x, y, z) != 0) return false;

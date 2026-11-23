@@ -9,6 +9,7 @@
 #include "cube.h"
 #include "../world/block_faces.h"
 #include "texture.h"
+#include "../world/block.h"
 #include "meshes/terrain_mesh.h"
 #include "../core/camera/camera.h"
 #include "../core/window.h"
@@ -31,6 +32,9 @@ class Renderer
 		void DrawCrosshair(const Texture& image) const;
 		std::size_t DrawWorld(const World& world);
 		void RegisterTexture(const Texture& texture);
+		void BindFaceTextures(BlockId blockId, const std::array<TextureId, 6>& faces);
+		void BindSideOverlay(BlockId blockId, TextureId texture);
+		void SetBlockCracking(BlockPosition position, std::optional<TextureId> texture);
 		void BindTextures(
 			BlockId blockId,
 			TextureId sideTexture,
@@ -105,7 +109,7 @@ class Renderer
 			UINT descriptorIndex = 0;
 		};
 
-		static constexpr UINT TextureCapacity = 64;
+		static constexpr UINT TextureCapacity = 8192;
 		ComPtr<ID3D12DescriptorHeap> textureHeap;
 		UINT textureDescriptorSize = 0;
 		std::unordered_map<TextureId, GpuTexture> textures;
@@ -118,9 +122,13 @@ class Renderer
 			float topTintRed;
 			float topTintGreen;
 			float topTintBlue;
+			std::array<TextureId, 6> faces;
+			TextureId sideOverlay = 0;
 		};
 
 		std::unordered_map<BlockId, BlockTextures> blockTextures;
+		BlockPosition crackingPosition{};
+		std::optional<TextureId> crackingTexture;
 		std::unique_ptr<Overlay> overlay;
 		std::unique_ptr<Overlay> targetOverlay;
 		std::unique_ptr<Overlay> crosshairOverlay;

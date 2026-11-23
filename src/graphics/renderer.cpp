@@ -584,9 +584,28 @@ void Renderer::BindTextures(
 		.topTintRed = topTintRed,
 		.topTintGreen = topTintGreen,
 		.topTintBlue = topTintBlue,
+		.faces = {sideTexture, sideTexture, sideTexture, sideTexture, topTexture, bottomTexture},
 	};
 }
 
+void Renderer::BindFaceTextures(BlockId blockId, const std::array<TextureId, 6>& faces)
+{
+	for (const auto texture : faces)
+		if (!textures.contains(texture)) throw std::runtime_error("Unregistered face texture");
+	blockTextures.at(blockId).faces = faces;
+}
+
+void Renderer::BindSideOverlay(BlockId blockId, TextureId texture)
+{
+	if (!textures.contains(texture)) throw std::runtime_error("Unregistered side overlay texture");
+	blockTextures.at(blockId).sideOverlay = texture;
+}
+
+void Renderer::SetBlockCracking(BlockPosition position, std::optional<TextureId> texture)
+{
+	crackingPosition = position;
+	crackingTexture = texture;
+}
 
 void Renderer::CreateDepthBuffer()
 {
@@ -663,6 +682,18 @@ void Renderer::CreatePipeline()
 			.RegisterSpace = 0,
 			.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND,
 		},
+		{
+			.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
+			.NumDescriptors = 1,
+			.BaseShaderRegister = 3,
+			.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND,
+		},
+		{
+			.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
+			.NumDescriptors = 1,
+			.BaseShaderRegister = 4,
+			.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND,
+		},
 	};
 	const D3D12_ROOT_PARAMETER parameters[] = {
 		{
@@ -670,7 +701,7 @@ void Renderer::CreatePipeline()
 			.Constants = {
 				.ShaderRegister = 0,
 				.RegisterSpace = 0,
-				.Num32BitValues = 28,
+				.Num32BitValues = 32,
 			},
 			.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL,
 		},
@@ -696,6 +727,16 @@ void Renderer::CreatePipeline()
 				.NumDescriptorRanges = 1,
 				.pDescriptorRanges = &textureRanges[2],
 			},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		},
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE,
+			.DescriptorTable = {.NumDescriptorRanges = 1, .pDescriptorRanges = &textureRanges[3]},
+			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
+		},
+		{
+			.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE,
+			.DescriptorTable = {.NumDescriptorRanges = 1, .pDescriptorRanges = &textureRanges[4]},
 			.ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL,
 		},
 	};
@@ -932,6 +973,9 @@ std::size_t Renderer::DrawWorld(const World& world)
         const float fogGeometry[] = {-cameraPosition.x, -cameraPosition.z, 0.5f, visibilityDistance};
         commandList->SetGraphicsRoot32BitConstants(0, 4, fogGeometry, 20);
         commandList->SetGraphicsRoot32BitConstants(0, 4, &skyColor, 24);
+        const float crackingBlock[] = {crackingPosition.x + 0.5f, crackingPosition.y + 0.5f,
+            crackingPosition.z + 0.5f, crackingTexture ? 1.0f : 0.0f};
+        commandList->SetGraphicsRoot32BitConstants(0, 4, crackingBlock, 28);
         commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
         commandList->IASetVertexBuffers(0, 2, views);
         ID3D12DescriptorHeap* heaps[] = {textureHeap.Get()};
@@ -943,7 +987,7 @@ std::size_t Renderer::DrawWorld(const World& world)
             if (textureBinding == blockTextures.end())
                 throw std::runtime_error("No texture is bound to this block ID");
 
-            const auto sideTexture = textures.find(textureBinding->second.side);
+            const auto sideTexture = textures.find(textureBinding->second.faces[batch.face]);
             const auto topTexture = textures.find(textureBinding->second.top);
             const auto bottomTexture = textures.find(textureBinding->second.bottom);
             if (sideTexture == textures.end() || topTexture == textures.end() || bottomTexture == textures.end())
@@ -953,7 +997,7 @@ std::size_t Renderer::DrawWorld(const World& world)
                 textureBinding->second.topTintRed,
                 textureBinding->second.topTintGreen,
                 textureBinding->second.topTintBlue,
-                1.0f,
+                textureBinding->second.sideOverlay != 0 ? 1.0f : 0.0f,
             };
             commandList->SetGraphicsRoot32BitConstants(0, 4, topTint, 16);
             auto textureHandle = [&](const GpuTexture& texture)
@@ -965,6 +1009,10 @@ std::size_t Renderer::DrawWorld(const World& world)
             commandList->SetGraphicsRootDescriptorTable(1, textureHandle(sideTexture->second));
             commandList->SetGraphicsRootDescriptorTable(2, textureHandle(topTexture->second));
             commandList->SetGraphicsRootDescriptorTable(3, textureHandle(bottomTexture->second));
+            commandList->SetGraphicsRootDescriptorTable(4,
+                textureHandle(crackingTexture ? textures.at(*crackingTexture) : sideTexture->second));
+            commandList->SetGraphicsRootDescriptorTable(5, textureHandle(
+                textureBinding->second.sideOverlay != 0 ? textures.at(textureBinding->second.sideOverlay) : sideTexture->second));
 
             commandList->DrawInstanced(6, batch.instanceCount, batch.face * 6, batch.firstInstance);
         }

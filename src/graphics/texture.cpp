@@ -31,7 +31,7 @@ namespace
 	};
 }
 
-Texture Texture::LoadPng(const TextureId id, const std::filesystem::path& path)
+Texture Texture::LoadPng(const TextureId id, const std::filesystem::path& path, const bool firstAnimationFrame)
 {
 	ComApartment apartment;
 
@@ -77,9 +77,12 @@ Texture Texture::LoadPng(const TextureId id, const std::filesystem::path& path)
 	)))
 		throw std::runtime_error("Failed to convert PNG texture to RGBA");
 
+	// Minecraft animated block textures are vertical strips of square frames.
+	if (firstAnimationFrame && height > width && height % width == 0) height = width;
+	const WICRect region{0, 0, static_cast<INT>(width), static_cast<INT>(height)};
 	std::vector<std::uint8_t> pixels(width * height * 4);
 	if (FAILED(converter->CopyPixels(
-		nullptr,
+		&region,
 		width * 4,
 		static_cast<UINT>(pixels.size()),
 		pixels.data()

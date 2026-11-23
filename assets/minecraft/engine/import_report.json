@@ -1,0 +1,4312 @@
+{
+  "blocks": 1287,
+  "converted_block_sounds": 1003,
+  "converted_sound_files": 1005,
+  "cube_previews": [
+    {
+      "block": "_all",
+      "model": "minecraft:block/acacia_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "_list",
+      "model": null,
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_button",
+      "model": "minecraft:block/acacia_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_door",
+      "model": "minecraft:block/acacia_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_fence",
+      "model": "minecraft:block/acacia_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_fence_gate",
+      "model": "minecraft:block/acacia_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_hanging_sign",
+      "model": "minecraft:block/acacia_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_pressure_plate",
+      "model": "minecraft:block/acacia_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_sapling",
+      "model": "minecraft:block/acacia_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_shelf",
+      "model": "minecraft:block/acacia_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_sign",
+      "model": "minecraft:block/acacia_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_slab",
+      "model": "minecraft:block/acacia_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_stairs",
+      "model": "minecraft:block/acacia_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_trapdoor",
+      "model": "minecraft:block/acacia_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_wall_hanging_sign",
+      "model": "minecraft:block/acacia_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "acacia_wall_sign",
+      "model": "minecraft:block/acacia_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "activator_rail",
+      "model": "minecraft:block/activator_rail_raised_ne",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "allium",
+      "model": "minecraft:block/allium",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "amethyst_cluster",
+      "model": "minecraft:block/amethyst_cluster",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "andesite_slab",
+      "model": "minecraft:block/andesite_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "andesite_stairs",
+      "model": "minecraft:block/andesite_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "andesite_wall",
+      "model": "minecraft:block/andesite_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "anvil",
+      "model": "minecraft:block/anvil",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "attached_melon_stem",
+      "model": "minecraft:block/attached_melon_stem",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "attached_pumpkin_stem",
+      "model": "minecraft:block/attached_pumpkin_stem",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "azalea",
+      "model": "minecraft:block/azalea",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "azure_bluet",
+      "model": "minecraft:block/azure_bluet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo",
+      "model": "minecraft:block/bamboo1_age0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_button",
+      "model": "minecraft:block/bamboo_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_door",
+      "model": "minecraft:block/bamboo_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_fence",
+      "model": "minecraft:block/bamboo_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_fence_gate",
+      "model": "minecraft:block/bamboo_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_hanging_sign",
+      "model": "minecraft:block/bamboo_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_mosaic_slab",
+      "model": "minecraft:block/bamboo_mosaic_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_mosaic_stairs",
+      "model": "minecraft:block/bamboo_mosaic_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_pressure_plate",
+      "model": "minecraft:block/bamboo_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_sapling",
+      "model": "minecraft:block/bamboo_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_shelf",
+      "model": "minecraft:block/bamboo_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_sign",
+      "model": "minecraft:block/bamboo_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_slab",
+      "model": "minecraft:block/bamboo_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_stairs",
+      "model": "minecraft:block/bamboo_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_trapdoor",
+      "model": "minecraft:block/bamboo_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_wall_hanging_sign",
+      "model": "minecraft:block/bamboo_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bamboo_wall_sign",
+      "model": "minecraft:block/bamboo_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "barrier",
+      "model": "minecraft:block/barrier",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "beacon",
+      "model": "minecraft:block/beacon",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "beetroots",
+      "model": "minecraft:block/beetroots_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bell",
+      "model": "minecraft:block/bell_ceiling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "big_dripleaf",
+      "model": "minecraft:block/big_dripleaf_full_tilt",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "big_dripleaf_stem",
+      "model": "minecraft:block/big_dripleaf_stem",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_button",
+      "model": "minecraft:block/birch_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_door",
+      "model": "minecraft:block/birch_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_fence",
+      "model": "minecraft:block/birch_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_fence_gate",
+      "model": "minecraft:block/birch_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_hanging_sign",
+      "model": "minecraft:block/birch_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_pressure_plate",
+      "model": "minecraft:block/birch_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_sapling",
+      "model": "minecraft:block/birch_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_shelf",
+      "model": "minecraft:block/birch_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_sign",
+      "model": "minecraft:block/birch_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_slab",
+      "model": "minecraft:block/birch_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_stairs",
+      "model": "minecraft:block/birch_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_trapdoor",
+      "model": "minecraft:block/birch_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_wall_hanging_sign",
+      "model": "minecraft:block/birch_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "birch_wall_sign",
+      "model": "minecraft:block/birch_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_bed",
+      "model": "minecraft:block/black_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_candle",
+      "model": "minecraft:block/black_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_candle_cake",
+      "model": "minecraft:block/black_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_carpet",
+      "model": "minecraft:block/black_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_concrete_slab",
+      "model": "minecraft:block/black_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_concrete_stairs",
+      "model": "minecraft:block/black_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_shulker_box",
+      "model": "minecraft:block/black_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_stained_glass_pane",
+      "model": "minecraft:block/black_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_wool_slab",
+      "model": "minecraft:block/black_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "black_wool_stairs",
+      "model": "minecraft:block/black_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blackstone_slab",
+      "model": "minecraft:block/blackstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blackstone_stairs",
+      "model": "minecraft:block/blackstone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blackstone_wall",
+      "model": "minecraft:block/blackstone_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_bed",
+      "model": "minecraft:block/blue_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_candle",
+      "model": "minecraft:block/blue_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_candle_cake",
+      "model": "minecraft:block/blue_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_carpet",
+      "model": "minecraft:block/blue_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_concrete_slab",
+      "model": "minecraft:block/blue_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_concrete_stairs",
+      "model": "minecraft:block/blue_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_orchid",
+      "model": "minecraft:block/blue_orchid",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_shulker_box",
+      "model": "minecraft:block/blue_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_stained_glass_pane",
+      "model": "minecraft:block/blue_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_wool_slab",
+      "model": "minecraft:block/blue_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "blue_wool_stairs",
+      "model": "minecraft:block/blue_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brain_coral",
+      "model": "minecraft:block/brain_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brain_coral_fan",
+      "model": "minecraft:block/brain_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brain_coral_wall_fan",
+      "model": "minecraft:block/brain_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brewing_stand",
+      "model": "minecraft:block/brewing_stand",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brick_slab",
+      "model": "minecraft:block/brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brick_stairs",
+      "model": "minecraft:block/brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brick_wall",
+      "model": "minecraft:block/brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_bed",
+      "model": "minecraft:block/brown_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_candle",
+      "model": "minecraft:block/brown_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_candle_cake",
+      "model": "minecraft:block/brown_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_carpet",
+      "model": "minecraft:block/brown_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_concrete_slab",
+      "model": "minecraft:block/brown_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_concrete_stairs",
+      "model": "minecraft:block/brown_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_mushroom",
+      "model": "minecraft:block/brown_mushroom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_mushroom_block",
+      "model": "minecraft:block/brown_mushroom_block",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_shulker_box",
+      "model": "minecraft:block/brown_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_stained_glass_pane",
+      "model": "minecraft:block/brown_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_wool_slab",
+      "model": "minecraft:block/brown_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "brown_wool_stairs",
+      "model": "minecraft:block/brown_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bubble_column",
+      "model": "minecraft:block/water",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bubble_coral",
+      "model": "minecraft:block/bubble_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bubble_coral_fan",
+      "model": "minecraft:block/bubble_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bubble_coral_wall_fan",
+      "model": "minecraft:block/bubble_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "bush",
+      "model": "minecraft:block/bush",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cactus",
+      "model": "minecraft:block/cactus",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cactus_flower",
+      "model": "minecraft:block/cactus_flower",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cake",
+      "model": "minecraft:block/cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "calibrated_sculk_sensor",
+      "model": "minecraft:block/calibrated_sculk_sensor_active",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "campfire",
+      "model": "minecraft:block/campfire_off",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "candle",
+      "model": "minecraft:block/candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "candle_cake",
+      "model": "minecraft:block/candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "carrots",
+      "model": "minecraft:block/carrots_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cauldron",
+      "model": "minecraft:block/cauldron",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cave_vines",
+      "model": "minecraft:block/cave_vines",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cave_vines_plant",
+      "model": "minecraft:block/cave_vines_plant",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_button",
+      "model": "minecraft:block/cherry_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_door",
+      "model": "minecraft:block/cherry_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_fence",
+      "model": "minecraft:block/cherry_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_fence_gate",
+      "model": "minecraft:block/cherry_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_hanging_sign",
+      "model": "minecraft:block/cherry_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_pressure_plate",
+      "model": "minecraft:block/cherry_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_sapling",
+      "model": "minecraft:block/cherry_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_shelf",
+      "model": "minecraft:block/cherry_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_sign",
+      "model": "minecraft:block/cherry_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_slab",
+      "model": "minecraft:block/cherry_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_stairs",
+      "model": "minecraft:block/cherry_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_trapdoor",
+      "model": "minecraft:block/cherry_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_wall_hanging_sign",
+      "model": "minecraft:block/cherry_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cherry_wall_sign",
+      "model": "minecraft:block/cherry_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "chest",
+      "model": "minecraft:block/chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "chipped_anvil",
+      "model": "minecraft:block/chipped_anvil",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "chorus_flower",
+      "model": "minecraft:block/chorus_flower",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "chorus_plant",
+      "model": "minecraft:block/chorus_plant_side",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cinnabar_brick_slab",
+      "model": "minecraft:block/cinnabar_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cinnabar_brick_stairs",
+      "model": "minecraft:block/cinnabar_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cinnabar_brick_wall",
+      "model": "minecraft:block/cinnabar_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cinnabar_slab",
+      "model": "minecraft:block/cinnabar_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cinnabar_stairs",
+      "model": "minecraft:block/cinnabar_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cinnabar_wall",
+      "model": "minecraft:block/cinnabar_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "closed_eyeblossom",
+      "model": "minecraft:block/closed_eyeblossom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cobbled_deepslate_slab",
+      "model": "minecraft:block/cobbled_deepslate_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cobbled_deepslate_stairs",
+      "model": "minecraft:block/cobbled_deepslate_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cobbled_deepslate_wall",
+      "model": "minecraft:block/cobbled_deepslate_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cobblestone_slab",
+      "model": "minecraft:block/cobblestone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cobblestone_stairs",
+      "model": "minecraft:block/cobblestone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cobblestone_wall",
+      "model": "minecraft:block/cobblestone_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cobweb",
+      "model": "minecraft:block/cobweb",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cocoa",
+      "model": "minecraft:block/cocoa_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "comparator",
+      "model": "minecraft:block/comparator",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "composter",
+      "model": "minecraft:block/composter",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "conduit",
+      "model": "minecraft:block/conduit",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_bars",
+      "model": "minecraft:block/copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_chain",
+      "model": "minecraft:block/copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_chest",
+      "model": "minecraft:block/copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_door",
+      "model": "minecraft:block/copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_golem_statue",
+      "model": "minecraft:block/copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_lantern",
+      "model": "minecraft:block/copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_torch",
+      "model": "minecraft:block/copper_torch",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_trapdoor",
+      "model": "minecraft:block/copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "copper_wall_torch",
+      "model": "minecraft:block/copper_wall_torch",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cornflower",
+      "model": "minecraft:block/cornflower",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "creeper_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "creeper_wall_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_button",
+      "model": "minecraft:block/crimson_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_door",
+      "model": "minecraft:block/crimson_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_fence",
+      "model": "minecraft:block/crimson_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_fence_gate",
+      "model": "minecraft:block/crimson_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_fungus",
+      "model": "minecraft:block/crimson_fungus",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_hanging_sign",
+      "model": "minecraft:block/crimson_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_pressure_plate",
+      "model": "minecraft:block/crimson_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_roots",
+      "model": "minecraft:block/crimson_roots",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_shelf",
+      "model": "minecraft:block/crimson_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_sign",
+      "model": "minecraft:block/crimson_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_slab",
+      "model": "minecraft:block/crimson_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_stairs",
+      "model": "minecraft:block/crimson_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_trapdoor",
+      "model": "minecraft:block/crimson_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_wall_hanging_sign",
+      "model": "minecraft:block/crimson_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "crimson_wall_sign",
+      "model": "minecraft:block/crimson_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cut_copper_slab",
+      "model": "minecraft:block/cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cut_copper_stairs",
+      "model": "minecraft:block/cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cut_red_sandstone_slab",
+      "model": "minecraft:block/cut_red_sandstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cut_sandstone_slab",
+      "model": "minecraft:block/cut_sandstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_bed",
+      "model": "minecraft:block/cyan_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_candle",
+      "model": "minecraft:block/cyan_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_candle_cake",
+      "model": "minecraft:block/cyan_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_carpet",
+      "model": "minecraft:block/cyan_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_concrete_slab",
+      "model": "minecraft:block/cyan_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_concrete_stairs",
+      "model": "minecraft:block/cyan_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_shulker_box",
+      "model": "minecraft:block/cyan_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_stained_glass_pane",
+      "model": "minecraft:block/cyan_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_wool_slab",
+      "model": "minecraft:block/cyan_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "cyan_wool_stairs",
+      "model": "minecraft:block/cyan_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "damaged_anvil",
+      "model": "minecraft:block/damaged_anvil",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dandelion",
+      "model": "minecraft:block/dandelion",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_button",
+      "model": "minecraft:block/dark_oak_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_door",
+      "model": "minecraft:block/dark_oak_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_fence",
+      "model": "minecraft:block/dark_oak_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_fence_gate",
+      "model": "minecraft:block/dark_oak_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_hanging_sign",
+      "model": "minecraft:block/dark_oak_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_pressure_plate",
+      "model": "minecraft:block/dark_oak_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_sapling",
+      "model": "minecraft:block/dark_oak_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_shelf",
+      "model": "minecraft:block/dark_oak_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_sign",
+      "model": "minecraft:block/dark_oak_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_slab",
+      "model": "minecraft:block/dark_oak_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_stairs",
+      "model": "minecraft:block/dark_oak_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_trapdoor",
+      "model": "minecraft:block/dark_oak_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_wall_hanging_sign",
+      "model": "minecraft:block/dark_oak_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_oak_wall_sign",
+      "model": "minecraft:block/dark_oak_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_prismarine_slab",
+      "model": "minecraft:block/dark_prismarine_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dark_prismarine_stairs",
+      "model": "minecraft:block/dark_prismarine_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "daylight_detector",
+      "model": "minecraft:block/daylight_detector",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_brain_coral",
+      "model": "minecraft:block/dead_brain_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_brain_coral_fan",
+      "model": "minecraft:block/dead_brain_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_brain_coral_wall_fan",
+      "model": "minecraft:block/dead_brain_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_bubble_coral",
+      "model": "minecraft:block/dead_bubble_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_bubble_coral_fan",
+      "model": "minecraft:block/dead_bubble_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_bubble_coral_wall_fan",
+      "model": "minecraft:block/dead_bubble_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_bush",
+      "model": "minecraft:block/dead_bush",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_fire_coral",
+      "model": "minecraft:block/dead_fire_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_fire_coral_fan",
+      "model": "minecraft:block/dead_fire_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_fire_coral_wall_fan",
+      "model": "minecraft:block/dead_fire_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_horn_coral",
+      "model": "minecraft:block/dead_horn_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_horn_coral_fan",
+      "model": "minecraft:block/dead_horn_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_horn_coral_wall_fan",
+      "model": "minecraft:block/dead_horn_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_tube_coral",
+      "model": "minecraft:block/dead_tube_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_tube_coral_fan",
+      "model": "minecraft:block/dead_tube_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dead_tube_coral_wall_fan",
+      "model": "minecraft:block/dead_tube_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "decorated_pot",
+      "model": "minecraft:block/decorated_pot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "deepslate_brick_slab",
+      "model": "minecraft:block/deepslate_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "deepslate_brick_stairs",
+      "model": "minecraft:block/deepslate_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "deepslate_brick_wall",
+      "model": "minecraft:block/deepslate_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "deepslate_tile_slab",
+      "model": "minecraft:block/deepslate_tile_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "deepslate_tile_stairs",
+      "model": "minecraft:block/deepslate_tile_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "deepslate_tile_wall",
+      "model": "minecraft:block/deepslate_tile_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "detector_rail",
+      "model": "minecraft:block/detector_rail_raised_ne",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "diorite_slab",
+      "model": "minecraft:block/diorite_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "diorite_stairs",
+      "model": "minecraft:block/diorite_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "diorite_wall",
+      "model": "minecraft:block/diorite_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dirt_path",
+      "model": "minecraft:block/dirt_path",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dragon_egg",
+      "model": "minecraft:block/dragon_egg",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dragon_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dragon_wall_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "dried_ghast",
+      "model": "minecraft:block/dried_ghast_hydration_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "enchanting_table",
+      "model": "minecraft:block/enchanting_table",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "end_gateway",
+      "model": "minecraft:block/end_gateway",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "end_portal",
+      "model": "minecraft:block/end_portal",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "end_portal_frame",
+      "model": "minecraft:block/end_portal_frame",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "end_rod",
+      "model": "minecraft:block/end_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "end_stone_brick_slab",
+      "model": "minecraft:block/end_stone_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "end_stone_brick_stairs",
+      "model": "minecraft:block/end_stone_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "end_stone_brick_wall",
+      "model": "minecraft:block/end_stone_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "ender_chest",
+      "model": "minecraft:block/ender_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_copper_bars",
+      "model": "minecraft:block/exposed_copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_copper_chain",
+      "model": "minecraft:block/exposed_copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_copper_chest",
+      "model": "minecraft:block/exposed_copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_copper_door",
+      "model": "minecraft:block/exposed_copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_copper_golem_statue",
+      "model": "minecraft:block/exposed_copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_copper_lantern",
+      "model": "minecraft:block/exposed_copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_copper_trapdoor",
+      "model": "minecraft:block/exposed_copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_cut_copper_slab",
+      "model": "minecraft:block/exposed_cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_cut_copper_stairs",
+      "model": "minecraft:block/exposed_cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "exposed_lightning_rod",
+      "model": "minecraft:block/exposed_lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "farmland",
+      "model": "minecraft:block/farmland",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "fern",
+      "model": "minecraft:block/fern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "fire",
+      "model": "minecraft:block/fire_floor0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "fire_coral",
+      "model": "minecraft:block/fire_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "fire_coral_fan",
+      "model": "minecraft:block/fire_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "fire_coral_wall_fan",
+      "model": "minecraft:block/fire_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "firefly_bush",
+      "model": "minecraft:block/firefly_bush",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "flower_pot",
+      "model": "minecraft:block/flower_pot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "flowering_azalea",
+      "model": "minecraft:block/flowering_azalea",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "frogspawn",
+      "model": "minecraft:block/frogspawn",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "glass_pane",
+      "model": "minecraft:block/glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "glow_item_frame",
+      "model": "block/glow_item_frame",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "glow_lichen",
+      "model": "minecraft:block/glow_lichen",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "golden_dandelion",
+      "model": "minecraft:block/golden_dandelion",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "granite_slab",
+      "model": "minecraft:block/granite_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "granite_stairs",
+      "model": "minecraft:block/granite_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "granite_wall",
+      "model": "minecraft:block/granite_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "grass_block",
+      "model": "minecraft:block/grass_block",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_bed",
+      "model": "minecraft:block/gray_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_candle",
+      "model": "minecraft:block/gray_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_candle_cake",
+      "model": "minecraft:block/gray_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_carpet",
+      "model": "minecraft:block/gray_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_concrete_slab",
+      "model": "minecraft:block/gray_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_concrete_stairs",
+      "model": "minecraft:block/gray_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_shulker_box",
+      "model": "minecraft:block/gray_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_stained_glass_pane",
+      "model": "minecraft:block/gray_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_wool_slab",
+      "model": "minecraft:block/gray_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "gray_wool_stairs",
+      "model": "minecraft:block/gray_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_bed",
+      "model": "minecraft:block/green_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_candle",
+      "model": "minecraft:block/green_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_candle_cake",
+      "model": "minecraft:block/green_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_carpet",
+      "model": "minecraft:block/green_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_concrete_slab",
+      "model": "minecraft:block/green_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_concrete_stairs",
+      "model": "minecraft:block/green_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_shulker_box",
+      "model": "minecraft:block/green_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_stained_glass_pane",
+      "model": "minecraft:block/green_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_wool_slab",
+      "model": "minecraft:block/green_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "green_wool_stairs",
+      "model": "minecraft:block/green_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "grindstone",
+      "model": "minecraft:block/grindstone",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "hanging_roots",
+      "model": "minecraft:block/hanging_roots",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "heavy_core",
+      "model": "minecraft:block/heavy_core",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "heavy_weighted_pressure_plate",
+      "model": "minecraft:block/heavy_weighted_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "honey_block",
+      "model": "minecraft:block/honey_block",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "hopper",
+      "model": "minecraft:block/hopper",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "horn_coral",
+      "model": "minecraft:block/horn_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "horn_coral_fan",
+      "model": "minecraft:block/horn_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "horn_coral_wall_fan",
+      "model": "minecraft:block/horn_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "iron_bars",
+      "model": "minecraft:block/iron_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "iron_chain",
+      "model": "minecraft:block/iron_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "iron_door",
+      "model": "minecraft:block/iron_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "iron_trapdoor",
+      "model": "minecraft:block/iron_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "item_frame",
+      "model": "block/item_frame",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_button",
+      "model": "minecraft:block/jungle_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_door",
+      "model": "minecraft:block/jungle_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_fence",
+      "model": "minecraft:block/jungle_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_fence_gate",
+      "model": "minecraft:block/jungle_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_hanging_sign",
+      "model": "minecraft:block/jungle_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_pressure_plate",
+      "model": "minecraft:block/jungle_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_sapling",
+      "model": "minecraft:block/jungle_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_shelf",
+      "model": "minecraft:block/jungle_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_sign",
+      "model": "minecraft:block/jungle_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_slab",
+      "model": "minecraft:block/jungle_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_stairs",
+      "model": "minecraft:block/jungle_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_trapdoor",
+      "model": "minecraft:block/jungle_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_wall_hanging_sign",
+      "model": "minecraft:block/jungle_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "jungle_wall_sign",
+      "model": "minecraft:block/jungle_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "kelp",
+      "model": "minecraft:block/kelp",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "kelp_plant",
+      "model": "minecraft:block/kelp_plant",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "ladder",
+      "model": "minecraft:block/ladder",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lantern",
+      "model": "minecraft:block/lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "large_amethyst_bud",
+      "model": "minecraft:block/large_amethyst_bud",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "large_fern",
+      "model": "minecraft:block/large_fern_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lava",
+      "model": "minecraft:block/lava",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lava_cauldron",
+      "model": "minecraft:block/lava_cauldron",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "leaf_litter",
+      "model": "minecraft:block/leaf_litter_1",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lectern",
+      "model": "minecraft:block/lectern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lever",
+      "model": "minecraft:block/lever_on",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light",
+      "model": "minecraft:block/light_00",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_bed",
+      "model": "minecraft:block/light_blue_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_candle",
+      "model": "minecraft:block/light_blue_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_candle_cake",
+      "model": "minecraft:block/light_blue_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_carpet",
+      "model": "minecraft:block/light_blue_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_concrete_slab",
+      "model": "minecraft:block/light_blue_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_concrete_stairs",
+      "model": "minecraft:block/light_blue_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_shulker_box",
+      "model": "minecraft:block/light_blue_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_stained_glass_pane",
+      "model": "minecraft:block/light_blue_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_wool_slab",
+      "model": "minecraft:block/light_blue_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_blue_wool_stairs",
+      "model": "minecraft:block/light_blue_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_bed",
+      "model": "minecraft:block/light_gray_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_candle",
+      "model": "minecraft:block/light_gray_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_candle_cake",
+      "model": "minecraft:block/light_gray_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_carpet",
+      "model": "minecraft:block/light_gray_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_concrete_slab",
+      "model": "minecraft:block/light_gray_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_concrete_stairs",
+      "model": "minecraft:block/light_gray_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_shulker_box",
+      "model": "minecraft:block/light_gray_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_stained_glass_pane",
+      "model": "minecraft:block/light_gray_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_wool_slab",
+      "model": "minecraft:block/light_gray_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_gray_wool_stairs",
+      "model": "minecraft:block/light_gray_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "light_weighted_pressure_plate",
+      "model": "minecraft:block/light_weighted_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lightning_rod",
+      "model": "minecraft:block/lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lilac",
+      "model": "minecraft:block/lilac_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lily_of_the_valley",
+      "model": "minecraft:block/lily_of_the_valley",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lily_pad",
+      "model": "minecraft:block/lily_pad",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_bed",
+      "model": "minecraft:block/lime_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_candle",
+      "model": "minecraft:block/lime_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_candle_cake",
+      "model": "minecraft:block/lime_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_carpet",
+      "model": "minecraft:block/lime_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_concrete_slab",
+      "model": "minecraft:block/lime_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_concrete_stairs",
+      "model": "minecraft:block/lime_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_shulker_box",
+      "model": "minecraft:block/lime_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_stained_glass_pane",
+      "model": "minecraft:block/lime_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_wool_slab",
+      "model": "minecraft:block/lime_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "lime_wool_stairs",
+      "model": "minecraft:block/lime_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_bed",
+      "model": "minecraft:block/magenta_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_candle",
+      "model": "minecraft:block/magenta_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_candle_cake",
+      "model": "minecraft:block/magenta_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_carpet",
+      "model": "minecraft:block/magenta_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_concrete_slab",
+      "model": "minecraft:block/magenta_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_concrete_stairs",
+      "model": "minecraft:block/magenta_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_shulker_box",
+      "model": "minecraft:block/magenta_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_stained_glass_pane",
+      "model": "minecraft:block/magenta_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_wool_slab",
+      "model": "minecraft:block/magenta_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "magenta_wool_stairs",
+      "model": "minecraft:block/magenta_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_button",
+      "model": "minecraft:block/mangrove_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_door",
+      "model": "minecraft:block/mangrove_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_fence",
+      "model": "minecraft:block/mangrove_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_fence_gate",
+      "model": "minecraft:block/mangrove_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_hanging_sign",
+      "model": "minecraft:block/mangrove_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_pressure_plate",
+      "model": "minecraft:block/mangrove_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_propagule",
+      "model": "minecraft:block/mangrove_propagule",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_roots",
+      "model": "minecraft:block/mangrove_roots",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_shelf",
+      "model": "minecraft:block/mangrove_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_sign",
+      "model": "minecraft:block/mangrove_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_slab",
+      "model": "minecraft:block/mangrove_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_stairs",
+      "model": "minecraft:block/mangrove_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_trapdoor",
+      "model": "minecraft:block/mangrove_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_wall_hanging_sign",
+      "model": "minecraft:block/mangrove_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mangrove_wall_sign",
+      "model": "minecraft:block/mangrove_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "medium_amethyst_bud",
+      "model": "minecraft:block/medium_amethyst_bud",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "melon_stem",
+      "model": "minecraft:block/melon_stem_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "moss_carpet",
+      "model": "minecraft:block/moss_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mossy_cobblestone_slab",
+      "model": "minecraft:block/mossy_cobblestone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mossy_cobblestone_stairs",
+      "model": "minecraft:block/mossy_cobblestone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mossy_cobblestone_wall",
+      "model": "minecraft:block/mossy_cobblestone_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mossy_stone_brick_slab",
+      "model": "minecraft:block/mossy_stone_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mossy_stone_brick_stairs",
+      "model": "minecraft:block/mossy_stone_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mossy_stone_brick_wall",
+      "model": "minecraft:block/mossy_stone_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "moving_piston",
+      "model": "minecraft:block/moving_piston",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mud_brick_slab",
+      "model": "minecraft:block/mud_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mud_brick_stairs",
+      "model": "minecraft:block/mud_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mud_brick_wall",
+      "model": "minecraft:block/mud_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "mushroom_stem",
+      "model": "minecraft:block/mushroom_stem",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "nether_brick_fence",
+      "model": "minecraft:block/nether_brick_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "nether_brick_slab",
+      "model": "minecraft:block/nether_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "nether_brick_stairs",
+      "model": "minecraft:block/nether_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "nether_brick_wall",
+      "model": "minecraft:block/nether_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "nether_portal",
+      "model": "minecraft:block/nether_portal_ns",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "nether_sprouts",
+      "model": "minecraft:block/nether_sprouts",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "nether_wart",
+      "model": "minecraft:block/nether_wart_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_button",
+      "model": "minecraft:block/oak_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_door",
+      "model": "minecraft:block/oak_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_fence",
+      "model": "minecraft:block/oak_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_fence_gate",
+      "model": "minecraft:block/oak_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_hanging_sign",
+      "model": "minecraft:block/oak_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_pressure_plate",
+      "model": "minecraft:block/oak_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_sapling",
+      "model": "minecraft:block/oak_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_shelf",
+      "model": "minecraft:block/oak_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_sign",
+      "model": "minecraft:block/oak_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_slab",
+      "model": "minecraft:block/oak_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_stairs",
+      "model": "minecraft:block/oak_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_trapdoor",
+      "model": "minecraft:block/oak_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_wall_hanging_sign",
+      "model": "minecraft:block/oak_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oak_wall_sign",
+      "model": "minecraft:block/oak_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "open_eyeblossom",
+      "model": "minecraft:block/open_eyeblossom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_bed",
+      "model": "minecraft:block/orange_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_candle",
+      "model": "minecraft:block/orange_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_candle_cake",
+      "model": "minecraft:block/orange_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_carpet",
+      "model": "minecraft:block/orange_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_concrete_slab",
+      "model": "minecraft:block/orange_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_concrete_stairs",
+      "model": "minecraft:block/orange_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_shulker_box",
+      "model": "minecraft:block/orange_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_stained_glass_pane",
+      "model": "minecraft:block/orange_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_tulip",
+      "model": "minecraft:block/orange_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_wool_slab",
+      "model": "minecraft:block/orange_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "orange_wool_stairs",
+      "model": "minecraft:block/orange_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxeye_daisy",
+      "model": "minecraft:block/oxeye_daisy",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_copper_bars",
+      "model": "minecraft:block/oxidized_copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_copper_chain",
+      "model": "minecraft:block/oxidized_copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_copper_chest",
+      "model": "minecraft:block/oxidized_copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_copper_door",
+      "model": "minecraft:block/oxidized_copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_copper_golem_statue",
+      "model": "minecraft:block/oxidized_copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_copper_lantern",
+      "model": "minecraft:block/oxidized_copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_copper_trapdoor",
+      "model": "minecraft:block/oxidized_copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_cut_copper_slab",
+      "model": "minecraft:block/oxidized_cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_cut_copper_stairs",
+      "model": "minecraft:block/oxidized_cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "oxidized_lightning_rod",
+      "model": "minecraft:block/oxidized_lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_hanging_moss",
+      "model": "minecraft:block/pale_hanging_moss",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_moss_carpet",
+      "model": "minecraft:block/pale_moss_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_button",
+      "model": "minecraft:block/pale_oak_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_door",
+      "model": "minecraft:block/pale_oak_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_fence",
+      "model": "minecraft:block/pale_oak_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_fence_gate",
+      "model": "minecraft:block/pale_oak_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_hanging_sign",
+      "model": "minecraft:block/pale_oak_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_pressure_plate",
+      "model": "minecraft:block/pale_oak_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_sapling",
+      "model": "minecraft:block/pale_oak_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_shelf",
+      "model": "minecraft:block/pale_oak_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_sign",
+      "model": "minecraft:block/pale_oak_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_slab",
+      "model": "minecraft:block/pale_oak_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_stairs",
+      "model": "minecraft:block/pale_oak_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_trapdoor",
+      "model": "minecraft:block/pale_oak_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_wall_hanging_sign",
+      "model": "minecraft:block/pale_oak_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pale_oak_wall_sign",
+      "model": "minecraft:block/pale_oak_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "peony",
+      "model": "minecraft:block/peony_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "petrified_oak_slab",
+      "model": "minecraft:block/petrified_oak_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "piglin_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "piglin_wall_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_bed",
+      "model": "minecraft:block/pink_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_candle",
+      "model": "minecraft:block/pink_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_candle_cake",
+      "model": "minecraft:block/pink_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_carpet",
+      "model": "minecraft:block/pink_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_concrete_slab",
+      "model": "minecraft:block/pink_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_concrete_stairs",
+      "model": "minecraft:block/pink_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_petals",
+      "model": "minecraft:block/pink_petals_1",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_shulker_box",
+      "model": "minecraft:block/pink_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_stained_glass_pane",
+      "model": "minecraft:block/pink_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_tulip",
+      "model": "minecraft:block/pink_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_wool_slab",
+      "model": "minecraft:block/pink_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pink_wool_stairs",
+      "model": "minecraft:block/pink_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "piston_head",
+      "model": "minecraft:block/piston_head",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pitcher_crop",
+      "model": "minecraft:block/pitcher_crop_bottom_stage_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pitcher_plant",
+      "model": "minecraft:block/pitcher_plant_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "player_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "player_wall_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pointed_dripstone",
+      "model": "minecraft:block/pointed_dripstone_down_base",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_andesite_slab",
+      "model": "minecraft:block/polished_andesite_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_andesite_stairs",
+      "model": "minecraft:block/polished_andesite_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_brick_slab",
+      "model": "minecraft:block/polished_blackstone_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_brick_stairs",
+      "model": "minecraft:block/polished_blackstone_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_brick_wall",
+      "model": "minecraft:block/polished_blackstone_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_button",
+      "model": "minecraft:block/polished_blackstone_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_pressure_plate",
+      "model": "minecraft:block/polished_blackstone_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_slab",
+      "model": "minecraft:block/polished_blackstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_stairs",
+      "model": "minecraft:block/polished_blackstone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_blackstone_wall",
+      "model": "minecraft:block/polished_blackstone_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_cinnabar_slab",
+      "model": "minecraft:block/polished_cinnabar_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_cinnabar_stairs",
+      "model": "minecraft:block/polished_cinnabar_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_cinnabar_wall",
+      "model": "minecraft:block/polished_cinnabar_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_deepslate_slab",
+      "model": "minecraft:block/polished_deepslate_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_deepslate_stairs",
+      "model": "minecraft:block/polished_deepslate_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_deepslate_wall",
+      "model": "minecraft:block/polished_deepslate_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_diorite_slab",
+      "model": "minecraft:block/polished_diorite_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_diorite_stairs",
+      "model": "minecraft:block/polished_diorite_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_granite_slab",
+      "model": "minecraft:block/polished_granite_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_granite_stairs",
+      "model": "minecraft:block/polished_granite_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_sulfur_slab",
+      "model": "minecraft:block/polished_sulfur_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_sulfur_stairs",
+      "model": "minecraft:block/polished_sulfur_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_sulfur_wall",
+      "model": "minecraft:block/polished_sulfur_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_tuff_slab",
+      "model": "minecraft:block/polished_tuff_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_tuff_stairs",
+      "model": "minecraft:block/polished_tuff_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "polished_tuff_wall",
+      "model": "minecraft:block/polished_tuff_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_button",
+      "model": "minecraft:block/poplar_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_door",
+      "model": "minecraft:block/poplar_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_fence",
+      "model": "minecraft:block/poplar_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_fence_gate",
+      "model": "minecraft:block/poplar_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_hanging_sign",
+      "model": "minecraft:block/poplar_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_pressure_plate",
+      "model": "minecraft:block/poplar_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_sapling",
+      "model": "minecraft:block/poplar_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_shelf",
+      "model": "minecraft:block/poplar_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_sign",
+      "model": "minecraft:block/poplar_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_slab",
+      "model": "minecraft:block/poplar_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_stairs",
+      "model": "minecraft:block/poplar_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_trapdoor",
+      "model": "minecraft:block/poplar_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_wall_hanging_sign",
+      "model": "minecraft:block/poplar_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poplar_wall_sign",
+      "model": "minecraft:block/poplar_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "poppy",
+      "model": "minecraft:block/poppy",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potatoes",
+      "model": "minecraft:block/potatoes_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_acacia_sapling",
+      "model": "minecraft:block/potted_acacia_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_allium",
+      "model": "minecraft:block/potted_allium",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_azalea_bush",
+      "model": "minecraft:block/potted_azalea_bush",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_azure_bluet",
+      "model": "minecraft:block/potted_azure_bluet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_bamboo",
+      "model": "minecraft:block/potted_bamboo",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_birch_sapling",
+      "model": "minecraft:block/potted_birch_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_blue_orchid",
+      "model": "minecraft:block/potted_blue_orchid",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_brown_mushroom",
+      "model": "minecraft:block/potted_brown_mushroom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_cactus",
+      "model": "minecraft:block/potted_cactus",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_cherry_sapling",
+      "model": "minecraft:block/potted_cherry_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_closed_eyeblossom",
+      "model": "minecraft:block/potted_closed_eyeblossom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_cornflower",
+      "model": "minecraft:block/potted_cornflower",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_crimson_fungus",
+      "model": "minecraft:block/potted_crimson_fungus",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_crimson_roots",
+      "model": "minecraft:block/potted_crimson_roots",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_dandelion",
+      "model": "minecraft:block/potted_dandelion",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_dark_oak_sapling",
+      "model": "minecraft:block/potted_dark_oak_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_dead_bush",
+      "model": "minecraft:block/potted_dead_bush",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_fern",
+      "model": "minecraft:block/potted_fern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_flowering_azalea_bush",
+      "model": "minecraft:block/potted_flowering_azalea_bush",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_golden_dandelion",
+      "model": "minecraft:block/potted_golden_dandelion",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_jungle_sapling",
+      "model": "minecraft:block/potted_jungle_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_lily_of_the_valley",
+      "model": "minecraft:block/potted_lily_of_the_valley",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_mangrove_propagule",
+      "model": "minecraft:block/potted_mangrove_propagule",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_oak_sapling",
+      "model": "minecraft:block/potted_oak_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_open_eyeblossom",
+      "model": "minecraft:block/potted_open_eyeblossom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_orange_tulip",
+      "model": "minecraft:block/potted_orange_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_oxeye_daisy",
+      "model": "minecraft:block/potted_oxeye_daisy",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_pale_oak_sapling",
+      "model": "minecraft:block/potted_pale_oak_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_pink_tulip",
+      "model": "minecraft:block/potted_pink_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_poplar_sapling",
+      "model": "minecraft:block/potted_poplar_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_poppy",
+      "model": "minecraft:block/potted_poppy",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_red_mushroom",
+      "model": "minecraft:block/potted_red_mushroom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_red_tulip",
+      "model": "minecraft:block/potted_red_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_spruce_sapling",
+      "model": "minecraft:block/potted_spruce_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_torchflower",
+      "model": "minecraft:block/potted_torchflower",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_warped_fungus",
+      "model": "minecraft:block/potted_warped_fungus",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_warped_roots",
+      "model": "minecraft:block/potted_warped_roots",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_white_tulip",
+      "model": "minecraft:block/potted_white_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "potted_wither_rose",
+      "model": "minecraft:block/potted_wither_rose",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "powder_snow",
+      "model": "minecraft:block/powder_snow",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "powder_snow_cauldron",
+      "model": "minecraft:block/powder_snow_cauldron_level1",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "powered_rail",
+      "model": "minecraft:block/powered_rail_raised_ne",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "prismarine_brick_slab",
+      "model": "minecraft:block/prismarine_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "prismarine_brick_stairs",
+      "model": "minecraft:block/prismarine_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "prismarine_slab",
+      "model": "minecraft:block/prismarine_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "prismarine_stairs",
+      "model": "minecraft:block/prismarine_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "prismarine_wall",
+      "model": "minecraft:block/prismarine_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "pumpkin_stem",
+      "model": "minecraft:block/pumpkin_stem_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_bed",
+      "model": "minecraft:block/purple_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_candle",
+      "model": "minecraft:block/purple_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_candle_cake",
+      "model": "minecraft:block/purple_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_carpet",
+      "model": "minecraft:block/purple_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_concrete_slab",
+      "model": "minecraft:block/purple_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_concrete_stairs",
+      "model": "minecraft:block/purple_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_shulker_box",
+      "model": "minecraft:block/purple_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_stained_glass_pane",
+      "model": "minecraft:block/purple_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_wool_slab",
+      "model": "minecraft:block/purple_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purple_wool_stairs",
+      "model": "minecraft:block/purple_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purpur_slab",
+      "model": "minecraft:block/purpur_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "purpur_stairs",
+      "model": "minecraft:block/purpur_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "quartz_slab",
+      "model": "minecraft:block/quartz_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "quartz_stairs",
+      "model": "minecraft:block/quartz_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "rail",
+      "model": "minecraft:block/rail_raised_ne",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_bed",
+      "model": "minecraft:block/red_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_candle",
+      "model": "minecraft:block/red_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_candle_cake",
+      "model": "minecraft:block/red_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_carpet",
+      "model": "minecraft:block/red_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_concrete_slab",
+      "model": "minecraft:block/red_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_concrete_stairs",
+      "model": "minecraft:block/red_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_mushroom",
+      "model": "minecraft:block/red_mushroom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_mushroom_block",
+      "model": "minecraft:block/red_mushroom_block",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_nether_brick_slab",
+      "model": "minecraft:block/red_nether_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_nether_brick_stairs",
+      "model": "minecraft:block/red_nether_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_nether_brick_wall",
+      "model": "minecraft:block/red_nether_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_sandstone_slab",
+      "model": "minecraft:block/red_sandstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_sandstone_stairs",
+      "model": "minecraft:block/red_sandstone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_sandstone_wall",
+      "model": "minecraft:block/red_sandstone_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_shrub",
+      "model": "minecraft:block/red_shrub",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_shulker_box",
+      "model": "minecraft:block/red_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_stained_glass_pane",
+      "model": "minecraft:block/red_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_tulip",
+      "model": "minecraft:block/red_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_wool_slab",
+      "model": "minecraft:block/red_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "red_wool_stairs",
+      "model": "minecraft:block/red_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "redstone_torch",
+      "model": "minecraft:block/redstone_torch_off",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "redstone_wall_torch",
+      "model": "minecraft:block/redstone_wall_torch_off",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "redstone_wire",
+      "model": "minecraft:block/redstone_dust_dot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "repeater",
+      "model": "minecraft:block/repeater_1tick",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "resin_brick_slab",
+      "model": "minecraft:block/resin_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "resin_brick_stairs",
+      "model": "minecraft:block/resin_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "resin_brick_wall",
+      "model": "minecraft:block/resin_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "resin_clump",
+      "model": "minecraft:block/resin_clump",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "rose_bush",
+      "model": "minecraft:block/rose_bush_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sandstone_slab",
+      "model": "minecraft:block/sandstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sandstone_stairs",
+      "model": "minecraft:block/sandstone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sandstone_wall",
+      "model": "minecraft:block/sandstone_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "scaffolding",
+      "model": "minecraft:block/scaffolding_stable",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sculk_sensor",
+      "model": "minecraft:block/sculk_sensor_active",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sculk_shrieker",
+      "model": "minecraft:block/sculk_shrieker",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sculk_vein",
+      "model": "minecraft:block/sculk_vein",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sea_pickle",
+      "model": "minecraft:block/dead_sea_pickle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "seagrass",
+      "model": "minecraft:block/seagrass",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "shelf_mushroom",
+      "model": "minecraft:block/shelf_mushroom_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "short_dry_grass",
+      "model": "minecraft:block/short_dry_grass",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "short_grass",
+      "model": "minecraft:block/short_grass",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "shulker_box",
+      "model": "minecraft:block/shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "skeleton_skull",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "skeleton_wall_skull",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "slime_block",
+      "model": "minecraft:block/slime_block",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "small_amethyst_bud",
+      "model": "minecraft:block/small_amethyst_bud",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "small_dripleaf",
+      "model": "minecraft:block/small_dripleaf_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "smooth_quartz_slab",
+      "model": "minecraft:block/smooth_quartz_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "smooth_quartz_stairs",
+      "model": "minecraft:block/smooth_quartz_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "smooth_red_sandstone_slab",
+      "model": "minecraft:block/smooth_red_sandstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "smooth_red_sandstone_stairs",
+      "model": "minecraft:block/smooth_red_sandstone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "smooth_sandstone_slab",
+      "model": "minecraft:block/smooth_sandstone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "smooth_sandstone_stairs",
+      "model": "minecraft:block/smooth_sandstone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "smooth_stone_slab",
+      "model": "minecraft:block/smooth_stone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sniffer_egg",
+      "model": "minecraft:block/sniffer_egg_not_cracked",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "snow",
+      "model": "minecraft:block/snow_height2",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "soul_campfire",
+      "model": "minecraft:block/campfire_off",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "soul_fire",
+      "model": "minecraft:block/soul_fire_floor0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "soul_lantern",
+      "model": "minecraft:block/soul_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "soul_torch",
+      "model": "minecraft:block/soul_torch",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "soul_wall_torch",
+      "model": "minecraft:block/soul_wall_torch",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spawner",
+      "model": "minecraft:block/spawner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spore_blossom",
+      "model": "minecraft:block/spore_blossom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_button",
+      "model": "minecraft:block/spruce_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_door",
+      "model": "minecraft:block/spruce_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_fence",
+      "model": "minecraft:block/spruce_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_fence_gate",
+      "model": "minecraft:block/spruce_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_hanging_sign",
+      "model": "minecraft:block/spruce_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_pressure_plate",
+      "model": "minecraft:block/spruce_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_sapling",
+      "model": "minecraft:block/spruce_sapling",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_shelf",
+      "model": "minecraft:block/spruce_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_sign",
+      "model": "minecraft:block/spruce_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_slab",
+      "model": "minecraft:block/spruce_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_stairs",
+      "model": "minecraft:block/spruce_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_trapdoor",
+      "model": "minecraft:block/spruce_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_wall_hanging_sign",
+      "model": "minecraft:block/spruce_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "spruce_wall_sign",
+      "model": "minecraft:block/spruce_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stone_brick_slab",
+      "model": "minecraft:block/stone_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stone_brick_stairs",
+      "model": "minecraft:block/stone_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stone_brick_wall",
+      "model": "minecraft:block/stone_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stone_button",
+      "model": "minecraft:block/stone_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stone_pressure_plate",
+      "model": "minecraft:block/stone_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stone_slab",
+      "model": "minecraft:block/stone_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stone_stairs",
+      "model": "minecraft:block/stone_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "stonecutter",
+      "model": "minecraft:block/stonecutter",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "straw_bed",
+      "model": "minecraft:block/straw_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "structure_void",
+      "model": "minecraft:block/structure_void",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sugar_cane",
+      "model": "minecraft:block/sugar_cane",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sulfur_brick_slab",
+      "model": "minecraft:block/sulfur_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sulfur_brick_stairs",
+      "model": "minecraft:block/sulfur_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sulfur_brick_wall",
+      "model": "minecraft:block/sulfur_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sulfur_slab",
+      "model": "minecraft:block/sulfur_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sulfur_spike",
+      "model": "minecraft:block/sulfur_spike_down_base",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sulfur_stairs",
+      "model": "minecraft:block/sulfur_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sulfur_wall",
+      "model": "minecraft:block/sulfur_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sunflower",
+      "model": "minecraft:block/sunflower_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "sweet_berry_bush",
+      "model": "minecraft:block/sweet_berry_bush_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tall_dry_grass",
+      "model": "minecraft:block/tall_dry_grass",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tall_grass",
+      "model": "minecraft:block/tall_grass_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tall_seagrass",
+      "model": "minecraft:block/tall_seagrass_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "torch",
+      "model": "minecraft:block/torch",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "torchflower",
+      "model": "minecraft:block/torchflower",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "torchflower_crop",
+      "model": "minecraft:block/torchflower_crop_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "trapped_chest",
+      "model": "minecraft:block/trapped_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "trial_spawner",
+      "model": "minecraft:block/trial_spawner_active",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tripwire",
+      "model": "minecraft:block/tripwire_ns",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tripwire_hook",
+      "model": "minecraft:block/tripwire_hook",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tube_coral",
+      "model": "minecraft:block/tube_coral",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tube_coral_fan",
+      "model": "minecraft:block/tube_coral_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tube_coral_wall_fan",
+      "model": "minecraft:block/tube_coral_wall_fan",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tuff_brick_slab",
+      "model": "minecraft:block/tuff_brick_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tuff_brick_stairs",
+      "model": "minecraft:block/tuff_brick_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tuff_brick_wall",
+      "model": "minecraft:block/tuff_brick_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tuff_slab",
+      "model": "minecraft:block/tuff_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tuff_stairs",
+      "model": "minecraft:block/tuff_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "tuff_wall",
+      "model": "minecraft:block/tuff_wall_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "turtle_egg",
+      "model": "minecraft:block/turtle_egg",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "twisting_vines",
+      "model": "minecraft:block/twisting_vines",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "twisting_vines_plant",
+      "model": "minecraft:block/twisting_vines_plant",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "vault",
+      "model": "minecraft:block/vault_active",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "vine",
+      "model": "minecraft:block/vine",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "wall_torch",
+      "model": "minecraft:block/wall_torch",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_button",
+      "model": "minecraft:block/warped_button",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_door",
+      "model": "minecraft:block/warped_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_fence",
+      "model": "minecraft:block/warped_fence_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_fence_gate",
+      "model": "minecraft:block/warped_fence_gate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_fungus",
+      "model": "minecraft:block/warped_fungus",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_hanging_sign",
+      "model": "minecraft:block/warped_hanging_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_pressure_plate",
+      "model": "minecraft:block/warped_pressure_plate",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_roots",
+      "model": "minecraft:block/warped_roots",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_shelf",
+      "model": "minecraft:block/warped_shelf",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_sign",
+      "model": "minecraft:block/warped_sign_rot_0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_slab",
+      "model": "minecraft:block/warped_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_stairs",
+      "model": "minecraft:block/warped_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_trapdoor",
+      "model": "minecraft:block/warped_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_wall_hanging_sign",
+      "model": "minecraft:block/warped_wall_hanging_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "warped_wall_sign",
+      "model": "minecraft:block/warped_wall_sign",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "water",
+      "model": "minecraft:block/water",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "water_cauldron",
+      "model": "minecraft:block/water_cauldron_level1",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_copper_bars",
+      "model": "minecraft:block/copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_copper_chain",
+      "model": "minecraft:block/copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_copper_chest",
+      "model": "minecraft:block/copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_copper_door",
+      "model": "minecraft:block/copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_copper_golem_statue",
+      "model": "minecraft:block/copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_copper_lantern",
+      "model": "minecraft:block/copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_copper_trapdoor",
+      "model": "minecraft:block/copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_cut_copper_slab",
+      "model": "minecraft:block/cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_cut_copper_stairs",
+      "model": "minecraft:block/cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_copper_bars",
+      "model": "minecraft:block/exposed_copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_copper_chain",
+      "model": "minecraft:block/exposed_copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_copper_chest",
+      "model": "minecraft:block/exposed_copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_copper_door",
+      "model": "minecraft:block/exposed_copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_copper_golem_statue",
+      "model": "minecraft:block/exposed_copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_copper_lantern",
+      "model": "minecraft:block/exposed_copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_copper_trapdoor",
+      "model": "minecraft:block/exposed_copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_cut_copper_slab",
+      "model": "minecraft:block/exposed_cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_cut_copper_stairs",
+      "model": "minecraft:block/exposed_cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_exposed_lightning_rod",
+      "model": "minecraft:block/exposed_lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_lightning_rod",
+      "model": "minecraft:block/lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_copper_bars",
+      "model": "minecraft:block/oxidized_copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_copper_chain",
+      "model": "minecraft:block/oxidized_copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_copper_chest",
+      "model": "minecraft:block/oxidized_copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_copper_door",
+      "model": "minecraft:block/oxidized_copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_copper_golem_statue",
+      "model": "minecraft:block/oxidized_copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_copper_lantern",
+      "model": "minecraft:block/oxidized_copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_copper_trapdoor",
+      "model": "minecraft:block/oxidized_copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_cut_copper_slab",
+      "model": "minecraft:block/oxidized_cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_cut_copper_stairs",
+      "model": "minecraft:block/oxidized_cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_oxidized_lightning_rod",
+      "model": "minecraft:block/oxidized_lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_copper_bars",
+      "model": "minecraft:block/weathered_copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_copper_chain",
+      "model": "minecraft:block/weathered_copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_copper_chest",
+      "model": "minecraft:block/weathered_copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_copper_door",
+      "model": "minecraft:block/weathered_copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_copper_golem_statue",
+      "model": "minecraft:block/weathered_copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_copper_lantern",
+      "model": "minecraft:block/weathered_copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_copper_trapdoor",
+      "model": "minecraft:block/weathered_copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_cut_copper_slab",
+      "model": "minecraft:block/weathered_cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_cut_copper_stairs",
+      "model": "minecraft:block/weathered_cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "waxed_weathered_lightning_rod",
+      "model": "minecraft:block/weathered_lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_copper_bars",
+      "model": "minecraft:block/weathered_copper_bars_post_ends",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_copper_chain",
+      "model": "minecraft:block/weathered_copper_chain",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_copper_chest",
+      "model": "minecraft:block/weathered_copper_chest",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_copper_door",
+      "model": "minecraft:block/weathered_copper_door_bottom_left",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_copper_golem_statue",
+      "model": "minecraft:block/weathered_copper_golem_statue",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_copper_lantern",
+      "model": "minecraft:block/weathered_copper_lantern",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_copper_trapdoor",
+      "model": "minecraft:block/weathered_copper_trapdoor_bottom",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_cut_copper_slab",
+      "model": "minecraft:block/weathered_cut_copper_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_cut_copper_stairs",
+      "model": "minecraft:block/weathered_cut_copper_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weathered_lightning_rod",
+      "model": "minecraft:block/weathered_lightning_rod",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weeping_vines",
+      "model": "minecraft:block/weeping_vines",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "weeping_vines_plant",
+      "model": "minecraft:block/weeping_vines_plant",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "wheat",
+      "model": "minecraft:block/wheat_stage0",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_bed",
+      "model": "minecraft:block/white_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_candle",
+      "model": "minecraft:block/white_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_candle_cake",
+      "model": "minecraft:block/white_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_carpet",
+      "model": "minecraft:block/white_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_concrete_slab",
+      "model": "minecraft:block/white_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_concrete_stairs",
+      "model": "minecraft:block/white_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_shulker_box",
+      "model": "minecraft:block/white_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_stained_glass_pane",
+      "model": "minecraft:block/white_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_tulip",
+      "model": "minecraft:block/white_tulip",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_wool_slab",
+      "model": "minecraft:block/white_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "white_wool_stairs",
+      "model": "minecraft:block/white_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "wildflowers",
+      "model": "minecraft:block/wildflowers_1",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "wither_rose",
+      "model": "minecraft:block/wither_rose",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "wither_skeleton_skull",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "wither_skeleton_wall_skull",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_bed",
+      "model": "minecraft:block/yellow_bed_foot",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_candle",
+      "model": "minecraft:block/yellow_candle_one_candle",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_candle_cake",
+      "model": "minecraft:block/yellow_candle_cake",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_carpet",
+      "model": "minecraft:block/yellow_carpet",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_concrete_slab",
+      "model": "minecraft:block/yellow_concrete_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_concrete_stairs",
+      "model": "minecraft:block/yellow_concrete_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_shulker_box",
+      "model": "minecraft:block/yellow_shulker_box",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_stained_glass_pane",
+      "model": "minecraft:block/yellow_stained_glass_pane_post",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_wall_banner",
+      "model": "minecraft:block/banner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_wool_slab",
+      "model": "minecraft:block/yellow_wool_slab",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "yellow_wool_stairs",
+      "model": "minecraft:block/yellow_wool_stairs_inner",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "zombie_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    },
+    {
+      "block": "zombie_wall_head",
+      "model": "minecraft:block/skull",
+      "reason": "Cube preview; geometry, layers, UV transforms, and state variants are not implemented"
+    }
+  ],
+  "limitations": [
+    "First blockstate model only; no multipart/state selection, animated textures, entities, items, fluids or special block logic.",
+    "Hardness, harvest requirements, sound groups and openability use engine defaults inferred from names; assets do not contain game logic.",
+    "Sound event aliases and weights are imported; per-variant pitch/volume are not yet applied."
+  ]
+}

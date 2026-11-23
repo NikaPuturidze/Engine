@@ -31,4 +31,5 @@ class Entity
 		virtual void Update(float deltaTime, const World& world) = 0;
 
 		DirectX::XMFLOAT3 GetPosition() const { return position; }
+		bool IsGrounded() const { return grounded; }
 };

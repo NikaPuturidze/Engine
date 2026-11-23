@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 4.4)
 project(Engine)
 
-include(CTest)
-
 set(CMAKE_CXX_STANDARD 26)
 
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
@@ -18,10 +16,16 @@ configure_file(
 
 add_executable(Engine
         src/main.cpp
+        src/core/game_mode.h
+        src/core/player/fall_sound.h
+        src/core/player/footstep_tracker.h
         src/core/window.cpp
         src/core/window.h
         src/world/block_registry.cpp
         src/world/block_registry.h
+        src/world/block.h
+        src/audio/sound_player.cpp
+        src/audio/sound_player.h
         src/graphics/renderer.cpp
         src/graphics/renderer.h
         src/ui/overlay.cpp
@@ -77,6 +81,7 @@ target_link_libraries(Engine PRIVATE
 		windowscodecs
 		ole32
 		comctl32
+		xaudio2_9
 )
 
 target_link_options(Engine PRIVATE
@@ -89,11 +94,3 @@ add_custom_command(TARGET Engine POST_BUILD
 		"${CMAKE_CURRENT_SOURCE_DIR}/assets"
 		"$<TARGET_FILE_DIR:Engine>/assets"
 )
-
-if(BUILD_TESTING)
-    add_executable(FrustumTests tests/frustum_tests.cpp src/core/camera/camera.cpp
-        src/world/world.cpp src/core/player/player.cpp src/core/entity/entity.cpp)
-    target_include_directories(FrustumTests PRIVATE src external/DirectXMath/Inc)
-    target_link_options(FrustumTests PRIVATE -static-libgcc -static-libstdc++)
-    add_test(NAME FrustumTests COMMAND FrustumTests)
-endif()

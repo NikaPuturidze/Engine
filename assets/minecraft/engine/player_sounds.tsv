@@ -1,0 +1,3 @@
+engine-sound-events-v1
+entity.player.small_fall	engine/sounds/damage/fallsmall.wav
+entity.player.big_fall	engine/sounds/damage/fallbig.wav

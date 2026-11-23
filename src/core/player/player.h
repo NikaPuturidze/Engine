@@ -2,6 +2,9 @@
 
 #include <DirectXMath.h>
 #include "../entity/entity.h"
+#include "../game_mode.h"
+#include "fall_sound.h"
+#include "../../graphics/cube.h"
 
 class Player : public Entity
 {
@@ -12,9 +15,35 @@ class Player : public Entity
 		void Update(float deltaTime, const World& world) override;
 		void Spawn(const World& world);
 		void Jump();
+		GameMode GetGameMode() const { return gameMode; }
+		void SetGameMode(GameMode mode)
+		{
+			if (gameMode == mode) return;
+			gameMode = mode;
+			fallDistance = 0.0f;
+			landingSound = FallSound::None;
+			landingBlock = 0;
+		}
+		BlockId ConsumeLandingBlock()
+		{
+			const auto block = landingBlock;
+			landingBlock = 0;
+			return block;
+		}
+		FallSound ConsumeLandingSound()
+		{
+			const auto sound = landingSound;
+			landingSound = FallSound::None;
+			return sound;
+		}
+		bool PlaceBlock(World& world, int x, int y, int z, BlockId block) const;
 		static constexpr float EyeHeight = 1.62f;
 
 	private:
+		GameMode gameMode = GameMode::Survival;
+		float fallDistance = 0.0f;
+		FallSound landingSound = FallSound::None;
+		BlockId landingBlock = 0;
 		bool sprinting = false;
 		float movementYaw = 0.0f;
 		static constexpr float SprintMultiplier = 1.3f;

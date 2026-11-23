@@ -12,17 +12,21 @@ struct BlockHit
 {
 	BlockId block;
 	int x, y, z;
+	int normalX = 0, normalY = 0, normalZ = 0;
 };
 
-// Traverse voxel boundaries in distance order, including negative world coordinates.
-inline std::optional<BlockHit> RaycastBlock(const World& world, DirectX::XMFLOAT3 origin,
-                                           DirectX::XMFLOAT3 direction, float maxDistance)
+inline std::optional<BlockHit> RaycastBlock(
+	const World& world,
+	DirectX::XMFLOAT3 origin,
+	DirectX::XMFLOAT3 direction,
+	float maxDistance)
 {
 	const float length = std::sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z);
 	if (!(length > 0) || !std::isfinite(length) || !(maxDistance >= 0)) return std::nullopt;
 	const std::array position{origin.x, origin.y, origin.z};
 	const std::array ray{direction.x / length, direction.y / length, direction.z / length};
 	std::array<int, 3> cell{}, step{};
+	std::array<int, 3> normal{};
 	std::array<float, 3> next{}, delta{};
 	for (int axis = 0; axis < 3; ++axis)
 	{
@@ -39,13 +43,16 @@ inline std::optional<BlockHit> RaycastBlock(const World& world, DirectX::XMFLOAT
 	for (;;)
 	{
 		if (const auto block = world.GetBlock(cell[0], cell[1], cell[2]); block != 0)
-			return BlockHit{block, cell[0], cell[1], cell[2]};
+			return BlockHit{block, cell[0], cell[1], cell[2], normal[0], normal[1], normal[2]};
 		const float distance = (std::min)(next[0], (std::min)(next[1], next[2]));
 		if (distance > maxDistance) return std::nullopt;
-		// Cross all tied axes together so corner-only contacts do not select a block.
+		normal = {};
+		bool entered = false;
+
 		for (int axis = 0; axis < 3; ++axis)
 			if (next[axis] == distance)
 			{
+				if (!entered) { normal[axis] = -step[axis]; entered = true; }
 				cell[axis] += step[axis];
 				next[axis] += delta[axis];
 			}

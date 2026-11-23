@@ -7,7 +7,7 @@ FlatWorldGenerator::FlatWorldGenerator(
 
 void FlatWorldGenerator::Generate(Chunk& chunk) const
 {
-	for (int y = 0; y < Chunk::Height; ++y)
+	for (int y = 0; y < 3; ++y)
 	{
 		const BlockId block = (y == 2) ? grassId : stoneId;
 

@@ -18,7 +18,7 @@ class Texture
 		{
 		}
 
-		static Texture LoadPng(TextureId id, const std::filesystem::path& path);
+		static Texture LoadPng(TextureId id, const std::filesystem::path& path, bool firstAnimationFrame = false);
 
 		const TextureId id;
 		const std::uint32_t width;

@@ -21,6 +21,7 @@ void DebugOverlay::Render() const
         << "Z: " << position.z << '\n'
         << "YAW: " << playerController.GetYaw() << " DEG\n"
         << "SPEED: " << playerController.GetHorizontalSpeed() << " BLOCKS/S\n"
+        << "MODE: " << (playerController.GetGameMode() == GameMode::Creative ? "CREATIVE" : "SURVIVAL") << " (F4)\n"
         << "CHUNKS: " << world.GetChunks().size() << '\n'
         << "BLOCKS RENDERED: " << renderedBlocks;
     renderer.DrawOverlay(information.str());

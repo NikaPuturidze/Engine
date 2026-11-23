@@ -8,6 +8,7 @@
 #include "../../ui/debug_overlay.h"
 #include "../../ui/crosshair.h"
 #include "../../ui/target_overlay.h"
+#include "../../audio/sound_player.h"
 
 class Engine
 {
@@ -21,6 +22,7 @@ class Engine
 		Camera& camera;
 		PlayerController& playerController;
 		BlockRegistry blocks;
+		mutable SoundPlayer sounds;
 		std::unique_ptr<World> world;
 		std::unique_ptr<DebugOverlay> debugOverlay;
 		std::unique_ptr<Crosshair> crosshair;

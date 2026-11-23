@@ -1,5 +1,7 @@
 #include "player_controller.h"
 #include "../../world/block_raycast.h"
+#include "../../world/block_registry.h"
+#include "../../audio/sound_player.h"
 #include <commctrl.h>
 #include <cmath>
 #include <stdexcept>
@@ -29,6 +31,7 @@ void PlayerController::Spawn(const World& world)
 	player.Spawn(world);
 	previousPosition = player.GetPosition();
 	horizontalSpeed = 0.0f;
+	footsteps.Reset();
 	UpdateCamera(1.0f);
 }
 
@@ -100,17 +103,89 @@ void PlayerController::UpdateLook() const
 	camera.Rotate(x * sensitivity, y * sensitivity);
 }
 
-void PlayerController::UpdateInteraction(World& world)
+void PlayerController::UpdateLandingSounds(const World& world, const BlockRegistry& blocks, SoundPlayer& sounds)
 {
-	if (!removeBlockRequested) return;
+	const auto fall = player.ConsumeLandingSound();
+	const auto block = player.ConsumeLandingBlock();
+	if (fall == FallSound::None) return;
+	sounds.PlayEvent(fall == FallSound::Big ? "entity.player.big_fall" : "entity.player.small_fall");
+	if (block == 0) return;
+	sounds.Play(blocks.GetBlockDefinition(block)->fallingSounds, 0.5f, 0.75f);
+}
+
+void PlayerController::UpdateFootsteps(float deltaSeconds, const World& world,
+	const BlockRegistry& blocks, SoundPlayer& sounds)
+{
+	if (!footsteps.Advance(horizontalSpeed * deltaSeconds, player.IsGrounded())) return;
+	const auto position = player.GetPosition();
+	const auto id = world.GetBlock(static_cast<int>(std::floor(position.x)),
+		static_cast<int>(std::floor(position.y - 0.05f)), static_cast<int>(std::floor(position.z)));
+	if (id != 0) sounds.Play(blocks.GetBlockDefinition(id)->movementSounds, 0.15f);
+}
+
+void PlayerController::UpdateInteraction(World& world, const BlockRegistry& blocks,
+	SoundPlayer& sounds, const BlockId placementBlock, const float deltaSeconds)
+{
+	const auto mode = player.GetGameMode();
+	if (mode != previousGameMode)
+	{
+		breakingBlock.reset();
+		hitSoundTime = 0.0f;
+		creativeBreakCooldown = 0.0f;
+		previousGameMode = mode;
+	}
+	creativeBreakCooldown = (std::max)(0.0f, creativeBreakCooldown - deltaSeconds);
+	const bool creative = mode == GameMode::Creative;
+	// First click is immediate; held Creative mining repeats at a bounded rate.
+	const bool remove = removeBlockRequested || (breakingHeld && (!creative || creativeBreakCooldown <= 0.0f));
+	const bool place = placeBlockRequested;
 	removeBlockRequested = false;
+	placeBlockRequested = false;
+	if (!remove && !place)
+	{
+		breakingBlock.reset();
+		return;
+	}
 	DirectX::XMFLOAT3 forward;
 	const auto inverseView = DirectX::XMMatrixInverse(nullptr, camera.GetViewMatrix());
 	DirectX::XMStoreFloat3(&forward, DirectX::XMVector3TransformNormal(
 		DirectX::XMVectorSet(0, 0, 1, 0), inverseView));
 	if (const auto hit = RaycastBlock(world, camera.GetPosition(), forward,
-		world.GetChunkRadius() * Chunk::Width - 2.0f))
-		world.SetBlock(hit->x, hit->y, hit->z, 0);
+		6.0f))
+	{
+		const BlockPosition position{hit->x, hit->y, hit->z};
+		if (remove)
+		{
+			if (!breakingBlock || breakingBlock->GetId() != hit->block || breakingBlock->GetPosition() != position)
+			{
+				breakingBlock.emplace(blocks.CreateBlock(hit->block, position));
+				hitSoundTime = 0.0f;
+			}
+			if (creative || breakingBlock->IsDestructible())
+			{
+				hitSoundTime -= deltaSeconds;
+				if (!creative && hitSoundTime <= 0.0f)
+				{
+					sounds.Play(breakingBlock->GetDefinition().hittingSounds, 0.25f, 0.5f);
+					hitSoundTime += 0.2f;
+				}
+				if (breakingBlock->UpdateMining(mode, deltaSeconds, player.IsGrounded()))
+				{
+					if (world.SetBlock(hit->x, hit->y, hit->z, 0))
+						sounds.Play(breakingBlock->GetDefinition().breakingSounds, 1.0f, 0.8f);
+					breakingBlock.reset();
+					if (creative) creativeBreakCooldown = 0.2f;
+					return;
+				}
+			}
+		}
+		else breakingBlock.reset();
+		if (place && (hit->normalX || hit->normalY || hit->normalZ))
+			if (player.PlaceBlock(world, hit->x + hit->normalX, hit->y + hit->normalY,
+				hit->z + hit->normalZ, placementBlock))
+				sounds.Play(blocks.GetBlockDefinition(placementBlock)->placingSounds, 1.0f, 0.8f);
+	}
+	else breakingBlock.reset();
 }
 
 void PlayerController::UpdateMovement(const float tickDuration) const
@@ -136,9 +211,19 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 
 	switch (uMsg)
 	{
+		case WM_RBUTTONDOWN:
+			if (GetFocus() == hwnd && controller->cursorHidden)
+				controller->placeBlockRequested = true;
+			break;
 		case WM_LBUTTONDOWN:
 			if (GetFocus() == hwnd && controller->cursorHidden)
+			{
 				controller->removeBlockRequested = true;
+				controller->breakingHeld = true;
+			}
+			break;
+		case WM_LBUTTONUP:
+			controller->breakingHeld = false;
 			break;
 		case WM_SETFOCUS:
 			controller->UpdateCursor(true);
@@ -162,6 +247,9 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 		case WM_KEYUP:
 			{
 				const bool pressed = uMsg == WM_KEYDOWN;
+				if (wParam == VK_F4 && pressed && !(lParam & (1LL << 30)))
+					controller->player.SetGameMode(controller->GetGameMode() == GameMode::Survival
+						? GameMode::Creative : GameMode::Survival);
 				if (wParam == 'W')
 				{
 					controller->movingForward = pressed;
@@ -184,6 +272,9 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 		case WM_KILLFOCUS:
 			controller->sprintInput.Reset();
 			controller->removeBlockRequested = false;
+			controller->breakingHeld = false;
+			controller->breakingBlock.reset();
+			controller->placeBlockRequested = false;
 			controller->jumping = false;
 			controller->jumpRequested = false;
 			controller->UpdateCursor(false);

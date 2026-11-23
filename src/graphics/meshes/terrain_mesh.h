@@ -56,11 +56,11 @@ inline TerrainMesh BuildTerrainMesh(const World::Chunks& chunks,
         TerrainChunk terrainChunk{
             .bounds = DirectX::BoundingBox{
                 {coordinates.first * Chunk::Width + Chunk::Width * 0.5f,
-                 Chunk::Height * 0.5f,
+                 chunk.GetStoredHeight() * 0.5f,
                  coordinates.second * Chunk::Depth + Chunk::Depth * 0.5f},
-                {Chunk::Width * 0.5f, Chunk::Height * 0.5f, Chunk::Depth * 0.5f}}
+                {Chunk::Width * 0.5f, chunk.GetStoredHeight() * 0.5f, Chunk::Depth * 0.5f}}
         };
-        for (int y = 0; y < Chunk::Height; ++y)
+        for (int y = 0; y < chunk.GetStoredHeight(); ++y)
             for (int z = 0; z < Chunk::Depth; ++z)
                 for (int x = 0; x < Chunk::Width; ++x)
                 {

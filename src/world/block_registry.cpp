@@ -1,85 +1,99 @@
 #include "block_registry.h"
-#include "../graphics/renderer.h"
-#include <algorithm>
 #include <fstream>
-#include <optional>
-#include <regex>
+#include <sstream>
 #include <stdexcept>
-#include <vector>
 
-BlockRegistry::BlockRegistry(Renderer& renderer) : renderer(renderer)
+namespace
 {
+	std::vector<std::string> Split(const std::string& text, char separator)
+	{
+		std::vector<std::string> result;
+		std::istringstream stream(text);
+		std::string value;
+		while (std::getline(stream, value, separator)) result.push_back(value);
+		return result;
+	}
 }
 
-void BlockRegistry::LoadNamespace(const std::filesystem::path& directory, const std::string_view namespaceName)
+BlockRegistry::BlockRegistry(Renderer& renderer) : renderer(renderer) {}
+
+void BlockRegistry::LoadNamespace(const std::filesystem::path& directory, std::string_view namespaceName)
 {
-	const std::filesystem::path blockstates = directory / "blockstates";
-
-	std::vector<std::filesystem::path> stateFiles;
-	for (const auto& entry : std::filesystem::recursive_directory_iterator(blockstates))
+	std::ifstream manifest(directory / "engine/blocks.tsv");
+	std::string line;
+	if (!std::getline(manifest, line) || line != "engine-blocks-v3")
+		throw std::runtime_error("Missing or invalid block manifest: " + (directory / "engine/blocks.tsv").string());
+	auto loadTexture = [&](const std::string& reference)
 	{
-		if (entry.is_regular_file() && entry.path().extension() == ".json")
-			stateFiles.push_back(entry.path());
-	}
-
-	std::ranges::sort(stateFiles);
-
-	for (const auto& statePath : stateFiles)
+		const std::string key = std::string(namespaceName) + ':' + reference;
+		if (const auto found = textureIds.find(key); found != textureIds.end()) return found->second;
+		const TextureId id = nextTextureId++;
+		renderer.RegisterTexture(Texture::LoadPng(id, directory / "textures" / (reference + ".png"), true));
+		textureIds.emplace(key, id);
+		return id;
+	};
+	std::vector<TextureId> cracks;
+	for (int stage = 0; stage < 10; ++stage)
+		cracks.push_back(loadTexture("block/destroy_stage_" + std::to_string(stage)));
+	for (const auto* air : {"air", "cave_air", "void_air"})
+		blockIds.emplace(std::string(namespaceName) + ":block/" + air, 0);
+	while (std::getline(manifest, line))
 	{
-		const std::filesystem::path relative = std::filesystem::relative(statePath, blockstates);
-
-		std::filesystem::path blockPath = relative;
-		blockPath.replace_extension();
-
-		const std::string blockResourceId = std::string(namespaceName) + ":block/" + blockPath.generic_string();
-		const BlockId blockId = nextBlockId++;
-
-		const std::filesystem::path modelPath = ResolveResourcePath(
-			directory,
-			"models",
-			ReadModelReference(statePath),
-			".json"
-		);
-		const BlockTextureReferences textureReferences = ReadTextureReferences(modelPath);
-		auto loadTexture = [&](const std::string& textureReference)
+		if (line.empty()) continue;
+		const auto fields = Split(line, '\t');
+		if (fields.size() != 19) throw std::runtime_error("Invalid block manifest row: " + line);
+		const auto resourceId = std::string(namespaceName) + ":block/" + fields[0];
+		if (blockIds.contains(resourceId)) throw std::runtime_error("Duplicate block: " + resourceId);
+		auto definition = std::make_shared<BlockDefinition>();
+		definition->id = nextBlockId++;
+		for (std::size_t face = 0; face < 6; ++face)
+			definition->faceTextures[face] = loadTexture(fields[1 + face]);
+		definition->sideTexture = definition->faceTextures[0];
+		definition->topTexture = definition->faceTextures[4];
+		definition->bottomTexture = definition->faceTextures[5];
+		definition->maxDurability = std::stof(fields[7]);
+		definition->isDestructible = fields[8] == "1";
+		definition->isOpenable = fields[9] == "1";
+		definition->requiresToolForDrops = fields[17] == "1";
+		definition->crackingTextures = cracks;
+		auto soundPaths = [&](std::size_t index)
 		{
-			auto texture = textureIds.find(textureReference);
-			if (texture == textureIds.end())
-			{
-				const TextureId textureId = nextTextureId++;
-				const std::filesystem::path texturePath = ResolveResourcePath(
-					directory,
-					"textures",
-					textureReference,
-					".png"
-				);
-				renderer.RegisterTexture(Texture::LoadPng(textureId, texturePath));
-				texture = textureIds.emplace(textureReference, textureId).first;
-			}
-
-			return texture->second;
+			auto paths = Split(fields[index], ',');
+			for (auto& path : paths) path = (directory / path).string();
+			return paths;
 		};
-
-		renderer.BindTextures(
-			blockId,
-			loadTexture(textureReferences.side),
-			loadTexture(textureReferences.top),
-			loadTexture(textureReferences.bottom),
-			textureReferences.topTintRed,
-			textureReferences.topTintGreen,
-			textureReferences.topTintBlue
-		);
-		blockIds.emplace(blockResourceId, blockId);
+		definition->movementSounds = soundPaths(13);
+		definition->breakingSounds = soundPaths(14);
+		definition->placingSounds = soundPaths(15);
+		definition->hittingSounds = soundPaths(16);
+		definition->fallingSounds = soundPaths(18);
+		renderer.BindTextures(definition->id, definition->sideTexture, definition->topTexture,
+			definition->bottomTexture, std::stof(fields[10]), std::stof(fields[11]), std::stof(fields[12]));
+		renderer.BindFaceTextures(definition->id, definition->faceTextures);
+		if (fields[0] == "grass_block")
+			renderer.BindSideOverlay(definition->id, loadTexture("block/grass_block_side_overlay"));
+		blockIds.emplace(resourceId, definition->id);
+		definitions.emplace(definition->id, std::move(definition));
 	}
+}
+
+std::shared_ptr<const BlockDefinition> BlockRegistry::GetBlockDefinition(BlockId id) const
+{
+	const auto found = definitions.find(id);
+	if (found == definitions.end()) throw std::runtime_error("Unknown block ID: " + std::to_string(id));
+	return found->second;
+}
+
+Block BlockRegistry::CreateBlock(const BlockId id, const BlockPosition position) const
+{
+	return Block(GetBlockDefinition(id), position);
 }
 
 BlockId BlockRegistry::GetBlockId(const std::string_view resourceId) const
 {
-	const auto block = blockIds.find(std::string(resourceId));
-	if (block == blockIds.end())
-		throw std::runtime_error("Unknown block resource: " + std::string(resourceId));
-
-	return block->second;
+	const auto found = blockIds.find(std::string(resourceId));
+	if (found == blockIds.end()) throw std::runtime_error("Unknown block resource: " + std::string(resourceId));
+	return found->second;
 }
 
 std::string_view BlockRegistry::GetBlockName(const BlockId id) const
@@ -87,87 +101,4 @@ std::string_view BlockRegistry::GetBlockName(const BlockId id) const
 	for (const auto& [name, blockId] : blockIds)
 		if (blockId == id) return name;
 	return "unknown";
-}
-
-std::string BlockRegistry::ReadTextFile(const std::filesystem::path& path)
-{
-	std::ifstream file(path);
-	if (!file)
-		throw std::runtime_error("Failed to open resource file: " + path.string());
-
-	return {
-		std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>()
-	};
-}
-
-std::string BlockRegistry::ReadModelReference(const std::filesystem::path& statePath)
-{
-	const std::regex pattern(R"json("model"\s*:\s*"([^"]+)")json");
-	std::smatch match;
-	const std::string state = ReadTextFile(statePath);
-
-	if (!std::regex_search(state, match, pattern))
-		throw std::runtime_error("Block state has no model: " + statePath.string());
-
-	return match[1].str();
-}
-
-BlockRegistry::BlockTextureReferences BlockRegistry::ReadTextureReferences(
-	const std::filesystem::path& modelPath
-)
-{
-	const std::string model = ReadTextFile(modelPath);
-	auto findTexture = [&](const std::string& name) -> std::optional<std::string>
-	{
-		const std::regex pattern("\\\"" + name + "\\\"\\s*:\\s*\\\"([^\\\"]+)\\\"");
-
-		if (std::smatch match; std::regex_search(model, match, pattern))
-			return match[1].str();
-
-		return std::nullopt;
-	};
-
-	if (const auto all = findTexture("all"))
-		return {.side = *all, .top = *all, .bottom = *all};
-
-	const auto side = findTexture("side");
-	const auto top = findTexture("top");
-	const auto bottom = findTexture("bottom");
-
-	if (!side || !top || !bottom)
-		throw std::runtime_error("Cube model needs all or side, top, and bottom textures: " + modelPath.string());
-
-	BlockTextureReferences textures = {
-		.side = *side,
-		.top = *top,
-		.bottom = *bottom,
-	};
-
-	const std::regex tintPattern(
-		R"json("top_tint"\s*:\s*\[\s*([0-9.]+)\s*,\s*([0-9.]+)\s*,\s*([0-9.]+)\s*\])json"
-	);
-
-	if (std::smatch tintMatch; std::regex_search(model, tintMatch, tintPattern))
-	{
-		textures.topTintRed = std::stof(tintMatch[1].str());
-		textures.topTintGreen = std::stof(tintMatch[2].str());
-		textures.topTintBlue = std::stof(tintMatch[3].str());
-	}
-
-	return textures;
-}
-
-std::filesystem::path BlockRegistry::ResolveResourcePath(
-	const std::filesystem::path& directory,
-	const std::string_view resourceType,
-	const std::string_view resourceId,
-	const std::string_view extension
-)
-{
-	const std::size_t separator = resourceId.find(':');
-	if (separator == std::string_view::npos)
-		throw std::runtime_error("Resource ID needs a namespace: " + std::string(resourceId));
-
-	const std::string_view path = resourceId.substr(separator + 1);
-	return directory / std::string(resourceType) / (std::string(path) + std::string(extension));
 }
