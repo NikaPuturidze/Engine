@@ -38,7 +38,6 @@ void World::Update(const float playerX, const float playerZ)
     if (initialized && center == nextCenter) return;
 
     const auto [centerX, centerZ] = nextCenter;
-    // Forget distant terrain before allocating replacements, keeping memory bounded.
     std::erase_if(chunks, [&](const auto& entry)
     {
         const auto [x, z] = entry.first;
@@ -55,7 +54,6 @@ void World::Update(const float playerX, const float playerZ)
 
             Chunk chunk(x, z);
             generator->Generate(chunk);
-            // This first world expects solid terrain in every requested chunk.
             if (IsEmpty(chunk))
                 throw std::runtime_error("Generated chunk is empty: " +
                     std::to_string(x) + ", " + std::to_string(z));

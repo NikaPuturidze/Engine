@@ -7,7 +7,7 @@ PlayerController::PlayerController(
 	window(window), player(player), camera(camera), previousPosition(player.GetPosition())
 {
 	if (!SetWindowSubclass(window.GetHandle(), SubClassProc, 1,
-		reinterpret_cast<DWORD_PTR>(this)))
+	                       reinterpret_cast<DWORD_PTR>(this)))
 		throw std::runtime_error("Failed to install player input handler");
 
 	ShowCursor(FALSE);
@@ -49,8 +49,12 @@ void PlayerController::UpdateLook() const
 
 void PlayerController::UpdateMovement(const float tickDuration) const
 {
-	player.Move(static_cast<float>(movingRight) - static_cast<float>(movingLeft),
-		static_cast<float>(movingForward) - static_cast<float>(movingBackward), camera.GetYaw(), tickDuration);
+	player.Move(
+		static_cast<float>(movingRight) - static_cast<float>(movingLeft),
+		static_cast<float>(movingForward) - static_cast<float>(movingBackward),
+		camera.GetYaw(),
+		tickDuration
+	);
 }
 
 LRESULT CALLBACK PlayerController::SubClassProc(
@@ -67,14 +71,14 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 	{
 		case WM_KEYDOWN:
 		case WM_KEYUP:
-		{
-			const bool pressed = uMsg == WM_KEYDOWN;
-			if (wParam == 'W') controller->movingForward = pressed;
-			if (wParam == 'S') controller->movingBackward = pressed;
-			if (wParam == 'A') controller->movingLeft = pressed;
-			if (wParam == 'D') controller->movingRight = pressed;
-			break;
-		}
+			{
+				const bool pressed = uMsg == WM_KEYDOWN;
+				if (wParam == 'W') controller->movingForward = pressed;
+				if (wParam == 'S') controller->movingBackward = pressed;
+				if (wParam == 'A') controller->movingLeft = pressed;
+				if (wParam == 'D') controller->movingRight = pressed;
+				break;
+			}
 		case WM_KILLFOCUS:
 			controller->movingForward = false;
 			controller->movingBackward = false;

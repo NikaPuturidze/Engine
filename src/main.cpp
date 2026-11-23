@@ -9,7 +9,7 @@ int main()
 {
 	Window window;
 	Renderer renderer(window);
-	Player player({0, 4.0f, 0});
+	Player player({0, 10.0f, 0});
 	Camera camera;
 	PlayerController playerController(window, player, camera);
 

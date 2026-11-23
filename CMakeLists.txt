@@ -56,7 +56,7 @@ target_include_directories(Engine PRIVATE
 )
 
 target_compile_definitions(Engine PRIVATE
-		ENGINE_ASSET_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/assets"
+		ENGINE_ASSET_DIRECTORY="assets"
 )
 
 target_link_libraries(Engine PRIVATE
@@ -66,4 +66,15 @@ target_link_libraries(Engine PRIVATE
 		windowscodecs
 		ole32
 		comctl32
+)
+
+target_link_options(Engine PRIVATE
+				-static-libgcc
+		-static-libstdc++
+)
+
+add_custom_command(TARGET Engine POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+		"${CMAKE_CURRENT_SOURCE_DIR}/assets"
+		"$<TARGET_FILE_DIR:Engine>/assets"
 )

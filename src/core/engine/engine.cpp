@@ -1,5 +1,27 @@
 #include "engine.h"
 #include "ticker.h"
+#include <system_error>
+#include <vector>
+
+namespace
+{
+	std::filesystem::path GetAssetDirectory()
+	{
+		std::vector<wchar_t> executablePath(260);
+		for (;;)
+		{
+			const DWORD length = GetModuleFileNameW(
+				nullptr, executablePath.data(), static_cast<DWORD>(executablePath.size()));
+			if (length == 0)
+				throw std::system_error(GetLastError(), std::system_category(),
+					"Failed to find executable directory");
+			if (length < executablePath.size())
+				return std::filesystem::path(std::wstring(executablePath.data(), length))
+					.parent_path() / ENGINE_ASSET_DIRECTORY;
+			executablePath.resize(executablePath.size() * 2);
+		}
+	}
+}
 #include <ranges>
 
 Engine::Engine(
@@ -16,7 +38,7 @@ Engine::Engine(
 	try
 	{
 		blocks.LoadNamespace(
-			std::filesystem::path(ENGINE_ASSET_DIRECTORY) / "default",
+			GetAssetDirectory() / "default",
 			"default"
 		);
 
