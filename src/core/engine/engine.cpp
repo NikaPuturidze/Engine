@@ -77,6 +77,7 @@ void Engine::Run() const
 			Tick();
 
 		playerController.UpdateCamera(ticker.GetAlpha());
+		playerController.UpdateInteraction(*world);
 		Render();
 	}
 }

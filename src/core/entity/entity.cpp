@@ -34,9 +34,12 @@ void Entity::UpdatePhysics(const float deltaTime, const World& world)
 	velocity.x *= horizontalDrag;
 	velocity.z *= horizontalDrag;
 
-	velocity.y = (velocity.y - gravityChange) * std::pow(VerticalDragPerTick, TicksPerSecond * deltaTime);
-	grounded = false;
+	// Move with this tick's velocity before computing the next tick's velocity.
+	// In particular, a jump's first displacement must be the full 0.42 blocks.
+	if (std::abs(velocity.y) < 0.003f * TicksPerSecond) velocity.y = 0.0f;
+	if (velocity.y != 0.0f) grounded = false;
 	MoveAlongAxis(1, velocity.y * deltaTime, world);
+	velocity.y = (velocity.y - gravityChange) * std::pow(VerticalDragPerTick, TicksPerSecond * deltaTime);
 }
 
 void Entity::MoveAlongAxis(const int axis, const float distance, const World& world)

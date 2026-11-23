@@ -3,6 +3,7 @@
 #include "../window.h"
 #include "../player/player.h"
 #include "../camera/camera.h"
+#include "sprint_input.h"
 
 class Camera;
 class Player;
@@ -20,7 +21,10 @@ class PlayerController
 		void Spawn(const World& world);
 		void UpdateLook() const;
 		void UpdateCamera(float alpha) const;
+		void UpdateInteraction(World& world);
 		DirectX::XMFLOAT3 GetPosition() const { return player.GetPosition(); }
+		float GetYaw() const;
+		float GetHorizontalSpeed() const { return horizontalSpeed; }
 
 	private:
 		Window& window;
@@ -28,12 +32,17 @@ class PlayerController
 		Camera& camera;
 
 		DirectX::XMFLOAT3 previousPosition;
+		float horizontalSpeed = 0.0f;
 
 		void UpdateMovement(float tickDuration) const;
 		void UpdateCursor(bool focused);
 		bool cursorHidden = false;
+		bool removeBlockRequested = false;
+		bool jumping = false;
+		bool jumpRequested = false;
 
 		bool movingForward = false;
+		SprintInput sprintInput;
 		bool movingBackward = false;
 		bool movingLeft = false;
 		bool movingRight = false;

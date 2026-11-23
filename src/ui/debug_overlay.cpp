@@ -19,6 +19,8 @@ void DebugOverlay::Render() const
         << "X: " << position.x << '\n'
         << "Y: " << position.y << '\n'
         << "Z: " << position.z << '\n'
+        << "YAW: " << playerController.GetYaw() << " DEG\n"
+        << "SPEED: " << playerController.GetHorizontalSpeed() << " BLOCKS/S\n"
         << "CHUNKS: " << world.GetChunks().size() << '\n'
         << "BLOCKS RENDERED: " << renderedBlocks;
     renderer.DrawOverlay(information.str());

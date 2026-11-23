@@ -2,6 +2,7 @@
 
 #include "generator/world_generator.h"
 #include <map>
+#include <array>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -16,6 +17,7 @@ public:
 
     void Update(float playerX, float playerZ, std::size_t chunkBudget = 16);
     BlockId GetBlock(int worldX, int y, int worldZ) const;
+    bool SetBlock(int worldX, int y, int worldZ, BlockId block);
     const Chunks& GetChunks() const { return chunks; }
     const std::vector<ChunkCoordinates>& GetChangedChunks() const { return changedChunks; }
     int GetChunkRadius() const { return chunkRadius; }
@@ -25,6 +27,7 @@ private:
     std::unique_ptr<WorldGenerator> generator;
     int chunkRadius;
     Chunks chunks;
+    std::map<ChunkCoordinates, std::map<std::array<int, 3>, BlockId>> edits;
     ChunkCoordinates center{};
     bool initialized = false;
     std::vector<ChunkCoordinates> loadOrder;

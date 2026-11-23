@@ -142,11 +142,17 @@ public:
                 // A caller skipped updates: reconcile in bounded scan steps.
                 scanning = true;
                 scanPosition.reset();
-                std::erase_if(entries, [&](const auto& entry) { return !chunks.contains(entry.first); });
+                entries.clear();
             }
             for (const auto& coordinates : world.GetChangedChunks())
             {
                 const auto [x, z] = coordinates;
+                // Contents can change without changing the neighbor mask.
+                entries.erase(coordinates);
+                entries.erase({x - 1, z});
+                entries.erase({x + 1, z});
+                entries.erase({x, z - 1});
+                entries.erase({x, z + 1});
                 enqueue(coordinates);
                 enqueue({x - 1, z});
                 enqueue({x + 1, z});

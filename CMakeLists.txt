@@ -44,6 +44,7 @@ add_executable(Engine
         src/core/player/player.h
 		src/core/player/player.cpp
         src/core/player/player_controller.h
+        src/core/player/sprint_input.h
         src/core/player/player_controller.cpp
 		src/core/engine/engine.cpp
 		src/core/engine/engine.h

@@ -1,5 +1,7 @@
 #include "player_controller.h"
+#include "../../world/block_raycast.h"
 #include <commctrl.h>
+#include <cmath>
 #include <stdexcept>
 
 PlayerController::PlayerController(
@@ -26,6 +28,7 @@ void PlayerController::Spawn(const World& world)
 {
 	player.Spawn(world);
 	previousPosition = player.GetPosition();
+	horizontalSpeed = 0.0f;
 	UpdateCamera(1.0f);
 }
 
@@ -63,7 +66,19 @@ void PlayerController::Update(const float tickDuration, const World& world)
 {
 	previousPosition = player.GetPosition();
 	UpdateMovement(tickDuration);
+	if (jumping || jumpRequested) player.Jump();
+	jumpRequested = false;
 	player.Update(tickDuration, world);
+	const auto position = player.GetPosition();
+	const float dx = position.x - previousPosition.x;
+	const float dz = position.z - previousPosition.z;
+	horizontalSpeed = tickDuration > 0.0f ? std::hypot(dx, dz) / tickDuration : 0.0f;
+}
+
+float PlayerController::GetYaw() const
+{
+	const float yaw = std::fmod(camera.GetYaw(), 360.0f);
+	return yaw < 0.0f ? yaw + 360.0f : yaw;
 }
 
 void PlayerController::UpdateCamera(const float alpha) const
@@ -85,13 +100,27 @@ void PlayerController::UpdateLook() const
 	camera.Rotate(x * sensitivity, y * sensitivity);
 }
 
+void PlayerController::UpdateInteraction(World& world)
+{
+	if (!removeBlockRequested) return;
+	removeBlockRequested = false;
+	DirectX::XMFLOAT3 forward;
+	const auto inverseView = DirectX::XMMatrixInverse(nullptr, camera.GetViewMatrix());
+	DirectX::XMStoreFloat3(&forward, DirectX::XMVector3TransformNormal(
+		DirectX::XMVectorSet(0, 0, 1, 0), inverseView));
+	if (const auto hit = RaycastBlock(world, camera.GetPosition(), forward,
+		world.GetChunkRadius() * Chunk::Width - 2.0f))
+		world.SetBlock(hit->x, hit->y, hit->z, 0);
+}
+
 void PlayerController::UpdateMovement(const float tickDuration) const
 {
 	player.Move(
 		static_cast<float>(movingRight) - static_cast<float>(movingLeft),
 		static_cast<float>(movingForward) - static_cast<float>(movingBackward),
 		camera.GetYaw(),
-		tickDuration
+		tickDuration,
+		sprintInput.IsSprinting() && !movingBackward
 	);
 }
 
@@ -107,6 +136,10 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 
 	switch (uMsg)
 	{
+		case WM_LBUTTONDOWN:
+			if (GetFocus() == hwnd && controller->cursorHidden)
+				controller->removeBlockRequested = true;
+			break;
 		case WM_SETFOCUS:
 			controller->UpdateCursor(true);
 			break;
@@ -129,13 +162,30 @@ LRESULT CALLBACK PlayerController::SubClassProc(
 		case WM_KEYUP:
 			{
 				const bool pressed = uMsg == WM_KEYDOWN;
-				if (wParam == 'W') controller->movingForward = pressed;
-				if (wParam == 'S') controller->movingBackward = pressed;
+				if (wParam == 'W')
+				{
+					controller->movingForward = pressed;
+					controller->sprintInput.SetForward(pressed);
+				}
+				if (wParam == 'S')
+				{
+					controller->movingBackward = pressed;
+					if (pressed) controller->sprintInput.Cancel();
+				}
 				if (wParam == 'A') controller->movingLeft = pressed;
 				if (wParam == 'D') controller->movingRight = pressed;
+				if (wParam == VK_SPACE)
+				{
+					if (pressed && !controller->jumping) controller->jumpRequested = true;
+					controller->jumping = pressed;
+				}
 				break;
 			}
 		case WM_KILLFOCUS:
+			controller->sprintInput.Reset();
+			controller->removeBlockRequested = false;
+			controller->jumping = false;
+			controller->jumpRequested = false;
 			controller->UpdateCursor(false);
 			controller->movingForward = false;
 			controller->movingBackward = false;

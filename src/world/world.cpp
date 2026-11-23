@@ -80,6 +80,9 @@ void World::Update(const float playerX, const float playerZ, const std::size_t c
         if (IsEmpty(chunk))
             throw std::runtime_error("Generated chunk is empty: " +
                 std::to_string(coordinates.first) + ", " + std::to_string(coordinates.second));
+        if (const auto saved = edits.find(coordinates); saved != edits.end())
+            for (const auto& [position, block] : saved->second)
+                chunk.SetBlock(position[0], position[1], position[2], block);
         chunks.emplace(coordinates, std::move(chunk));
         ++generated;
         changes.push_back(coordinates);
@@ -101,4 +104,21 @@ BlockId World::GetBlock(const int worldX, const int y, const int worldZ) const
     return chunk->second.GetBlock(
         worldX - chunkX * Chunk::Width, y,
         worldZ - chunkZ * Chunk::Depth);
+}
+
+bool World::SetBlock(const int worldX, const int y, const int worldZ, const BlockId block)
+{
+    if (y < 0 || y >= Chunk::Height) return false;
+    const int chunkX = FloorDivide(worldX, Chunk::Width);
+    const int chunkZ = FloorDivide(worldZ, Chunk::Depth);
+    const auto chunk = chunks.find({chunkX, chunkZ});
+    if (chunk == chunks.end()) return false;
+    const int x = worldX - chunkX * Chunk::Width;
+    const int z = worldZ - chunkZ * Chunk::Depth;
+    if (chunk->second.GetBlock(x, y, z) == block) return false;
+    edits[{chunkX, chunkZ}][{x, y, z}] = block;
+    chunk->second.SetBlock(x, y, z, block);
+    changedChunks = {{chunkX, chunkZ}};
+    ++revision;
+    return true;
 }
