@@ -82,6 +82,13 @@ BlockId BlockRegistry::GetBlockId(const std::string_view resourceId) const
 	return block->second;
 }
 
+std::string_view BlockRegistry::GetBlockName(const BlockId id) const
+{
+	for (const auto& [name, blockId] : blockIds)
+		if (blockId == id) return name;
+	return "unknown";
+}
+
 std::string BlockRegistry::ReadTextFile(const std::filesystem::path& path)
 {
 	std::ifstream file(path);

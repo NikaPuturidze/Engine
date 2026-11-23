@@ -25,11 +25,23 @@ Renderer::Renderer(const Window& window)
 	CreateDepthBuffer();
 	CreatePipeline();
 	overlay = std::make_unique<Overlay>(device.Get());
+	targetOverlay = std::make_unique<Overlay>(device.Get());
+	crosshairOverlay = std::make_unique<Overlay>(device.Get());
 }
 
 void Renderer::DrawOverlay(const std::string_view text) const
 {
 	overlay->Draw(commandList.Get(), frameIndex, width, height, text);
+}
+
+void Renderer::DrawCrosshair(const Texture& image) const
+{
+	crosshairOverlay->DrawImage(commandList.Get(), frameIndex, width, height, image);
+}
+
+void Renderer::DrawTargetOverlay(const std::string_view text) const
+{
+	targetOverlay->Draw(commandList.Get(), frameIndex, width, height, text, true);
 }
 
 Renderer::~Renderer()

@@ -27,6 +27,10 @@ add_executable(Engine
         src/ui/overlay.cpp
         src/ui/overlay.h
         src/ui/ui_element.h
+        src/ui/crosshair.cpp
+        src/ui/crosshair.h
+        src/ui/target_overlay.h
+        src/world/block_raycast.h
         src/ui/debug_overlay.cpp
         src/ui/debug_overlay.h
         src/graphics/cube.h

@@ -15,6 +15,7 @@ class BlockRegistry
 
 		void LoadNamespace(const std::filesystem::path& directory, std::string_view namespaceName);
 		BlockId GetBlockId(std::string_view resourceId) const;
+		std::string_view GetBlockName(BlockId id) const;
 
 	private:
 		static std::string ReadTextFile(const std::filesystem::path& path);

@@ -1,4 +1,5 @@
 #include "overlay.h"
+#include "../graphics/texture.h"
 
 #include <d3dcompiler.h>
 #include <array>
@@ -195,7 +196,7 @@ void Overlay::Draw(
 	const UINT frameIndex,
 	const UINT width,
 	const UINT height,
-	std::string_view text) const
+	std::string_view text, const bool centered) const
 {
 	if (text.empty() || width == 0 || height == 0) return;
 
@@ -217,7 +218,9 @@ void Overlay::Draw(
 	columns = (std::max)(columns, lineColumns);
 
 	const float panelWidth = static_cast<float>(columns) * Advance + Padding * 2;
-	const float left = (std::max)(0.0f, static_cast<float>(width) - Margin - panelWidth);
+	const float left = (std::max)(0.0f, centered
+		? (static_cast<float>(width) - panelWidth) * 0.5f
+		: static_cast<float>(width) - Margin - panelWidth);
 
 	constexpr float top = Margin;
 	std::vector<Vertex> vertices;
@@ -268,6 +271,55 @@ void Overlay::Draw(
 	const D3D12_RANGE written{0, bytes};
 	buffer->Unmap(0, &written);
 
+	const D3D12_VERTEX_BUFFER_VIEW view{buffer->GetGPUVirtualAddress(), bytes, sizeof(Vertex)};
+	commands->SetPipelineState(pipeline.Get());
+	commands->SetGraphicsRootSignature(rootSignature.Get());
+	commands->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	commands->IASetVertexBuffers(0, 1, &view);
+	commands->DrawInstanced(static_cast<UINT>(vertices.size()), 1, 0, 0);
+}
+
+void Overlay::DrawImage(ID3D12GraphicsCommandList* commands, const UINT frameIndex,
+                        const UINT width, const UINT height, const Texture& image) const
+{
+	if (width == 0 || height == 0) return;
+	if (static_cast<std::uint64_t>(image.width) * image.height * 6 * sizeof(Vertex) > BufferBytes)
+		throw std::runtime_error("Overlay image exceeds vertex buffer capacity");
+
+	// Match the debug UI's two screen pixels per source pixel. Pixel quads retain
+	// the PNG's exact colors and alpha without filtering this small sprite.
+	constexpr float Scale = 2.0f;
+	const float left = (static_cast<float>(width) - image.width * Scale) * 0.5f;
+	const float top = (static_cast<float>(height) - image.height * Scale) * 0.5f;
+	std::vector<Vertex> vertices;
+	vertices.reserve(image.width * image.height * 6);
+	for (UINT y = 0; y < image.height; ++y)
+		for (UINT x = 0; x < image.width; ++x)
+		{
+			const auto* pixel = &image.pixels[(static_cast<std::size_t>(y) * image.width + x) * 4];
+			if (pixel[3] == 0) continue;
+			const float x0 = (left + x * Scale) * 2 / width - 1;
+			const float x1 = (left + (x + 1) * Scale) * 2 / width - 1;
+			const float y0 = 1 - (top + y * Scale) * 2 / height;
+			const float y1 = 1 - (top + (y + 1) * Scale) * 2 / height;
+			const float r = pixel[0] / 255.0f, g = pixel[1] / 255.0f;
+			const float b = pixel[2] / 255.0f, a = pixel[3] / 255.0f;
+			const Vertex quad[] = {
+				{x0, y0, r, g, b, a}, {x1, y0, r, g, b, a}, {x0, y1, r, g, b, a},
+				{x0, y1, r, g, b, a}, {x1, y0, r, g, b, a}, {x1, y1, r, g, b, a}
+			};
+			vertices.insert(vertices.end(), std::begin(quad), std::end(quad));
+		}
+	if (vertices.empty()) return;
+
+	const auto& buffer = buffers[frameIndex];
+	void* mapped = nullptr;
+	constexpr D3D12_RANGE noRead{0, 0};
+	Check(buffer->Map(0, &noRead, &mapped), "Failed to map overlay image vertices");
+	const UINT bytes = static_cast<UINT>(vertices.size() * sizeof(Vertex));
+	std::memcpy(mapped, vertices.data(), bytes);
+	const D3D12_RANGE written{0, bytes};
+	buffer->Unmap(0, &written);
 	const D3D12_VERTEX_BUFFER_VIEW view{buffer->GetGPUVirtualAddress(), bytes, sizeof(Vertex)};
 	commands->SetPipelineState(pipeline.Get());
 	commands->SetGraphicsRootSignature(rootSignature.Get());

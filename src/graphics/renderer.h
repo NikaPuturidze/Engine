@@ -27,6 +27,8 @@ class Renderer
 		void Clear(float r, float g, float b) const;
 		void EndFrame();
 		void DrawOverlay(std::string_view text) const;
+		void DrawTargetOverlay(std::string_view text) const;
+		void DrawCrosshair(const Texture& image) const;
 		std::size_t DrawWorld(const World& world);
 		void RegisterTexture(const Texture& texture);
 		void BindTextures(
@@ -120,4 +122,6 @@ class Renderer
 
 		std::unordered_map<BlockId, BlockTextures> blockTextures;
 		std::unique_ptr<Overlay> overlay;
+		std::unique_ptr<Overlay> targetOverlay;
+		std::unique_ptr<Overlay> crosshairOverlay;
 };

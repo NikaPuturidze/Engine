@@ -51,6 +51,9 @@ Engine::Engine(
 		world->Update(position.x, position.z, 9);
 		playerController.Spawn(*world);
 		debugOverlay = std::make_unique<DebugOverlay>(renderer, playerController, *world);
+		targetOverlay = std::make_unique<TargetOverlay>(renderer, camera, *world, blocks);
+		crosshair = std::make_unique<Crosshair>(renderer,
+			GetAssetDirectory() / "default/textures/ui/default-crosshair.png");
 	}
 	catch (const std::exception& error)
 	{
@@ -91,5 +94,7 @@ void Engine::Render() const
 
 	debugOverlay->SetRenderedBlocks(renderedBlocks);
 	debugOverlay->Render();
+	crosshair->Render();
+	targetOverlay->Render();
 	renderer.EndFrame();
 }

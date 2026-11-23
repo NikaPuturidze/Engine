@@ -6,12 +6,16 @@
 
 using namespace Microsoft::WRL;
 
+class Texture;
+
 class Overlay
 {
 	public:
 		explicit Overlay(ID3D12Device* device);
 		void Draw(ID3D12GraphicsCommandList* commands, UINT frameIndex,
-		          UINT width, UINT height, std::string_view text) const;
+		          UINT width, UINT height, std::string_view text, bool centered = false) const;
+		void DrawImage(ID3D12GraphicsCommandList* commands, UINT frameIndex,
+		               UINT width, UINT height, const Texture& image) const;
 
 	private:
 		ComPtr<ID3D12RootSignature> rootSignature;

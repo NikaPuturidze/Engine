@@ -1,6 +1,7 @@
 #include "core/camera/camera.h"
 #include "graphics/meshes/terrain_mesh.h"
 #include "core/player/player.h"
+#include "world/block_raycast.h"
 #include <stdexcept>
 
 void Require(bool condition)
@@ -67,6 +68,16 @@ int main()
     Require(world.GetChunks().size() == 9);
     Require(world.GetChunks().contains({0, 0}));
     Require(world.GetChunks().contains({-1, -1}));
+    const auto groundHit = RaycastBlock(world, {0.5f, 3.5f, 0.5f}, {0, -1, 0}, 3);
+    Require(groundHit && groundHit->block == 1 && groundHit->x == 0 && groundHit->y == 0 && groundHit->z == 0);
+    Require(!RaycastBlock(world, {0.5f, 3.5f, 0.5f}, {0, -1, 0}, 2.4f));
+    Require(!RaycastBlock(world, {0.5f, 3.5f, 0.5f}, {0, 1, 0}, 10));
+    Require(!RaycastBlock(world, {0.5f, 3.5f, 0.5f}, {1, 0, 0}, 10));
+    Require(!RaycastBlock(world, {0.5f, 3.5f, 0.5f}, {0, 0, 0}, 10));
+    const auto negativeHit = RaycastBlock(world, {-0.5f, 3.5f, -0.5f}, {0, -1, 0}, 3);
+    Require(negativeHit && negativeHit->x == -1 && negativeHit->y == 0 && negativeHit->z == -1);
+    const auto diagonalHit = RaycastBlock(world, {0.5f, 3.5f, 0.5f}, {-1, -1, -1}, 10);
+    Require(diagonalHit && diagonalHit->x == -3 && diagonalHit->y == 0 && diagonalHit->z == -3);
     Player player({0, 100, 0});
     player.Spawn(world);
     Require(player.GetPosition().y == 1.0f);
