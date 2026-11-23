@@ -48,7 +48,8 @@ Engine::Engine(
 
 		world = std::make_unique<World>(std::move(generator));
 		const auto position = playerController.GetPosition();
-		world->Update(position.x, position.z);
+		world->Update(position.x, position.z, 9);
+		playerController.Spawn(*world);
 		debugOverlay = std::make_unique<DebugOverlay>(renderer, playerController, *world);
 	}
 	catch (const std::exception& error)
@@ -64,6 +65,8 @@ void Engine::Run() const
 
 	while (window.ProcessMessages())
 	{
+		const auto position = playerController.GetPosition();
+		world->Update(position.x, position.z);
 		ticker.Update();
 		playerController.UpdateLook();
 
@@ -78,8 +81,6 @@ void Engine::Run() const
 void Engine::Tick() const
 {
 	playerController.Update(TickDuration, *world);
-	const auto position = playerController.GetPosition();
-	world->Update(position.x, position.z);
 }
 
 void Engine::Render() const

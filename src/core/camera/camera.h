@@ -1,5 +1,6 @@
 #pragma once
 #include <DirectXMath.h>
+#include <DirectXCollision.h>
 
 class Camera
 {
@@ -11,6 +12,7 @@ class Camera
 
 		DirectX::XMMATRIX GetViewMatrix() const;
 		DirectX::XMMATRIX GetProjectionMatrix(float aspectRatio, float farPlane = 100.0f) const;
+		DirectX::BoundingFrustum GetFrustum(float aspectRatio, float farPlane = 100.0f) const;
 	private:
 		DirectX::XMFLOAT3 position{0.0f, 0.0f, -5.0f};
 

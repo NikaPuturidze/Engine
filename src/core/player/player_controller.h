@@ -17,6 +17,7 @@ class PlayerController
 		PlayerController& operator=(const PlayerController&) = delete;
 
 		void Update(float tickDuration, const World& world);
+		void Spawn(const World& world);
 		void UpdateLook() const;
 		void UpdateCamera(float alpha) const;
 		DirectX::XMFLOAT3 GetPosition() const { return player.GetPosition(); }

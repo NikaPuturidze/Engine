@@ -75,6 +75,7 @@ class Renderer
 		ComPtr<ID3D12GraphicsCommandList> commandList;
 		UINT frameIndex = 0;
 		DirectX::XMFLOAT4X4 viewProjection{};
+		DirectX::BoundingFrustum frustum;
 		DirectX::XMFLOAT3 cameraPosition{};
 		float visibilityDistance = 0.0f;
 		mutable DirectX::XMFLOAT4 skyColor{0.3f, 0.6f, 0.9f, 1.0f};
@@ -94,7 +95,7 @@ class Renderer
 			std::size_t capacity = 0;
 			std::uint64_t generation = 0;
 		};
-		TerrainBuffer terrainBuffers[BufferCount];
+		std::map<World::ChunkCoordinates, TerrainBuffer> terrainBuffers[BufferCount];
 
 		struct GpuTexture
 		{

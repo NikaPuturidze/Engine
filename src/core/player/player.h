@@ -10,6 +10,7 @@ class Player : public Entity
 
 		void Move(float right, float forward, float yawDegrees, float deltaTime);
 		void Update(float deltaTime, const World& world) override;
+		void Spawn(const World& world);
 		static constexpr float EyeHeight = 1.62f;
 
 	private:

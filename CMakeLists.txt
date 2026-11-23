@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 4.4)
 project(Engine)
 
+include(CTest)
+
 set(CMAKE_CXX_STANDARD 26)
 
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
@@ -82,3 +84,11 @@ add_custom_command(TARGET Engine POST_BUILD
 		"${CMAKE_CURRENT_SOURCE_DIR}/assets"
 		"$<TARGET_FILE_DIR:Engine>/assets"
 )
+
+if(BUILD_TESTING)
+    add_executable(FrustumTests tests/frustum_tests.cpp src/core/camera/camera.cpp
+        src/world/world.cpp src/core/player/player.cpp src/core/entity/entity.cpp)
+    target_include_directories(FrustumTests PRIVATE src external/DirectXMath/Inc)
+    target_link_options(FrustumTests PRIVATE -static-libgcc -static-libstdc++)
+    add_test(NAME FrustumTests COMMAND FrustumTests)
+endif()

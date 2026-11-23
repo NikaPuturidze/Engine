@@ -1,4 +1,22 @@
 #include "player.h"
+#include "../../world/world.h"
+#include <cmath>
+#include <stdexcept>
+
+void Player::Spawn(const World& world)
+{
+	const int x = static_cast<int>(std::floor(position.x));
+	const int z = static_cast<int>(std::floor(position.z));
+	for (int y = Chunk::Height - 1; y >= 0; --y)
+		if (world.GetBlock(x, y, z) != 0)
+		{
+			position.y = static_cast<float>(y + 1);
+			velocity = {0, 0, 0};
+			grounded = true;
+			return;
+		}
+	throw std::runtime_error("Spawn terrain is not loaded");
+}
 
 Player::Player(const DirectX::XMFLOAT3 position) : Entity(position)
 {

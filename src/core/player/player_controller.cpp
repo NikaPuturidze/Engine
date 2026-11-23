@@ -22,6 +22,13 @@ PlayerController::~PlayerController()
 	UpdateCursor(false);
 }
 
+void PlayerController::Spawn(const World& world)
+{
+	player.Spawn(world);
+	previousPosition = player.GetPosition();
+	UpdateCamera(1.0f);
+}
+
 void PlayerController::UpdateCursor(const bool focused)
 {
 	const HWND hwnd = window.GetHandle();

@@ -49,3 +49,12 @@ DirectX::XMMATRIX Camera::GetProjectionMatrix(const float aspectRatio, const flo
 		DirectX::XMConvertToRadians(fov), aspectRatio, 0.1f, farPlane
 	);
 }
+
+DirectX::BoundingFrustum Camera::GetFrustum(const float aspectRatio, const float farPlane) const
+{
+	DirectX::BoundingFrustum frustum;
+	DirectX::BoundingFrustum::CreateFromMatrix(frustum, GetProjectionMatrix(aspectRatio, farPlane));
+	// Projection describes view space; culling bounds are in world space.
+	frustum.Transform(frustum, DirectX::XMMatrixInverse(nullptr, GetViewMatrix()));
+	return frustum;
+}

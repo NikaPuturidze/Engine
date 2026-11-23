@@ -4,6 +4,7 @@
 #include <map>
 #include <memory>
 #include <utility>
+#include <vector>
 
 class World
 {
@@ -13,9 +14,10 @@ public:
 
     explicit World(std::unique_ptr<WorldGenerator> generator, int chunkRadius = 32  );
 
-    void Update(float playerX, float playerZ);
+    void Update(float playerX, float playerZ, std::size_t chunkBudget = 16);
     BlockId GetBlock(int worldX, int y, int worldZ) const;
     const Chunks& GetChunks() const { return chunks; }
+    const std::vector<ChunkCoordinates>& GetChangedChunks() const { return changedChunks; }
     int GetChunkRadius() const { return chunkRadius; }
     std::uint64_t GetRevision() const { return revision; }
 
@@ -25,5 +27,8 @@ private:
     Chunks chunks;
     ChunkCoordinates center{};
     bool initialized = false;
+    std::vector<ChunkCoordinates> loadOrder;
+    std::vector<ChunkCoordinates> changedChunks;
+    std::size_t nextChunk = 0;
     std::uint64_t revision = 0;
 };

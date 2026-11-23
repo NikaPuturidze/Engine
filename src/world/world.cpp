@@ -27,42 +27,68 @@ World::World(std::unique_ptr<WorldGenerator> generator, const int chunkRadius)
 {
     if (!this->generator) throw std::invalid_argument("World needs a generator");
     if (chunkRadius < 0) throw std::invalid_argument("Chunk radius cannot be negative");
+    loadOrder.emplace_back(0, 0);
+    for (int ring = 1; ring <= chunkRadius; ++ring)
+    {
+        for (int x = -ring; x <= ring; ++x)
+        {
+            loadOrder.emplace_back(x, -ring);
+            loadOrder.emplace_back(x, ring);
+        }
+        for (int z = -ring + 1; z < ring; ++z)
+        {
+            loadOrder.emplace_back(-ring, z);
+            loadOrder.emplace_back(ring, z);
+        }
+    }
 }
 
-void World::Update(const float playerX, const float playerZ)
+void World::Update(const float playerX, const float playerZ, const std::size_t chunkBudget)
 {
     const ChunkCoordinates nextCenter{
         static_cast<int>(std::floor(playerX / Chunk::Width)),
         static_cast<int>(std::floor(playerZ / Chunk::Depth))
     };
-    if (initialized && center == nextCenter) return;
-
     const auto [centerX, centerZ] = nextCenter;
-    std::erase_if(chunks, [&](const auto& entry)
+    std::vector<ChunkCoordinates> changes;
+    if (!initialized || center != nextCenter)
     {
-        const auto [x, z] = entry.first;
-        return x < centerX - chunkRadius || x > centerX + chunkRadius ||
-               z < centerZ - chunkRadius || z > centerZ + chunkRadius;
-    });
-
-    for (int z = centerZ - chunkRadius; z <= centerZ + chunkRadius; ++z)
-    {
-        for (int x = centerX - chunkRadius; x <= centerX + chunkRadius; ++x)
+        std::erase_if(chunks, [&](const auto& entry)
         {
-            const ChunkCoordinates coordinates{x, z};
-            if (chunks.contains(coordinates)) continue;
-
-            Chunk chunk(x, z);
-            generator->Generate(chunk);
-            if (IsEmpty(chunk))
-                throw std::runtime_error("Generated chunk is empty: " +
-                    std::to_string(x) + ", " + std::to_string(z));
-            chunks.emplace(coordinates, std::move(chunk));
-        }
+            const auto [x, z] = entry.first;
+            const bool remove = x < centerX - chunkRadius || x > centerX + chunkRadius ||
+                                z < centerZ - chunkRadius || z > centerZ + chunkRadius;
+            if (remove) changes.push_back(entry.first);
+            return remove;
+        });
+        center = nextCenter;
+        initialized = true;
+        nextChunk = 0;
     }
-    center = nextCenter;
-    initialized = true;
-    ++revision;
+    std::size_t generated = 0;
+    // Bound queue scanning too, so moving through an already loaded world stays cheap.
+    std::size_t scanned = 0;
+    while (nextChunk < loadOrder.size() && generated < chunkBudget && scanned < 256)
+    {
+        const auto [offsetX, offsetZ] = loadOrder[nextChunk++];
+        ++scanned;
+        const ChunkCoordinates coordinates{centerX + offsetX, centerZ + offsetZ};
+        if (chunks.contains(coordinates)) continue;
+
+        Chunk chunk(coordinates.first, coordinates.second);
+        generator->Generate(chunk);
+        if (IsEmpty(chunk))
+            throw std::runtime_error("Generated chunk is empty: " +
+                std::to_string(coordinates.first) + ", " + std::to_string(coordinates.second));
+        chunks.emplace(coordinates, std::move(chunk));
+        ++generated;
+        changes.push_back(coordinates);
+    }
+    if (!changes.empty())
+    {
+        changedChunks = std::move(changes);
+        ++revision;
+    }
 }
 
 BlockId World::GetBlock(const int worldX, const int y, const int worldZ) const
